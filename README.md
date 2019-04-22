@@ -8,4 +8,4 @@ Használat: (Eclipse IDE-hez)
 1. Automatic Building kikapcsolása a "Project" menüpont alatt
 2. Build All minden teszt futtatás elött szükséges!
 3. Run as ... JUnit futtatása a unit_test source folder-re
-  Bővítéshez szerintem mindenki csináljon egy saját source foldert magának, keveredések elkerüléséhez. 
+Bővítéshez szerintem mindenki csináljon egy saját source foldert magának, keveredések elkerüléséhez. 
