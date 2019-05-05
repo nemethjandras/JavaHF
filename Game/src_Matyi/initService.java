@@ -31,6 +31,6 @@ public class initService {
 	}
 	
 	public Cell getGeneratedCell(int x, int y) {
-		return new Cell(x, y, true, true, 0, 0, false, 0, false);
+		return new Cell(x, y, true, true, 0, 0, false, 0, false, 0);
 	}	
 }

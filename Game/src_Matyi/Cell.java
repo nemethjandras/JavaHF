@@ -10,8 +10,9 @@ public class Cell {
     public final boolean isWinningPoint;
     public final int production;
     public final boolean isBase;
+    public int valueForView;
 
-    Cell(int xCoord, int yCoord, boolean availForUnits, boolean isEmpt, int effOnMove, int effOnDef, boolean isWinPoint, int prod, boolean isB){
+    Cell(int xCoord, int yCoord, boolean availForUnits, boolean isEmpt, int effOnMove, int effOnDef, boolean isWinPoint, int prod, boolean isB, int forView){
         xPos = xCoord;
         yPos = yCoord;
         availableForUnits = availForUnits;
@@ -21,5 +22,6 @@ public class Cell {
         isWinningPoint = isWinPoint;
         production = prod;
         isBase = isB;
+        valueForView = forView;
     }
 }

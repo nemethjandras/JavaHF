@@ -7,7 +7,7 @@ public class Base extends Cell {
     public int[] unitsPrice;
 
     Base(int xCoord, int yCoord){
-        super(xCoord, yCoord, true, false, 0, 0, false, 0, true);
+        super(xCoord, yCoord, true, false, 0, 0, false, 0, true, 0);
         health = 100;
         madeDevelopements = new boolean[]{false, false, false, false, false, false, false, false};
         developementsPrice = new int[]{10, 10, 10, 10, 10, 10, 10, 10};
