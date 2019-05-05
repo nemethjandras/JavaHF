@@ -10,3 +10,9 @@ Használat: (Eclipse IDE-hez)
 3. Run as ... JUnit futtatása a unit_test source folder-re
 
 Bővítéshez szerintem mindenki csináljon egy saját source foldert magának, keveredések elkerüléséhez. 
+
+
+
+**Matyi 2019.05.05.**
+
+src_Matyi mappába hozzáadva a játék logikájának megvalósításáért felelős osztályok első, kezdetleges verziója hozzáadva.
