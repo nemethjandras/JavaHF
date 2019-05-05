@@ -23,6 +23,5 @@ public class Cell {
         production = prod;
         isBase = isB;
         valueForView = forView;
-        
     }
 }
