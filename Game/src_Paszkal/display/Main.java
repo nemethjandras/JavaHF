@@ -14,8 +14,8 @@ public class Main {
 		int y=10;
 		int[][] test_map=new int[10][10];
 		
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 10; j++) {
+		for (int i = 0; i < x; i++) {
+			for (int j = 0; j < y; j++) {
 				test_map[i][j]=0;
 			}
 		}
@@ -25,8 +25,8 @@ public class Main {
 		//x = map.xLen
 		//y = map.yLen
 		
-		GameWindow MainWindow=new GameWindow(600,600,600);	
-		MainWindow.displayMap(test_map,10,10);
+		GameWindow MainWindow=new GameWindow(600,600,400);	
+		MainWindow.displayMap(test_map,x,y);
 	}
 
 }  
