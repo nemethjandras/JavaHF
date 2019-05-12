@@ -119,6 +119,15 @@ class GameWindow{
 	 public void displayUnit_del(int x, int y) {}
 	 
 	 //removes and redraws all units on map display
-	 public void displayUpdate(Player host, Player enemy) {}
+	 public void displayUpdate(int[] player_units, int[] enemy_units) {
+		 
+		 //remove all units
+		 //
+		 //jpanel.remove(label7);
+		 //jpanel.revalidate();
+		 //jpanel.repaint();
+		 
+		 
+	 }
 }
 

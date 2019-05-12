@@ -26,7 +26,7 @@ public class Main {
 		//y = map.yLen
 		
 		GameWindow MainWindow=new GameWindow(600,600,600);	
-		MainWindow.displayMap(test_map,10,10);
+		MainWindow.displayMap(test_map,x,y);
 	}
 
 }  
