@@ -16,3 +16,7 @@ Bővítéshez szerintem mindenki csináljon egy saját source foldert magának, 
 **Matyi 2019.05.05.**
 
 src_Matyi mappába hozzáadva a játék logikájának megvalósításáért felelős osztályok első, kezdetleges verziója hozzáadva.
+
+**Paszkal 2019.05.11.**
+
+Display hozzáadva, térkép megjelnítéssel. Használatra példa a display/Main.java-ban.
