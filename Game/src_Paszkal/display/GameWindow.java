@@ -12,23 +12,35 @@ import mygame.*;
 
 
 class GameWindow{
+	//frame specific variables
 	JFrame mainWindow = new JFrame("GameWindow");
 	JPanel gameSpace=new JPanel(null); 	//thi will contain all the tiles
 	JPanel gui_box=new JPanel(null); 	//thi will contain all the gui and hud info
 	
+	//buttons and hud
+	int gui_sizeW;
+	JButton b_move = new JButton();
+	JButton b_attack = new JButton();
+	JButton b_merge = new JButton();
+	JButton b_split = new JButton();
+	JButton b_buy1 = new JButton();
+	JButton b_buy2 = new JButton();
+	JButton b_buy3 = new JButton();
+	JButton b_buy4 = new JButton();
+	JButton b_turnover = new JButton();
+	
+	//game display variables
     JLabel[][] tiles; 		//1 for each tile
     JLabel[] units; 		//1 for each unit
     int unitNum;
-    
     int tiles_x;	//number of tiels in a row
     int tiles_y;	//number of tiles in a coloumn
-    
     int map_sizeW;	//map width in pixels
     int map_sizeH;	//map height in pixels
-    
     int stepH;		//tile height in pixels
     int stepW;		//tile width in pixels
     
+    //textures
     Image default_tile_texture;
     Image default_unit_texture;
     //add more textures
@@ -42,6 +54,7 @@ class GameWindow{
 	        gameSpace.setPreferredSize(new Dimension(map_width+gui_width, map_heigth));
 	        map_sizeW=map_width;
 	        map_sizeH=map_heigth;
+	        gui_sizeW=gui_width;
 	        
 	        
 	        //adding components to mainWindow
@@ -52,6 +65,63 @@ class GameWindow{
 	        mainWindow.validate();
 	        mainWindow.pack();
 	        mainWindow.setVisible(true);
+	 }
+	 
+	 
+	 public void addButtons() { 
+		    b_move.setSize(gui_sizeW,map_sizeH/20);
+		    b_move.setBounds(map_sizeW, map_sizeH/2, gui_sizeW, map_sizeH/20);
+		    gameSpace.add(b_move);
+		    b_move.setVisible(true);
+		    b_move.setText("Move with Unit");
+		    
+		    b_attack.setSize(gui_sizeW,map_sizeH/20);
+		    b_attack.setBounds(map_sizeW, map_sizeH/20+map_sizeH/2, gui_sizeW, map_sizeH/20);
+		    gameSpace.add(b_attack);
+		    b_attack.setVisible(true);
+		    b_attack.setText("Attack with Unit");
+		    
+		    b_merge.setSize(gui_sizeW,map_sizeH/20);
+		    b_merge.setBounds(map_sizeW, map_sizeH/20*2+map_sizeH/2, gui_sizeW, map_sizeH/20);
+		    gameSpace.add(b_merge);
+		    b_merge.setVisible(true);
+		    b_merge.setText("Merge with Unit");
+		    
+		    b_split.setSize(gui_sizeW,map_sizeH/20);
+		    b_split.setBounds(map_sizeW, map_sizeH/20*3+map_sizeH/2, gui_sizeW, map_sizeH/20);
+		    gameSpace.add(b_split);
+		    b_split.setVisible(true);
+		    b_split.setText("Split the Unit");
+		    
+		    b_buy1.setSize(gui_sizeW,map_sizeH/20);
+		    b_buy1.setBounds(map_sizeW, map_sizeH/20*4+map_sizeH/2, gui_sizeW, map_sizeH/20);
+		    gameSpace.add(b_buy1);
+		    b_buy1.setVisible(true);
+		    b_buy1.setText("Buy unit1");
+		    
+		    b_buy2.setSize(gui_sizeW,map_sizeH/20);
+		    b_buy2.setBounds(map_sizeW, map_sizeH/20*5+map_sizeH/2, gui_sizeW, map_sizeH/20);
+		    gameSpace.add(b_buy2);
+		    b_buy2.setVisible(true);
+		    b_buy2.setText("Buy unit2");
+		    
+		    b_buy3.setSize(gui_sizeW,map_sizeH/20);
+		    b_buy3.setBounds(map_sizeW, map_sizeH/20*6+map_sizeH/2, gui_sizeW, map_sizeH/20);
+		    gameSpace.add(b_buy3);
+		    b_buy3.setVisible(true);
+		    b_buy3.setText("Buy unit3");
+		    
+		    b_buy4.setSize(gui_sizeW,map_sizeH/20);
+		    b_buy4.setBounds(map_sizeW, map_sizeH/20*7+map_sizeH/2, gui_sizeW, map_sizeH/20);
+		    gameSpace.add(b_buy4);
+		    b_buy4.setVisible(true);
+		    b_buy4.setText("Buy unit4");
+		    
+		    b_turnover.setSize(gui_sizeW,map_sizeH/20);
+		    b_turnover.setBounds(map_sizeW, map_sizeH/20*9+map_sizeH/2, gui_sizeW, map_sizeH/20);
+		    gameSpace.add(b_turnover);
+		    b_turnover.setVisible(true);
+		    b_turnover.setText("END TURN");
 	 }
 	 
 	 //print map
@@ -93,8 +163,6 @@ class GameWindow{
 		 gameSpace.revalidate();
 	 }
 		
-	 
-	 
 	 //adds a unit to the display
 	 public void loadTextures() {
 		 //buffer tile textures
