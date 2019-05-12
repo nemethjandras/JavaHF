@@ -20,6 +20,17 @@ public class Main {
 			}
 		}
 		
+		
+		int[] units=new int[2];
+		units[0]=0;
+		units[1]=0;
+		int[] xpos=new int[2];
+		xpos[0]=0;
+		xpos[1]=4;
+		int[] ypos=new int[2];
+		ypos[0]=0;
+		ypos[1]=4;
+		
 		//usage:
 		//test_map = map.grid[][]
 		//x = map.xLen
@@ -27,6 +38,10 @@ public class Main {
 		
 		GameWindow MainWindow=new GameWindow(600,600,600);	
 		MainWindow.displayMap(test_map,x,y);
+		MainWindow.displayUpdate(units,xpos,ypos,2);
+		xpos[0]+=1;
+		ypos[0]+=1;
+		MainWindow.displayUpdate(units,xpos,ypos,2);
 	}
 
 }  
