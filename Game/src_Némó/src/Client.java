@@ -7,7 +7,6 @@ public class Client
     private Socket socket            = null; 
     private BufferedReader in   = null; 
     private PrintWriter out     = null; 
-  
 	public Client(String address, int port) 
     { 
     	 
@@ -30,28 +29,26 @@ public class Client
         }
        
     }
-	public void normal_datatransfer_to_server(int [] array)
+	public void normal_datatransfer_to_server(NetworkData send)
 	{
 		 try {
 		 System.out.println("Normál mûködés elkezdõdött kliens oldalon!");
 		 ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
 			// if (kör vége) a szerver következik
-			 outputStream.writeObject(array);
+			 outputStream.writeObject(send);
 		}
 		 catch (IOException i) 
 		 {
 			   System.out.println(i);
 		 }
 	}
-	public void normal_datatransfer_from_server()
+	public NetworkData normal_datatransfer_from_server()
 	 {
+		NetworkData incoming =null;
 		try {
 		ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
-		int [] hello  = (int[]) inputStream.readObject();
-		for (int i=0; i<hello.length; i++)
-		{
-			System.out.println(hello[i]); 
-		}
+	    incoming  = (NetworkData) inputStream.readObject();
+		
 		}
 		 catch(IOException i) 
 	     { 
@@ -59,7 +56,7 @@ public class Client
 	     } catch (ClassNotFoundException e) {
 			e.printStackTrace();
 	     }
-		
+		return incoming;
 	 }
     public void SendingPassword (int Password)
     { 
@@ -118,4 +115,9 @@ public void AckCheck()
     public String getLocalAddress() {
     	  return socket.getInetAddress().getHostAddress();
     	 }
+    public int getPort()
+    {
+    	return socket.getLocalPort();
+    	
+    }
 } 

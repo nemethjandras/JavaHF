@@ -25,7 +25,8 @@ enum ConnectionType
 public class Server {
  //initialize socket and input stream 
  private ConnectionType flag;
- private int port;
+ @SuppressWarnings("unused")
+private int port;
  //IPV4 address<-
  private Inet4Address ip;
  //requested maximum length of the queue of incoming connections
@@ -40,8 +41,8 @@ public class Server {
  
  public Server(String ip, int port, int password, int backlog) {
   this.flag = ConnectionType.Not_Connected;
-  this.port = port;
-  this.backlog = backlog;
+  this.port =port;
+  this.backlog=backlog;
   
   try {
    this.ip = (Inet4Address) Inet4Address.getByName(ip);
@@ -60,19 +61,17 @@ public class Server {
  }
 
 
- public void normal_datatransfer_from_client ()
+ public NetworkData normal_datatransfer_from_client ()
  { 
-	 
+	 NetworkData incoming = null;
 	 if(flag == ConnectionType.Connected)
 	 {
 	 try {
 			ObjectInputStream inputStream = new ObjectInputStream(acceptedSocket.getInputStream());
-			int [] hello  = (int[]) inputStream.readObject();
-			for (int i=0; i<hello.length; i++)
-			{
-				System.out.println(hello[i]); 
-			}
-			}
+			incoming =((NetworkData) inputStream.readObject());
+			
+			
+	     }
 			 catch(IOException i) 
 		     { 
 		         System.out.println(i); 
@@ -80,9 +79,10 @@ public class Server {
 				e.printStackTrace();
 		     }
 	 }
+	 return  incoming;
 	 }
   
- public void normal_datatransfer_to_client (int [] array)
+ public void normal_datatransfer_to_client (NetworkData send)
  {
  try {
  System.out.println("Normál mûködés elkezdõdött szerver oldalon!");
@@ -90,7 +90,7 @@ public class Server {
  if(flag == ConnectionType.Connected)
  {
 	// if (kör vége) a kliens következik
-	 outputStream.writeObject(array);
+	 outputStream.writeObject(send);
 	
 	 
  }
@@ -321,4 +321,48 @@ public class Server {
  public boolean isBound() {
   return server.isBound();
  }
+
+
+/*public void setPort(int port) {
+	try {
+		if(!this.server.isClosed())
+		{
+		this.server.close();
+		}
+	} catch (IOException e1) {
+		e1.printStackTrace();
+	}
+	this.port = port;
+	try {
+		this.server = new ServerSocket(this.port, backlog,this.ip);
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+	System.out.println("Port has changed -> server starting again");
+	
+}
+*/	
+
+public int getBacklog() {
+	return backlog;
+}
+
+
+/*public void setBacklog(int backlog) {
+	try {
+		if(!server.isClosed())
+		{
+		server.close();
+		}
+	} catch (IOException e1) {
+		e1.printStackTrace();
+	}
+	this.backlog = backlog;
+	try {
+		server = new ServerSocket(this.port, backlog,this.ip);
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+	System.out.println("Backlog has changed -> server starting again");
+}*/
 }
