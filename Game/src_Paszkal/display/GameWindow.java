@@ -1,6 +1,7 @@
 package display;
 
 import java.awt.*;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -9,9 +10,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import mygame.*;
+import control.*;
 
-
-class GameWindow{
+public class GameWindow{
 	//frame specific variables
 	JFrame mainWindow = new JFrame("GameWindow");
 	JPanel gameSpace=new JPanel(null); 	//thi will contain all the tiles
@@ -32,6 +33,7 @@ class GameWindow{
 	//game display variables
     JLabel[][] tiles; 		//1 for each tile
     JLabel[] units; 		//1 for each unit
+    JLabel select=null;
     int unitNum;
     int tiles_x;	//number of tiels in a row
     int tiles_y;	//number of tiles in a coloumn
@@ -41,6 +43,7 @@ class GameWindow{
     int stepW;		//tile width in pixels
     
     //textures
+    Image select_mark;
     Image default_tile_texture;
     Image default_unit_texture;
     //add more textures
@@ -131,7 +134,6 @@ class GameWindow{
 		 stepH=map_sizeW / tiles_x;
 		 stepW=map_sizeH / tiles_y;
 		 loadTextures();
-		 
 		 tiles=new JLabel[x][y];
 		
 		 
@@ -140,8 +142,7 @@ class GameWindow{
 			for (int j = 0; j < x; j++) {
 				tiles[j][i]=new JLabel();
 				tiles[j][i].setPreferredSize(new Dimension(stepW, stepH));
-				tiles[j][i].setSize(stepW,stepH);
-				
+				tiles[j][i].setSize(stepW,stepH);;
 				switch (test_map[j][i]) {
 				case 1:
 					//tiles[i][j].setIcon(new ImageIcon(tile_texture1));
@@ -158,6 +159,8 @@ class GameWindow{
 				}			
 				gameSpace.add(tiles[j][i]);
 				tiles[j][i].setBounds(j*stepW, i*stepH, stepW, stepH);
+			    tiles[j][i].addMouseListener(new MyMouseListener(j, i,this));
+
 			}
 		}
 		 gameSpace.revalidate();
@@ -208,7 +211,17 @@ class GameWindow{
 		 //unit_texture1 = unit_texture1_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
 		 //unit_texture2 = unit_texture2_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
 		 //unit_texture3 = unit_texture3_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
-	 }
+	 
+	 
+	 //load select mark
+	 BufferedImage select_mark_buffer = null;
+	 try {
+		 select_mark_buffer = ImageIO.read(new File("D:\\github_reps\\JavaHF_rep\\Game\\assets\\select_mark.png"));
+		} catch (IOException e){
+		    e.printStackTrace();
+		}
+	select_mark = select_mark_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+ }
 	 
 	 //removes and redraws all units on map display
 	 public void displayUpdate(int[] type, int[] posx, int[] posy, int num) {
@@ -247,6 +260,25 @@ class GameWindow{
 				units[i].setBounds(posx[i]*stepW, posy[i]*stepH, stepW, stepH);
 		}
 		gameSpace.revalidate();
+	 }
+
+	 public void select_display_move(int x, int y){
+		 if (select==null){
+			select=new JLabel();
+			select.setPreferredSize(new Dimension(stepW, stepH));
+			select.setSize(stepW,stepH);
+			select.setIcon(new ImageIcon(select_mark));
+			gameSpace.add(select,0);
+		 }
+		 select.setBounds(x*stepW, y*stepH, stepW, stepH);
+		 gameSpace.revalidate();
+	 }
+	 
+	 public void select_display_remove(){
+		 gameSpace.remove(select);
+		 select=null;
+		 gameSpace.revalidate();
+		 gameSpace.repaint();
 	 }
 }
 

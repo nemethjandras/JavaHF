@@ -39,11 +39,12 @@ public class Main {
 		//height is prefered to be the multiple of 10
 		GameWindow MainWindow=new GameWindow(900,900,400);	
 		MainWindow.displayMap(test_map,x,y);
+		MainWindow.addButtons();
+		
 		MainWindow.displayUpdate(units,xpos,ypos,2);
 		xpos[0]+=1;
 		ypos[0]+=1;
 		MainWindow.displayUpdate(units,xpos,ypos,2);
-		MainWindow.addButtons();
 	}
 
 }  
