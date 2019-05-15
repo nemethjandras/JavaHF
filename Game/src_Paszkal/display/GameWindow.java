@@ -24,7 +24,6 @@ public class GameWindow{
 	int gui_sizeW;
 	
 	//buttons and hud
-	JButton b_split = new JButton();
 	JButton b_buy1 = new JButton();
 	JButton b_buy2 = new JButton();
 	JButton b_buy3 = new JButton();
@@ -32,6 +31,15 @@ public class GameWindow{
 	JButton b_turnover = new JButton();
 	
 	//game display variables
+	 String[] buy_nums= {"0","1","2","3","4","5","6","7","8","9","10"};
+	JComboBox c_buy1=new JComboBox(buy_nums);
+	JComboBox c_buy2=new JComboBox(buy_nums);
+	JComboBox c_buy3=new JComboBox(buy_nums);
+	JComboBox c_buy4=new JComboBox(buy_nums);
+	String temp1="0";
+	String temp2="0";
+	String temp3="0";
+	String temp4="0";
     JLabel[][] tiles; 		//1 for each tile
     JLabel[] units; 		//1 for each unit
     JLabel select=null;
@@ -75,44 +83,124 @@ public class GameWindow{
 	 
 	 
 	 public void addButtons() { 
-		 //change to text space type
-		    b_split.setSize(gui_sizeW,map_sizeH/20);
-		    b_split.setBounds(map_sizeW, map_sizeH/20*3+map_sizeH/2, gui_sizeW, map_sizeH/20);
-		    gameSpace.add(b_split);
-		    b_split.setVisible(true);
-		    b_split.setText("Split the Unit");
+		 	c_buy1.setSize(gui_sizeW,map_sizeH/20);
+		 	c_buy1.setBounds(map_sizeW+gui_sizeW/10*7, map_sizeH/20*4+map_sizeH/2, gui_sizeW/10*3, map_sizeH/20);
+		    gameSpace.add(c_buy1);
+		    c_buy1.setVisible(true);
+		    c_buy1.addActionListener(new ActionListener()
+		    {
+		      public void actionPerformed(ActionEvent e)
+		      {
+		          temp1 = (String)c_buy1.getSelectedItem();
+		      }
+		    });
 		    
-		 //fill with function call
+		 	c_buy2.setSize(gui_sizeW,map_sizeH/20);
+		 	c_buy2.setBounds(map_sizeW+gui_sizeW/10*7, map_sizeH/20*5+map_sizeH/2, gui_sizeW/10*3, map_sizeH/20);
+		    gameSpace.add(c_buy2);
+		    c_buy2.setVisible(true);
+		    c_buy2.addActionListener(new ActionListener()
+		    {
+		      public void actionPerformed(ActionEvent e)
+		      {
+		          temp2 = (String)c_buy2.getSelectedItem();
+		      }
+		    });
+		    
+		 	c_buy3.setSize(gui_sizeW,map_sizeH/20);
+		 	c_buy3.setBounds(map_sizeW+gui_sizeW/10*7, map_sizeH/20*6+map_sizeH/2, gui_sizeW/10*3, map_sizeH/20);
+		    gameSpace.add(c_buy3);
+		    c_buy3.setVisible(true);
+		    c_buy3.addActionListener(new ActionListener()
+		    {
+		      public void actionPerformed(ActionEvent e)
+		      {
+		          temp3 = (String)c_buy3.getSelectedItem();
+		      }
+		    });
+		    
+		 	c_buy4.setSize(gui_sizeW,map_sizeH/20);
+		 	c_buy4.setBounds(map_sizeW+gui_sizeW/10*7, map_sizeH/20*7+map_sizeH/2, gui_sizeW/10*3, map_sizeH/20);
+		    gameSpace.add(c_buy4);
+		    c_buy4.setVisible(true);
+		    c_buy4.addActionListener(new ActionListener()
+		    {
+		      public void actionPerformed(ActionEvent e)
+		      {
+		          temp1 = (String)c_buy4.getSelectedItem();
+		      }
+		    });
+		 
+		 // BUTTONS
 		    b_buy1.setSize(gui_sizeW,map_sizeH/20);
-		    b_buy1.setBounds(map_sizeW, map_sizeH/20*4+map_sizeH/2, gui_sizeW, map_sizeH/20);
+		    b_buy1.setBounds(map_sizeW, map_sizeH/20*4+map_sizeH/2, gui_sizeW/10*7, map_sizeH/20);
 		    gameSpace.add(b_buy1);
 		    b_buy1.setVisible(true);
 		    b_buy1.setText("Buy unit1");
+		    b_buy1.addActionListener(new ActionListener()
+		    {
+		      public void actionPerformed(ActionEvent e)
+		      {
+		    	  System.out.format("buy1:%d",Integer.parseInt(temp1));
+		    	  //buy Integer.parseInt(temp1) units of type 1
+		      }
+		    });
 		    
 		    b_buy2.setSize(gui_sizeW,map_sizeH/20);
-		    b_buy2.setBounds(map_sizeW, map_sizeH/20*5+map_sizeH/2, gui_sizeW, map_sizeH/20);
+		    b_buy2.setBounds(map_sizeW, map_sizeH/20*5+map_sizeH/2, gui_sizeW/10*7, map_sizeH/20);
 		    gameSpace.add(b_buy2);
 		    b_buy2.setVisible(true);
 		    b_buy2.setText("Buy unit2");
+		    b_buy2.addActionListener(new ActionListener()
+		    {
+		      public void actionPerformed(ActionEvent e)
+		      {
+		    	  System.out.format("buy2:%d",Integer.parseInt(temp2));
+		    	  //buy Integer.parseInt(temp2) units of type 2
+		      }
+		    });
 		    
 		    b_buy3.setSize(gui_sizeW,map_sizeH/20);
-		    b_buy3.setBounds(map_sizeW, map_sizeH/20*6+map_sizeH/2, gui_sizeW, map_sizeH/20);
+		    b_buy3.setBounds(map_sizeW, map_sizeH/20*6+map_sizeH/2, gui_sizeW/10*7, map_sizeH/20);
 		    gameSpace.add(b_buy3);
 		    b_buy3.setVisible(true);
 		    b_buy3.setText("Buy unit3");
+		    b_buy3.addActionListener(new ActionListener()
+		    {
+		      public void actionPerformed(ActionEvent e)
+		      {
+		    	  System.out.format("buy3:%d",Integer.parseInt(temp3));
+		    	  //buy Integer.parseInt(temp3) units of type 3
+		      }
+		    });
 		    
 		    b_buy4.setSize(gui_sizeW,map_sizeH/20);
-		    b_buy4.setBounds(map_sizeW, map_sizeH/20*7+map_sizeH/2, gui_sizeW, map_sizeH/20);
+		    b_buy4.setBounds(map_sizeW, map_sizeH/20*7+map_sizeH/2, gui_sizeW/10*7, map_sizeH/20);
 		    gameSpace.add(b_buy4);
 		    b_buy4.setVisible(true);
 		    b_buy4.setText("Buy unit4");
-		 
-		  //set onTurn flag
+		    b_buy4.addActionListener(new ActionListener()
+		    {
+		      public void actionPerformed(ActionEvent e)
+		      {
+		    	  System.out.format("buy4:%d",Integer.parseInt(temp4));
+		    	  //buy Integer.parseInt(temp4) units of type 4
+		      }
+		    });
+		    
 		    b_turnover.setSize(gui_sizeW,map_sizeH/20);
 		    b_turnover.setBounds(map_sizeW, map_sizeH/20*9+map_sizeH/2, gui_sizeW, map_sizeH/20);
 		    gameSpace.add(b_turnover);
 		    b_turnover.setVisible(true);
 		    b_turnover.setText("END TURN");
+		    b_turnover   .addActionListener(new ActionListener()
+		    {
+		      public void actionPerformed(ActionEvent e)
+		      {
+		    	  onTurn=-1;
+		      }
+		    });
+		    
 	 }
 	 
 	 //print map
