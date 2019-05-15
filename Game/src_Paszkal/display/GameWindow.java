@@ -13,16 +13,16 @@ import mygame.*;
 import control.*;
 
 public class GameWindow{
+	int onTurn;
+	Control control;
+	
 	//frame specific variables
 	JFrame mainWindow = new JFrame("GameWindow");
 	JPanel gameSpace=new JPanel(null); 	//thi will contain all the tiles
 	JPanel gui_box=new JPanel(null); 	//thi will contain all the gui and hud info
+	int gui_sizeW;
 	
 	//buttons and hud
-	int gui_sizeW;
-	JButton b_move = new JButton();
-	JButton b_attack = new JButton();
-	JButton b_merge = new JButton();
 	JButton b_split = new JButton();
 	JButton b_buy1 = new JButton();
 	JButton b_buy2 = new JButton();
@@ -72,30 +72,14 @@ public class GameWindow{
 	 
 	 
 	 public void addButtons() { 
-		    b_move.setSize(gui_sizeW,map_sizeH/20);
-		    b_move.setBounds(map_sizeW, map_sizeH/2, gui_sizeW, map_sizeH/20);
-		    gameSpace.add(b_move);
-		    b_move.setVisible(true);
-		    b_move.setText("Move with Unit");
-		    
-		    b_attack.setSize(gui_sizeW,map_sizeH/20);
-		    b_attack.setBounds(map_sizeW, map_sizeH/20+map_sizeH/2, gui_sizeW, map_sizeH/20);
-		    gameSpace.add(b_attack);
-		    b_attack.setVisible(true);
-		    b_attack.setText("Attack with Unit");
-		    
-		    b_merge.setSize(gui_sizeW,map_sizeH/20);
-		    b_merge.setBounds(map_sizeW, map_sizeH/20*2+map_sizeH/2, gui_sizeW, map_sizeH/20);
-		    gameSpace.add(b_merge);
-		    b_merge.setVisible(true);
-		    b_merge.setText("Merge with Unit");
-		    
+		 //change to text space type
 		    b_split.setSize(gui_sizeW,map_sizeH/20);
 		    b_split.setBounds(map_sizeW, map_sizeH/20*3+map_sizeH/2, gui_sizeW, map_sizeH/20);
 		    gameSpace.add(b_split);
 		    b_split.setVisible(true);
 		    b_split.setText("Split the Unit");
 		    
+		 //fill with function call
 		    b_buy1.setSize(gui_sizeW,map_sizeH/20);
 		    b_buy1.setBounds(map_sizeW, map_sizeH/20*4+map_sizeH/2, gui_sizeW, map_sizeH/20);
 		    gameSpace.add(b_buy1);
@@ -119,7 +103,8 @@ public class GameWindow{
 		    gameSpace.add(b_buy4);
 		    b_buy4.setVisible(true);
 		    b_buy4.setText("Buy unit4");
-		    
+		 
+		  //set onTurn flag
 		    b_turnover.setSize(gui_sizeW,map_sizeH/20);
 		    b_turnover.setBounds(map_sizeW, map_sizeH/20*9+map_sizeH/2, gui_sizeW, map_sizeH/20);
 		    gameSpace.add(b_turnover);
@@ -159,7 +144,7 @@ public class GameWindow{
 				}			
 				gameSpace.add(tiles[j][i]);
 				tiles[j][i].setBounds(j*stepW, i*stepH, stepW, stepH);
-			    tiles[j][i].addMouseListener(new MyMouseListener(j, i,this));
+			    tiles[j][i].addMouseListener(new MyMouseListener(j, i,this, control));
 
 			}
 		}

@@ -2,8 +2,8 @@ package display;
 
 import mygame.*;
 import display.*;
- 
-
+import control.*
+;
 
 public class Main {
 
@@ -36,10 +36,16 @@ public class Main {
 		//x = map.xLen
 		//y = map.yLen
 		
+		
+		//players needed for control test
+		//Player playe;
+		//Player enemy;
+
 		//height is prefered to be the multiple of 10
 		GameWindow MainWindow=new GameWindow(900,900,400);	
 		MainWindow.displayMap(test_map,x,y);
 		MainWindow.addButtons();
+		//MainWindow.control=new Control(player,enemy);
 		
 		MainWindow.displayUpdate(units,xpos,ypos,2);
 		xpos[0]+=1;

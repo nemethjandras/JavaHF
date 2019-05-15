@@ -8,6 +8,7 @@ abstract public class Unit {
     public final int attackRange;
     public int xPos;
     public int yPos;
+    public int type;
 
     protected Unit(int healthVal, int attackVal, int availableAct, int actPerRound, int attRange, int xPosi, int yPosi) {
         healthValue = healthVal;

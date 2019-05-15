@@ -7,17 +7,20 @@ import java.awt.event.*;
 import javax.swing.SwingUtilities;
 
 import display.*;
+import mygame.*;
 
 public class MyMouseListener  extends MouseAdapter
 {
 	int posx;
 	int posy;
-	GameWindow target;
+	GameWindow display;
+	Control control;
 	
-	public MyMouseListener(int x, int y, GameWindow t){
+	public MyMouseListener(int x, int y, GameWindow t, Control c){
 		posx=x;
 		posy=y;
-		target=t;
+		display=t;
+		control=c;
 	}
 			
 	public void mouseClicked (MouseEvent e) 
@@ -26,15 +29,15 @@ public class MyMouseListener  extends MouseAdapter
 		if(SwingUtilities.isLeftMouseButton(e)) 
 		{
 			System.out.format("left \n");
-			target.select_display_move(posx, posy);
-			//newselect
-			//execute
+			display.select_display_move(posx, posy);
+			//control.newSelect(posx, posy);
+			//control.execute();
 		}
 		if(SwingUtilities.isRightMouseButton(e)) 
 		{
 			System.out.format("right \n");
-			target.select_display_remove();
-			//remove select texture
+			display.select_display_remove();
+			//control.resetSelect();
 		}
 	}
   
