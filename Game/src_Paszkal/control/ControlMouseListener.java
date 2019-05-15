@@ -26,14 +26,14 @@ public class ControlMouseListener  extends MouseAdapter
 	public void mouseClicked (MouseEvent e) 
 	{	
 		//System.out.format("Clicked: %d, %d ", posx, posy);
-		if(SwingUtilities.isLeftMouseButton(e)) 
+		if(SwingUtilities.isLeftMouseButton(e) && display.onTurn) 
 		{
 			//System.out.format("left \n");
 			display.select_display_move(posx, posy);
 			//control.newSelect(posx, posy);
 			//control.execute();
 		}
-		if(SwingUtilities.isRightMouseButton(e)) 
+		if(SwingUtilities.isRightMouseButton(e) && display.onTurn) 
 		{
 			//System.out.format("right \n");
 			display.select_display_remove();

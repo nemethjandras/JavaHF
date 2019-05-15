@@ -47,7 +47,7 @@ public class Main {
 		//x = map.xLen
 		//y = map.yLen
 		MainWindow.displayMap(test_map,x,y);
-		MainWindow.addButtons();
+		MainWindow.createGui();
 		//MainWindow.control=new Control(player,enemy);
 		
 		MainWindow.displayUpdate(units,xpos,ypos,unit_num,2);

@@ -14,7 +14,7 @@ import mygame.*;
 import control.*;
 
 public class GameWindow{
-	int onTurn;
+	public boolean onTurn=true; //change to false, only true for testing
 	Control control;
 	
 	//frame specific variables
@@ -31,6 +31,7 @@ public class GameWindow{
 	JButton b_turnover = new JButton();
 	
 	//game display variables
+	JLabel offTurn=null;
 	 String[] buy_nums= {"0","1","2","3","4","5","6","7","8","9","10"};
 	JComboBox c_buy1=new JComboBox(buy_nums);
 	JComboBox c_buy2=new JComboBox(buy_nums);
@@ -53,6 +54,7 @@ public class GameWindow{
     int stepW;		//tile width in pixels
     
     //textures
+    Image offTurn_msg;
     Image select_mark;
     Image select_mark_old;
     Image default_tile_texture;
@@ -82,7 +84,7 @@ public class GameWindow{
 	 }
 	 
 	 
-	 public void addButtons() { 
+	 public void createGui() { 
 		 	c_buy1.setSize(gui_sizeW,map_sizeH/20);
 		 	c_buy1.setBounds(map_sizeW+gui_sizeW/10*7, map_sizeH/20*4+map_sizeH/2, gui_sizeW/10*3, map_sizeH/20);
 		    gameSpace.add(c_buy1);
@@ -155,8 +157,10 @@ public class GameWindow{
 		    {
 		      public void actionPerformed(ActionEvent e)
 		      {
+		    	  if(onTurn) {
 		    	  System.out.format("buy2:%d",Integer.parseInt(temp2));
 		    	  //buy Integer.parseInt(temp2) units of type 2
+		    	  }
 		      }
 		    });
 		    
@@ -169,8 +173,10 @@ public class GameWindow{
 		    {
 		      public void actionPerformed(ActionEvent e)
 		      {
+		    	  if(onTurn) {
 		    	  System.out.format("buy3:%d",Integer.parseInt(temp3));
 		    	  //buy Integer.parseInt(temp3) units of type 3
+		    	  }
 		      }
 		    });
 		    
@@ -183,8 +189,10 @@ public class GameWindow{
 		    {
 		      public void actionPerformed(ActionEvent e)
 		      {
+		    	  if(onTurn) {
 		    	  System.out.format("buy4:%d",Integer.parseInt(temp4));
 		    	  //buy Integer.parseInt(temp4) units of type 4
+		    	  }
 		      }
 		    });
 		    
@@ -197,7 +205,7 @@ public class GameWindow{
 		    {
 		      public void actionPerformed(ActionEvent e)
 		      {
-		    	  onTurn=-1;
+		    	  endTurn();
 		      }
 		    });
 		    
@@ -300,6 +308,14 @@ public class GameWindow{
 		}
 	select_mark = select_mark_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
 	select_mark_old = select_mark_old_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+	
+	 BufferedImage offTurn_buffer = null;
+	 try {
+		 offTurn_buffer = ImageIO.read(new File("D:\\github_reps\\JavaHF_rep\\Game\\assets\\offTurn_msg.png"));
+		} catch (IOException e){
+		    e.printStackTrace();
+		}
+	 offTurn_msg = offTurn_buffer.getScaledInstance(map_sizeW/10*4, map_sizeH/10*1, Image.SCALE_SMOOTH);
  }
 	 
 	 //removes and redraws all units on map display
@@ -355,37 +371,45 @@ public class GameWindow{
 			gameSpace.add(select,0);
 			//System.out.format("init select \n");
 		 }
-		 /*
-		 else if(select_old==null) {
-			 Rectangle rv=new Rectangle();
-			 rv=select.getBounds();
-				select_old=new JLabel();
-				select_old.setPreferredSize(new Dimension(stepW, stepH));
-				select_old.setSize(stepW,stepH);
-				select_old.setIcon(new ImageIcon(select_mark_old));
-				gameSpace.add(select_old,0);
-				select_old.setBounds(rv);
-				System.out.format("init select old \n");
-		 }
-		 else {
-			 Rectangle rv=new Rectangle();
-			 rv=select.getBounds();
-			 select_old.setBounds(rv);
-			 System.out.format("move select old\n");
-		}
-		*/
 		 //System.out.format("move select \n");
 		 select.setBounds(x*stepW, y*stepH, stepW, stepH);
 		 gameSpace.revalidate();
 	 }
 	 
 	 public void select_display_remove(){
-		 gameSpace.remove(select);
+		 if(select!=null) 
+		 {
+			 gameSpace.remove(select);
+		 }
 		 //gameSpace.remove(select_old);
 		 //select_old=null;
 		 select=null;
 		 gameSpace.revalidate();
 		 gameSpace.repaint();
+	 }
+	 
+	 public void endTurn() {
+	   	 onTurn=false;
+	   	 select_display_remove();
+	   	 //control.resetSelect();
+	   	  
+		 if (offTurn==null){
+			 offTurn=new JLabel();
+			 offTurn.setPreferredSize(new Dimension(map_sizeW/2, map_sizeW/8));
+			 offTurn.setSize(stepW,stepH);
+			 offTurn.setIcon(new ImageIcon(offTurn_msg));
+			 gameSpace.add(offTurn,0);
+			 offTurn.setBounds(map_sizeW/10*3, map_sizeH/20*9, map_sizeW/10*4,  map_sizeW/10*1);
+		 }
+		 offTurn.setVisible(true);
+		 gameSpace.revalidate();
+	 }
+	 
+	 public void startTurn() {
+		 onTurn=true;
+		 if(offTurn!=null) {
+			 offTurn.setVisible(false);
+		 }
 	 }
 }
 
