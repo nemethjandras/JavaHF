@@ -1,6 +1,7 @@
 package display;
 
 import java.awt.*;
+import java.awt.desktop.PrintFilesEvent;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -34,6 +35,7 @@ public class GameWindow{
     JLabel[][] tiles; 		//1 for each tile
     JLabel[] units; 		//1 for each unit
     JLabel select=null;
+    JLabel select_old=null;
     int unitNum;
     int tiles_x;	//number of tiels in a row
     int tiles_y;	//number of tiles in a coloumn
@@ -44,6 +46,7 @@ public class GameWindow{
     
     //textures
     Image select_mark;
+    Image select_mark_old;
     Image default_tile_texture;
     Image default_unit_texture;
     //add more textures
@@ -200,12 +203,15 @@ public class GameWindow{
 	 
 	 //load select mark
 	 BufferedImage select_mark_buffer = null;
+	 BufferedImage select_mark_old_buffer = null;
 	 try {
 		 select_mark_buffer = ImageIO.read(new File("D:\\github_reps\\JavaHF_rep\\Game\\assets\\select_mark.png"));
+		 select_mark_old_buffer = ImageIO.read(new File("D:\\github_reps\\JavaHF_rep\\Game\\assets\\select_mark_prev.png"));
 		} catch (IOException e){
 		    e.printStackTrace();
 		}
 	select_mark = select_mark_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+	select_mark_old = select_mark_old_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
  }
 	 
 	 //removes and redraws all units on map display
@@ -213,14 +219,14 @@ public class GameWindow{
 		 
 		
 		 for (int i = 0; i < unitNum; i++) {
-			gameSpace.remove(units[i]);
-		}
-		units=null;
-		gameSpace.revalidate();
-		gameSpace.repaint();
+		 	gameSpace.remove(units[i]);
+		 }
+		 units=null;
+		 gameSpace.revalidate();
+		 gameSpace.repaint();
 		 
-		 
-		unitNum=num;
+		 String asd;
+		 unitNum=num;
 		 units=new JLabel[num];
 		 for (int i = 0; i < num; i++){
 			    units[i]=new JLabel();
@@ -243,6 +249,11 @@ public class GameWindow{
 				}			
 				gameSpace.add(units[i],0);
 				units[i].setBounds(posx[i]*stepW, posy[i]*stepH, stepW, stepH);
+				asd=" "+unit_num[i]+" ";
+				units[i].setText(asd);
+		        units[i].setHorizontalTextPosition(JLabel.CENTER);
+		        units[i].setVerticalTextPosition(JLabel.CENTER);
+				//units[i].setToolTipText(asd);
 		}
 		gameSpace.revalidate();
 	 }
@@ -254,13 +265,34 @@ public class GameWindow{
 			select.setSize(stepW,stepH);
 			select.setIcon(new ImageIcon(select_mark));
 			gameSpace.add(select,0);
+			System.out.format("init select \n");
 		 }
+		 else if(select_old==null) {
+			 Rectangle rv=new Rectangle();
+			 rv=select.getBounds();
+				select_old=new JLabel();
+				select_old.setPreferredSize(new Dimension(stepW, stepH));
+				select_old.setSize(stepW,stepH);
+				select_old.setIcon(new ImageIcon(select_mark_old));
+				gameSpace.add(select_old,0);
+				select_old.setBounds(rv);
+				System.out.format("init select old \n");
+		 }
+		 else {
+			 Rectangle rv=new Rectangle();
+			 rv=select.getBounds();
+			 select_old.setBounds(rv);
+			 System.out.format("move select old\n");
+		}
+		 System.out.format("move select \n");
 		 select.setBounds(x*stepW, y*stepH, stepW, stepH);
 		 gameSpace.revalidate();
 	 }
 	 
 	 public void select_display_remove(){
 		 gameSpace.remove(select);
+		 gameSpace.remove(select_old);
+		 select_old=null;
 		 select=null;
 		 gameSpace.revalidate();
 		 gameSpace.repaint();
