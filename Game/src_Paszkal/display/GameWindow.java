@@ -24,6 +24,9 @@ public class GameWindow{
 	int gui_sizeW;
 	
 	//buttons and hud
+	String msg="Money: ";
+	String money="0";
+	JLabel hud1=new JLabel(msg+money);
 	JButton b_buy1 = new JButton();
 	JButton b_buy2 = new JButton();
 	JButton b_buy3 = new JButton();
@@ -85,8 +88,16 @@ public class GameWindow{
 	 
 	 
 	 public void createGui() { 
+			 hud1.setPreferredSize(new Dimension(map_sizeW/2, map_sizeW/8));
+			 hud1.setSize(gui_sizeW,map_sizeH/10);
+			 gameSpace.add(hud1,0);
+			 hud1.setBounds(map_sizeW+gui_sizeW/4, map_sizeH/10, gui_sizeW/2, map_sizeH/10);
+			 hud1.setFont (hud1.getFont ().deriveFont (32.0f));
+		 
+			 
+			 
 		 	c_buy1.setSize(gui_sizeW,map_sizeH/20);
-		 	c_buy1.setBounds(map_sizeW+gui_sizeW/10*7, map_sizeH/20*4+map_sizeH/2, gui_sizeW/10*3, map_sizeH/20);
+		 	c_buy1.setBounds(map_sizeW+gui_sizeW/10*7, map_sizeH/10*4, gui_sizeW/10*3, map_sizeH/10);
 		    gameSpace.add(c_buy1);
 		    c_buy1.setVisible(true);
 		    c_buy1.addActionListener(new ActionListener()
@@ -98,7 +109,7 @@ public class GameWindow{
 		    });
 		    
 		 	c_buy2.setSize(gui_sizeW,map_sizeH/20);
-		 	c_buy2.setBounds(map_sizeW+gui_sizeW/10*7, map_sizeH/20*5+map_sizeH/2, gui_sizeW/10*3, map_sizeH/20);
+		 	c_buy2.setBounds(map_sizeW+gui_sizeW/10*7, map_sizeH/10*5, gui_sizeW/10*3, map_sizeH/10);
 		    gameSpace.add(c_buy2);
 		    c_buy2.setVisible(true);
 		    c_buy2.addActionListener(new ActionListener()
@@ -110,7 +121,7 @@ public class GameWindow{
 		    });
 		    
 		 	c_buy3.setSize(gui_sizeW,map_sizeH/20);
-		 	c_buy3.setBounds(map_sizeW+gui_sizeW/10*7, map_sizeH/20*6+map_sizeH/2, gui_sizeW/10*3, map_sizeH/20);
+		 	c_buy3.setBounds(map_sizeW+gui_sizeW/10*7, map_sizeH/10*6, gui_sizeW/10*3, map_sizeH/10);
 		    gameSpace.add(c_buy3);
 		    c_buy3.setVisible(true);
 		    c_buy3.addActionListener(new ActionListener()
@@ -122,7 +133,7 @@ public class GameWindow{
 		    });
 		    
 		 	c_buy4.setSize(gui_sizeW,map_sizeH/20);
-		 	c_buy4.setBounds(map_sizeW+gui_sizeW/10*7, map_sizeH/20*7+map_sizeH/2, gui_sizeW/10*3, map_sizeH/20);
+		 	c_buy4.setBounds(map_sizeW+gui_sizeW/10*7, map_sizeH/10*7, gui_sizeW/10*3, map_sizeH/10);
 		    gameSpace.add(c_buy4);
 		    c_buy4.setVisible(true);
 		    c_buy4.addActionListener(new ActionListener()
@@ -135,7 +146,7 @@ public class GameWindow{
 		 
 		 // BUTTONS
 		    b_buy1.setSize(gui_sizeW,map_sizeH/20);
-		    b_buy1.setBounds(map_sizeW, map_sizeH/20*4+map_sizeH/2, gui_sizeW/10*7, map_sizeH/20);
+		    b_buy1.setBounds(map_sizeW, map_sizeH/10*4, gui_sizeW/10*7, map_sizeH/10);
 		    gameSpace.add(b_buy1);
 		    b_buy1.setVisible(true);
 		    b_buy1.setText("Buy unit1");
@@ -147,11 +158,12 @@ public class GameWindow{
 		    	  //buy Integer.parseInt(temp1) units of type 1
 		    	  
 		    	//displayUpdate();
+		 		 updateMoneyDisplay();
 		      }
 		    });
 		    
 		    b_buy2.setSize(gui_sizeW,map_sizeH/20);
-		    b_buy2.setBounds(map_sizeW, map_sizeH/20*5+map_sizeH/2, gui_sizeW/10*7, map_sizeH/20);
+		    b_buy2.setBounds(map_sizeW, map_sizeH/10*5, gui_sizeW/10*7, map_sizeH/10);
 		    gameSpace.add(b_buy2);
 		    b_buy2.setVisible(true);
 		    b_buy2.setText("Buy unit2");
@@ -164,12 +176,13 @@ public class GameWindow{
 		    	  //buy Integer.parseInt(temp2) units of type 2
 		    	  
 		    	//displayUpdate();
+		 		 updateMoneyDisplay();
 		    	  }
 		      }
 		    });
 		    
 		    b_buy3.setSize(gui_sizeW,map_sizeH/20);
-		    b_buy3.setBounds(map_sizeW, map_sizeH/20*6+map_sizeH/2, gui_sizeW/10*7, map_sizeH/20);
+		    b_buy3.setBounds(map_sizeW, map_sizeH/10*6, gui_sizeW/10*7, map_sizeH/10);
 		    gameSpace.add(b_buy3);
 		    b_buy3.setVisible(true);
 		    b_buy3.setText("Buy unit3");
@@ -182,12 +195,13 @@ public class GameWindow{
 		    	  //buy Integer.parseInt(temp3) units of type 3
 		    	  
 		    	//displayUpdate();
+		 		 updateMoneyDisplay();
 		    	  }
 		      }
 		    });
 		    
 		    b_buy4.setSize(gui_sizeW,map_sizeH/20);
-		    b_buy4.setBounds(map_sizeW, map_sizeH/20*7+map_sizeH/2, gui_sizeW/10*7, map_sizeH/20);
+		    b_buy4.setBounds(map_sizeW, map_sizeH/10*7, gui_sizeW/10*7, map_sizeH/10);
 		    gameSpace.add(b_buy4);
 		    b_buy4.setVisible(true);
 		    b_buy4.setText("Buy unit4");
@@ -200,12 +214,13 @@ public class GameWindow{
 		    	  //buy Integer.parseInt(temp4) units of type 4
 		    	  
 		    	//displayUpdate();
+		 		 updateMoneyDisplay();
 		    	  }
 		      }
 		    });
 		    
 		    b_turnover.setSize(gui_sizeW,map_sizeH/20);
-		    b_turnover.setBounds(map_sizeW, map_sizeH/20*9+map_sizeH/2, gui_sizeW, map_sizeH/20);
+		    b_turnover.setBounds(map_sizeW, map_sizeH/10*9, gui_sizeW, map_sizeH/10);
 		    gameSpace.add(b_turnover);
 		    b_turnover.setVisible(true);
 		    b_turnover.setText("END TURN");
@@ -407,7 +422,7 @@ public class GameWindow{
 			 offTurn.setSize(stepW,stepH);
 			 offTurn.setIcon(new ImageIcon(offTurn_msg));
 			 gameSpace.add(offTurn,0);
-			 offTurn.setBounds(map_sizeW/10*3, map_sizeH/20*9, map_sizeW/10*4,  map_sizeW/10*1);
+			 offTurn.setBounds(map_sizeW/10*3, map_sizeH/20*9, map_sizeW/10*4,  map_sizeH/10*1);
 		 }
 		 offTurn.setVisible(true);
 		 gameSpace.revalidate();
@@ -416,9 +431,16 @@ public class GameWindow{
 	 public void startTurn() {
 		 onTurn=true;
 		 //displayUpdate();
+		 updateMoneyDisplay();
 		 if(offTurn!=null) {
 			 offTurn.setVisible(false);
 		 }
 	 }
+
+	 public void updateMoneyDisplay() {
+		 money=Integer.toString(control.player.gold);
+		 hud1.setText(msg+money);
+	 }
+
 }
 

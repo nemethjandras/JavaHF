@@ -11,7 +11,7 @@ enum Select{
 
 public class Control
 {
-	Player player;
+	public Player player;
 	Player enemy;
 	
 	
