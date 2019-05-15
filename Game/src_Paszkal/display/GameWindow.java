@@ -265,8 +265,9 @@ public class GameWindow{
 			select.setSize(stepW,stepH);
 			select.setIcon(new ImageIcon(select_mark));
 			gameSpace.add(select,0);
-			System.out.format("init select \n");
+			//System.out.format("init select \n");
 		 }
+		 /*
 		 else if(select_old==null) {
 			 Rectangle rv=new Rectangle();
 			 rv=select.getBounds();
@@ -284,15 +285,16 @@ public class GameWindow{
 			 select_old.setBounds(rv);
 			 System.out.format("move select old\n");
 		}
-		 System.out.format("move select \n");
+		*/
+		 //System.out.format("move select \n");
 		 select.setBounds(x*stepW, y*stepH, stepW, stepH);
 		 gameSpace.revalidate();
 	 }
 	 
 	 public void select_display_remove(){
 		 gameSpace.remove(select);
-		 gameSpace.remove(select_old);
-		 select_old=null;
+		 //gameSpace.remove(select_old);
+		 //select_old=null;
 		 select=null;
 		 gameSpace.revalidate();
 		 gameSpace.repaint();
