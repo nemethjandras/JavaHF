@@ -145,6 +145,8 @@ public class GameWindow{
 		      {
 		    	  System.out.format("buy1:%d",Integer.parseInt(temp1));
 		    	  //buy Integer.parseInt(temp1) units of type 1
+		    	  
+		    	//displayUpdate();
 		      }
 		    });
 		    
@@ -160,6 +162,8 @@ public class GameWindow{
 		    	  if(onTurn) {
 		    	  System.out.format("buy2:%d",Integer.parseInt(temp2));
 		    	  //buy Integer.parseInt(temp2) units of type 2
+		    	  
+		    	//displayUpdate();
 		    	  }
 		      }
 		    });
@@ -176,6 +180,8 @@ public class GameWindow{
 		    	  if(onTurn) {
 		    	  System.out.format("buy3:%d",Integer.parseInt(temp3));
 		    	  //buy Integer.parseInt(temp3) units of type 3
+		    	  
+		    	//displayUpdate();
 		    	  }
 		      }
 		    });
@@ -192,6 +198,8 @@ public class GameWindow{
 		    	  if(onTurn) {
 		    	  System.out.format("buy4:%d",Integer.parseInt(temp4));
 		    	  //buy Integer.parseInt(temp4) units of type 4
+		    	  
+		    	//displayUpdate();
 		    	  }
 		      }
 		    });
@@ -407,6 +415,7 @@ public class GameWindow{
 	 
 	 public void startTurn() {
 		 onTurn=true;
+		 //displayUpdate();
 		 if(offTurn!=null) {
 			 offTurn.setVisible(false);
 		 }

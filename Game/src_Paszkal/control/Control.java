@@ -83,18 +83,25 @@ public class Control
 		return;
 	}
   
-	public void execute() {
+	public int execute() {
 		if(curr==Select.EMPTY && prev==Select.FRIENDLY) {
 			//move units from xPrev,yPrev to xCurr, yCurr
+			
+			return 1;
 		}
 		if(curr==Select.ENEMY && prev==Select.FRIENDLY) {
 			//attack with units on xPrev,yPrev at units on xCurr, yCurr
+			
+			return 1;
 		}
 		if(curr==Select.FRIENDLY && prev==Select.FRIENDLY && typePrev==typeCurr &&typeCurr!=0) {
 			//merge units on xPrev,yPrev with units on xCurr, yCurr
+			
+			return 1;
 		}
 		//TODO split command 
 		
+		return 0;
 	}
 	
 }
