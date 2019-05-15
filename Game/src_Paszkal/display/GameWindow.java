@@ -144,7 +144,7 @@ public class GameWindow{
 				}			
 				gameSpace.add(tiles[j][i]);
 				tiles[j][i].setBounds(j*stepW, i*stepH, stepW, stepH);
-			    tiles[j][i].addMouseListener(new MyMouseListener(j, i,this, control));
+			    tiles[j][i].addMouseListener(new ControlMouseListener(j, i,this, control));
 
 			}
 		}
@@ -209,7 +209,7 @@ public class GameWindow{
  }
 	 
 	 //removes and redraws all units on map display
-	 public void displayUpdate(int[] type, int[] posx, int[] posy, int num) {
+	 public void displayUpdate(int[] type, int[] posx, int[] posy, int[] unit_num, int num) {
 		 
 		
 		 for (int i = 0; i < unitNum; i++) {

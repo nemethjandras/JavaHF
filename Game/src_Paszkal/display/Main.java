@@ -30,11 +30,10 @@ public class Main {
 		int[] ypos=new int[2];
 		ypos[0]=0;
 		ypos[1]=4;
-		
-		//usage:
-		//test_map = map.grid[][]
-		//x = map.xLen
-		//y = map.yLen
+		int[] unit_num=new int[2];
+		unit_num[0]=10;
+		unit_num[1]=15;
+
 		
 		
 		//players needed for control test
@@ -43,14 +42,18 @@ public class Main {
 
 		//height is prefered to be the multiple of 10
 		GameWindow MainWindow=new GameWindow(900,900,400);	
+		//usage:
+		//test_map = map.grid[][]
+		//x = map.xLen
+		//y = map.yLen
 		MainWindow.displayMap(test_map,x,y);
 		MainWindow.addButtons();
 		//MainWindow.control=new Control(player,enemy);
 		
-		MainWindow.displayUpdate(units,xpos,ypos,2);
+		MainWindow.displayUpdate(units,xpos,ypos,unit_num,2);
 		xpos[0]+=1;
 		ypos[0]+=1;
-		MainWindow.displayUpdate(units,xpos,ypos,2);
+		MainWindow.displayUpdate(units,xpos,ypos,unit_num,2);
 	}
 
 }  

@@ -9,14 +9,14 @@ import javax.swing.SwingUtilities;
 import display.*;
 import mygame.*;
 
-public class MyMouseListener  extends MouseAdapter
+public class ControlMouseListener  extends MouseAdapter
 {
 	int posx;
 	int posy;
 	GameWindow display;
 	Control control;
 	
-	public MyMouseListener(int x, int y, GameWindow t, Control c){
+	public ControlMouseListener(int x, int y, GameWindow t, Control c){
 		posx=x;
 		posy=y;
 		display=t;
