@@ -15,6 +15,7 @@ import control.*;
 
 public class GameWindow{
 	public boolean onTurn=true; //change to false, only true for testing
+	public boolean split_on=false;
 	Control control;
 	
 	//frame specific variables
@@ -27,6 +28,7 @@ public class GameWindow{
 	String msg="Money: ";
 	String money="0";
 	JLabel hud1=new JLabel(msg+money);
+	JButton b_split = new JButton();
 	JButton b_buy1 = new JButton();
 	JButton b_buy2 = new JButton();
 	JButton b_buy3 = new JButton();
@@ -145,6 +147,19 @@ public class GameWindow{
 		    });
 		 
 		 // BUTTONS
+		    b_split.setSize(gui_sizeW,map_sizeH/20);
+		    b_split.setBounds(map_sizeW, map_sizeH/10*3, gui_sizeW, map_sizeH/10);
+		    gameSpace.add(b_split);
+		    b_split.setVisible(true);
+		    b_split.setText("Split units");
+		    b_split.addActionListener(new ActionListener()
+		    {
+		      public void actionPerformed(ActionEvent e)
+		      {
+		    	  split_on=true;
+		      }
+		    });
+		    
 		    b_buy1.setSize(gui_sizeW,map_sizeH/20);
 		    b_buy1.setBounds(map_sizeW, map_sizeH/10*4, gui_sizeW/10*7, map_sizeH/10);
 		    gameSpace.add(b_buy1);

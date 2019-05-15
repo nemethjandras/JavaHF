@@ -31,8 +31,8 @@ public class ControlMouseListener  extends MouseAdapter
 			//System.out.format("left \n");
 			display.select_display_move(posx, posy);
 			/*
-			control.newSelect(posx, posy);
-			
+			control.newSelect(posx, posy,display.split_on);
+			display.split_on=false;
 			if(1==execute())
 			{
 				//displayUpdate();

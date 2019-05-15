@@ -13,7 +13,7 @@ public class Control
 {
 	public Player player;
 	Player enemy;
-	
+	boolean split;
 	
 	Select prev;
 	int xPrev;
@@ -52,7 +52,9 @@ public class Control
 		typeCurr=-1;
 	}
   
-	public void newSelect(int x, int y) {
+	public void newSelect(int x, int y, boolean split_on) {
+		split=split_on;
+		
 		prev=curr;
 		xPrev=xCurr;
 		yPrev=yCurr;
@@ -99,7 +101,12 @@ public class Control
 			
 			return 1;
 		}
-		//TODO split command 
+		if(curr==Select.EMPTY && prev==Select.FRIENDLY && split) {
+			//split units (in half) on xPrev,yPrev to xCurr, yCurr
+			
+			split=false;
+			return 1;
+		}
 		
 		return 0;
 	}
