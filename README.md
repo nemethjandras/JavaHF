@@ -2,9 +2,9 @@ TODO LIST
 
 Paszkal:
   >split commandhoz: numOfSplit bekérése
-  
-  >attack commandhoz: bázis detektálás
-  
+  >
+  >attack commandhoz: bázis detektálás 
+  >
   >HUD-hoz hozzáadni: bázisok életének kiírása
 
 Matyi:
