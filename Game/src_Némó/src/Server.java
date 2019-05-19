@@ -1,40 +1,22 @@
 import java.net.*;
 import java.io.*;
-//TODO nagy esélyel kelleni fog egy kis öröklés, hogy átláthatóbb legyen meg ne legyen sok duplikált függvény 
 //TODO A timeoutokkal is kell még egy kicsit szórakozni 
 
 //Not_Connected = egyértelmû
-//Password_fail = rossz a jelszó, 3 probálkozást enged
+//Password_fail = rossz a jelszó, 3 probálkozást enged, utána eldobj a kapcsolatot
 //Password_ok = jó a jelszó de még megy egy ACK kör -> szerver küld egy ACK-t kliens megkapja és visszaküldi,
 //ha ez sikeresen a szerverhez jut, akkor kerülünk ebbe az állapotba, ekkor lehetséges elindítani a tényleges adatküldést
 //,ezáltal mind a kettõ fél tudja mikor tol jön a hasznos adat és nem lesz para
 // frissiteni nagy esélyel nem kell csak körönként szóval arra kell majd nekem egy flag ha új kör 
-
 //Connected = sikeres volt az ACK kör, jó  kapcsolat mehet a játék
 //Connected_Win = valamelyik fél megnyerte a játékot és a kapcsolatot el kell dobni 
 
-enum ConnectionType 
-{
- Password_Fail,
- Password_Ok,
- Connected,
- Connected_Win,
- Not_Connected
-}
 
-public class Server {
- //initialize socket and input stream 
- private ConnectionType flag;
- @SuppressWarnings("unused")
-private int port;
- //IPV4 address<-
- private Inet4Address ip;
- //requested maximum length of the queue of incoming connections
+
+public class Server extends Network{
  private int backlog;
- private Socket acceptedSocket = null;
+ private ConnectionType flag;
  private ServerSocket server = null;
- private BufferedReader in = null;
- private PrintWriter out = null;
  private int password;
  private int counter =0;
  
@@ -54,43 +36,26 @@ private int port;
    server = new ServerSocket(port, backlog, this.ip);
    System.out.println("Server started");
   } catch (IOException i) {
+	// TODO ha becrashel és nem tudom becsukni a szervert akkor port váltás -> socket honnan fogja tudni hogy mi a port ???
+	//this.changingPort(); 
    System.out.println(i);
   }
 
 
  }
-
-
- public NetworkData normal_datatransfer_from_client ()
- { 
-	 NetworkData incoming = null;
-	 if(flag == ConnectionType.Connected)
-	 {
-	 try {
-			ObjectInputStream inputStream = new ObjectInputStream(acceptedSocket.getInputStream());
-			incoming =((NetworkData) inputStream.readObject());
-			
-			
-	     }
-			 catch(IOException i) 
-		     { 
-		         System.out.println(i); 
-		     } catch (ClassNotFoundException e) {
-				e.printStackTrace();
-		     }
-	 }
-	 return  incoming;
-	 }
-  
- public void normal_datatransfer_to_client (NetworkData send)
+ 
+ @Override
+ public void sending (NetworkData sendData)
  {
  try {
  System.out.println("Normál mûködés elkezdõdött szerver oldalon!");
- ObjectOutputStream outputStream = new ObjectOutputStream(acceptedSocket.getOutputStream());
- if(flag == ConnectionType.Connected)
+ ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+ if(flag == ConnectionType.Connected && YourTurn == true)
  {
+	 // TODO WON-> Connected_Win
+	// flag = ConnectionType.Connected_Win
 	// if (kör vége) a kliens következik
-	 outputStream.writeObject(send);
+	 outputStream.writeObject(sendData);
 	
 	 
  }
@@ -102,11 +67,34 @@ private int port;
 	 
 
  }
+@Override
+ public NetworkData incoming ()
+ { 
+	 if(flag == ConnectionType.Connected && YourTurn == true )
+	 {
+	 try {
+		 // TODO WON-> Connected_Win
+		    // flag = ConnectionType.Connected_Win
+			// if (kör vége) a kliens következik
+			ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
+			incomData =((NetworkData) inputStream.readObject());
+			
+			
+	     }
+			 catch(IOException i) 
+		     { 
+		         System.out.println(i); 
+		     } catch (ClassNotFoundException e) {
+				e.printStackTrace();
+		     }
+	 }
+	 return  incomData;
+	 }
  //ACK kör lecsekkolása
  public void datatransfer_check() {
   try {
    if (flag == ConnectionType.Password_Ok || flag == ConnectionType.Connected) {
-    if (!acceptedSocket.isClosed()) {
+    if (!socket.isClosed()) {
      String reading = in .readLine();
      if (reading.compareTo("ACK") == 0) {
       System.out.println("ACK arrived");
@@ -115,7 +103,7 @@ private int port;
      } 
      else {
       in.close();
-      acceptedSocket.close();
+      socket.close();
       flag = ConnectionType.Not_Connected;
      }
     } else {
@@ -183,9 +171,9 @@ private int port;
     System.out.println("Server is runnning");
     System.out.println("Waiting for a client ...");
     System.out.println("Listening");
-    acceptedSocket = server.accept();
-    in = new BufferedReader(new InputStreamReader(acceptedSocket.getInputStream()));
-    out = new PrintWriter(acceptedSocket.getOutputStream(), true);
+    socket = server.accept();
+    in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    out = new PrintWriter(socket.getOutputStream(), true);
    } else {
     System.out.println("Server is closed !");
     this.closing_datachannels();
@@ -194,33 +182,18 @@ private int port;
    System.out.println(i);
   }
  }
- //Minden kezdeti kapcsoaltfelépítéshez szükséges adat csatornát becsukja
- public void closing_datachannels() {
-  try {
-   // close connection
-   if ( in != null) {
-    System.out.println("Data input buffer is closing!"); 
-    in .close();
-   } else {
-    System.out.println("Data input buffer is already closed!");
-   }
-   if (out != null) {
-    System.out.println("Data output buffer is closing!");
-    out.flush();
-    out.close();
-
-   } else {
-    System.out.println("Data output buffer is already closed!");
-   }
-
-
-  } catch (IOException i) {
-   System.out.println(i);
-  }
- }
-//mindent adatáramlást megszüntet
+//mindent adatáramlást megszûntet
+ @Override
  public void closing_all() {
   try {
+	  
+    if(outputStream != null) {
+	    	outputStream.flush();
+		    outputStream.close();
+	    		} 
+	if(inputStream != null) {
+		    inputStream.close();
+	}
    if (!server.isClosed()) {
     System.out.println("Server is closing!");
     server.close();
@@ -229,10 +202,10 @@ private int port;
    } else {
     System.out.println("Server is already closed!");
    }
-   if (acceptedSocket != null) {
+   if (socket != null) {
     System.out.println("Accepted client is closing!");
     flag = ConnectionType.Not_Connected;
-    acceptedSocket.close();
+    socket.close();
    } else {
     System.out.println("Accepted client is already closed!");
    }
@@ -241,6 +214,7 @@ private int port;
   }
  }
  // hibaellenõrzés, ha Password_Fail van újra indítja a listeninget
+ // ha Won és End turn flagek mindig valósnak vannak feltételezve, tehát csak a szerver hibázhat
  public void checkingFlag()
  {
 	 System.out.println("Flag errors corrected:");
@@ -253,7 +227,7 @@ private int port;
 			
 	 }
 	 }
-	 if (acceptedSocket.isClosed())
+	 if (socket.isClosed())
 	 {
 			if (flag != ConnectionType.Not_Connected)
 			 {	
@@ -283,14 +257,36 @@ private int port;
 			 flag = ConnectionType.Not_Connected;
 			 this.closing_all();
 		 }
+		 if (flag != ConnectionType.Connected_Win && Won == true )
+		 {   
+			 System.out.println("6. Win condition arised, flag state was"+flag.toString());
+			 flag = ConnectionType.Connected_Win;
+		 }
+		 if (flag == ConnectionType.Connected_Win && Won == false )
+		 {   
+			 System.out.println("7. Win condition is false, flag state was"+flag.toString());
+			 if(!server.isClosed())
+			 { 
+			 flag =ConnectionType.Connected;
+			 }
+		 }
+		 if (flag == ConnectionType.Connected_Win && Won == true && !server.isClosed())
+		 {   
+			 System.out.println("8. Win condition arised,but server is still running: flag state was"+flag.toString());
+			 flag = ConnectionType.Not_Connected;
+			 this.closing_all();
+		 }
+		 
+			 
 	 }
 	 }
 
  }
+ @Override
  public String getLocalAddress() {
   return server.getInetAddress().getHostAddress();
  }
-
+@Override
  public int getPort() {
   System.out.println("Sending port info->");
   return server.getLocalPort();
@@ -298,12 +294,6 @@ private int port;
  public int getPassword() {
   System.out.println("Sending password info ->");
   return password;
- }
- public BufferedReader getInputStream() {
-  return in;
- }
- public PrintWriter getOutputStream() {
-    return out;
  }
  public void setPassword(int password) {
   System.out.println("Password has changed!");
@@ -315,15 +305,16 @@ private int port;
  public void setFlag(ConnectionType flag) {
   this.flag = flag;
  }
+ 
+ @Override
  public boolean isClosed() {
-  return server.isClosed();
- }
- public boolean isBound() {
-  return server.isBound();
- }
-
-
-/*public void setPort(int port) {
+	  return server.isClosed();
+	 }
+@Override
+public boolean isBound() {
+	  return server.isBound();
+	 }
+public void changingPort() {
 	try {
 		if(!this.server.isClosed())
 		{
@@ -332,7 +323,7 @@ private int port;
 	} catch (IOException e1) {
 		e1.printStackTrace();
 	}
-	this.port = port;
+	this.port = this.port +1;
 	try {
 		this.server = new ServerSocket(this.port, backlog,this.ip);
 	} catch (IOException e) {
@@ -341,7 +332,7 @@ private int port;
 	System.out.println("Port has changed -> server starting again");
 	
 }
-*/	
+
 
 public int getBacklog() {
 	return backlog;
