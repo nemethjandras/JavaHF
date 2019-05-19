@@ -1,7 +1,9 @@
 package display;
 
+import java.awt.Desktop.*;
+
 import java.awt.*;
-import java.awt.desktop.PrintFilesEvent;
+//import java.awt.desktop.PrintFilesEvent;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -320,7 +322,7 @@ public class GameWindow{
 		 
 		 //load textures
 		 try {
-			 default_unit_texture_buffer = ImageIO.read(new File("D:\\github_reps\\JavaHF_rep\\Game\\assets\\default_unit.png"));
+			 default_unit_texture_buffer = ImageIO.read(new File("D:\\github_reps\\JavaHF_rep\\Game\\assets\\default_tile.png"));
 			 //unit_texture1_buffer = ImageIO.read(new File(""));
 			 //unit_texture2_buffer = ImageIO.read(new File(""));
 			 //unit_texture3_buffer = ImageIO.read(new File(""));
@@ -339,8 +341,8 @@ public class GameWindow{
 	 BufferedImage select_mark_buffer = null;
 	 BufferedImage select_mark_old_buffer = null;
 	 try {
-		 select_mark_buffer = ImageIO.read(new File("D:\\github_reps\\JavaHF_rep\\Game\\assets\\select_mark.png"));
-		 select_mark_old_buffer = ImageIO.read(new File("D:\\github_reps\\JavaHF_rep\\Game\\assets\\select_mark_prev.png"));
+		 select_mark_buffer = ImageIO.read(new File("D:\\github_reps\\JavaHF_rep\\Game\\assets\\default_tile.png"));
+		 select_mark_old_buffer = ImageIO.read(new File("D:\\github_reps\\JavaHF_rep\\Game\\assets\\default_tile.png"));
 		} catch (IOException e){
 		    e.printStackTrace();
 		}
@@ -349,7 +351,7 @@ public class GameWindow{
 	
 	 BufferedImage offTurn_buffer = null;
 	 try {
-		 offTurn_buffer = ImageIO.read(new File("D:\\github_reps\\JavaHF_rep\\Game\\assets\\offTurn_msg.png"));
+		 offTurn_buffer = ImageIO.read(new File("D:\\github_reps\\JavaHF_rep\\Game\\assets\\default_tile.png"));
 		} catch (IOException e){
 		    e.printStackTrace();
 		}
