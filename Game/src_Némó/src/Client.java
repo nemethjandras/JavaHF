@@ -2,15 +2,10 @@
 import java.net.*; 
 import java.io.*; 
   
-public class Client 
+public class Client extends Network
 { 
-    private Socket socket            = null; 
-    private BufferedReader in   = null; 
-    private PrintWriter out     = null; 
 	public Client(String address, int port) 
     { 
-    	 
-        // establish a connection 
         try
         { 
         	Inet4Address ip = (Inet4Address) Inet4Address.getByName(address);
@@ -29,35 +24,6 @@ public class Client
         }
        
     }
-	public void normal_datatransfer_to_server(NetworkData send)
-	{
-		 try {
-		 System.out.println("Normál mûködés elkezdõdött kliens oldalon!");
-		 ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
-			// if (kör vége) a szerver következik
-			 outputStream.writeObject(send);
-		}
-		 catch (IOException i) 
-		 {
-			   System.out.println(i);
-		 }
-	}
-	public NetworkData normal_datatransfer_from_server()
-	 {
-		NetworkData incoming =null;
-		try {
-		ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
-	    incoming  = (NetworkData) inputStream.readObject();
-		
-		}
-		 catch(IOException i) 
-	     { 
-	         System.out.println(i); 
-	     } catch (ClassNotFoundException e) {
-			e.printStackTrace();
-	     }
-		return incoming;
-	 }
     public void SendingPassword (int Password)
     { 
     	if (socket.isConnected())
@@ -72,8 +38,6 @@ public class Client
      
   
    }
-    	
-    
 public void AckCheck()
 { 
 	try   {
@@ -93,28 +57,7 @@ public void AckCheck()
          System.out.println(i); 
      }
 } 
-    public void closing_all()
-    {
-    	try {
-    	if (!socket.isClosed())
-    	{
-    	socket.close();
-    	} 
-    }
-    	 catch(IOException i) 
-        { 
-            System.out.println(i); 
-        }
-       } 
-    public boolean isClosed() {
-    	  return socket.isClosed();
-    	 }
-    	 public boolean isBound() {
-    	  return socket.isBound();
-    	 }
-    public String getLocalAddress() {
-    	  return socket.getInetAddress().getHostAddress();
-    	 }
+    @Override
     public int getPort()
     {
     	return socket.getLocalPort();

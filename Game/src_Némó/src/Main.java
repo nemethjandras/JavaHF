@@ -8,8 +8,8 @@ public static void main(String args[])
 	   ConnectionType  end = ConnectionType.Connected_Win;
 	   int password = 2300;
 	   String url = "0.0.0.0";
-	   Server servero = new Server(url,6742,password,8);
-	   Client cliento = new Client(url,6742);
+	   Server servero = new Server(url,6747,password,8);
+	   Client cliento = new Client(url,6747);
 	   System.out.println(cliento.getPort());
 	   servero.listening();
 	   System.out.println(servero.getFlag());
@@ -56,8 +56,8 @@ public static void main(String args[])
 	 {
 	  
 	   hello.PrintState();
-	   servero.normal_datatransfer_to_client(hello);
-	   hello =cliento.normal_datatransfer_from_server();
+	   servero.sending(hello);
+	   hello =cliento.incoming();
 	   xpos = hello.getXpos();
 	   xpos [0]=i+1;
 	   xpos [1]=i;
@@ -66,8 +66,8 @@ public static void main(String args[])
 	   ypos [1]=i;
 	   units = hello.getUnits();
 	   MainWindow.displayUpdate(units,xpos,ypos,2);
-	   cliento.normal_datatransfer_to_server(omg);
-	   hello =servero.normal_datatransfer_from_client();
+	   cliento.sending(omg);
+	   hello =servero.incoming();
 	   xpos = hello.getXpos();
 	   xpos [0]=i+1;
 	   xpos [1]=i;
@@ -93,8 +93,8 @@ public static void main(String args[])
 		   while(i !=0)
 		   {
 		   hello.PrintState();
-		   servero.normal_datatransfer_to_client(hello);
-		   hello =cliento.normal_datatransfer_from_server();
+		   servero.sending(hello);
+		   hello =cliento.incoming();
 		   xpos = hello.getXpos();
 		   xpos [0]=i-2;
 		   xpos [1]=i-1;
@@ -103,8 +103,8 @@ public static void main(String args[])
 		   ypos [1]=i-1;
 		   units = hello.getUnits();
 		   MainWindow.displayUpdate(units,xpos,ypos,2);
-		   cliento.normal_datatransfer_to_server(omg);
-		   hello =servero.normal_datatransfer_from_client();
+		   cliento.sending(omg);
+		   hello =servero.incoming();
 		   xpos = hello.getXpos();
 		   xpos [0]=i-2;
 		   xpos [1]=i-1;
