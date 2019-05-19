@@ -1,43 +1,93 @@
 package mygame;
 
 abstract public class Unit {
+	public int num;
 	public int healthValue;
-    public final int attackValue;
-    public int availableAction;
+	public int availableAction;
+    
+    public final int type;	//0:worker, 1:infantry, 2:archer, 3:paladin
+	public final int damageValue;
     public final int actionPerRound;
-    public final int attackRange;
+    
     public int xPos;
     public int yPos;
-    public int type;
 
-    protected Unit(int healthVal, int attackVal, int availableAct, int actPerRound, int attRange, int xPosi, int yPosi) {
-        healthValue = healthVal;
-        attackValue = attackVal;
+    //TODO: (unit constructor parameters): healthVal_oneUnit, attackVal, effectiveness to "unitStats" class, which will be updated when depelovement is made 
+    public Unit(int unitType, int number, int healthVal, int availableAct, int damageVal,  int actPerRound, int xPosi, int yPosi) {
+    	num = number;
+    	healthValue = healthVal * num;
         availableAction = availableAct;
+        
+        type = unitType;
+        damageValue = damageVal;
         actionPerRound = actPerRound;
-        attackRange = attRange;
+        
         xPos = xPosi;
         yPos = yPosi;
     }
-
-    public void fight() {
-        if (availableAction > 0){
-            availableAction -= 1;
+    
+    
+    public boolean isUnitWorker() {
+    	if (type == 0){
+            return true;
         }
         else {
-            System.out.println("Fight action cannot be made, 0 action is available for this unit");
+            return false;
         }
     }
-
-    public void move() {
-        if (availableAction > 0){
-            availableAction -= 1;
+    
+    public boolean hasUnitAction() {
+    	if (availableAction > 0){
+            return true;
         }
         else {
-            System.out.println("Move action cannot be made, 0 action is available for this unit");
+            return false;
         }
     }
+    
+    public boolean isNeighbourCell(int xCurr, int yCurr) {
+    	//4 neighbourhood check
+		if(  ((Math.abs(xPos - xCurr) == 1) &&
+					(Math.abs(yPos - yCurr) == 0))	//left or right from the actual Cell
+		   ||((Math.abs(yPos - yCurr) == 1) &&
+					(Math.abs(xPos - xCurr) == 0 ))) { //up or down from battleField
+						return true;
+		}
+		else {
+			return false;
+		}
+	}
+    
+    public boolean isActionValid(int xCurr, int yCurr) {
+    	if(this.hasUnitAction() && this.isNeighbourCell(xCurr, yCurr)) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
+    
+    public void move(int xCurr, int yCurr) {
+        availableAction -= 1;
+        xPos = xCurr;
+        yPos = yCurr;
+        return;
+    }
+    
+
+    public void merge(Unit unitToMerge){
+    	num += unitToMerge.num;
+        healthValue += unitToMerge.healthValue;
+        return;
+    }
+    
+    
+    abstract public Unit split(int xCurr, int yCurr, int numOfsplitted, UnitStats stats);
+    
+
+    abstract public void damageHandling(int sumEnemyDamage, UnitStats stats);
 
 
-    public void newTurn(){}
+
+    abstract public void newTurn(UnitStats stats);
 }

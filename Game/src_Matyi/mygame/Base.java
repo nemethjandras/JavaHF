@@ -2,26 +2,42 @@ package mygame;
 
 public class Base extends Cell {
 	public int health;
-    public boolean[] madeDevelopements;
-    public int[] developementsPrice;
+	
+    public boolean[] madeDevelopments;
+    public int[] developmentsPrice;
     public int[] unitsPrice;
 
     Base(int xCoord, int yCoord){
         super(xCoord, yCoord, true, false, 0, 0, false, 0, true, 0);
         health = 100;
-        madeDevelopements = new boolean[]{false, false, false, false, false, false, false, false};
-        developementsPrice = new int[]{10, 10, 10, 10, 10, 10, 10, 10};
-        unitsPrice = new int[]{8, 8, 10, 10};
+        
+        madeDevelopments = new boolean[]{false, false, false, false, false, false, false, false};
+        developmentsPrice = new int[]{10, 10, 10, 10, 10, 10, 10, 10};
+        unitsPrice = new int[]{10, 8, 8, 10};
     }
 
-    //Developements: 0-ReducePrice_Archer, 1-ReducePrice_Infatry, 2-ReducePrice_Paladin, 3-ReducePrice_Worker,  
-    //				 4-SkillImprove_Archer, 5-SkillImprove_Infatry, 6-SkillImprove_Paladin, 7-SkillImprove_Worker
+    //Developments array: 0-ReducePrice_Worker, 1-ReducePrice_Infatry, 2-ReducePrice_Archer, 3-ReducePrice_Paladin,  
+    //				 4-ImproveStat_Worker, 5-ImproveStat_Infatry, 6-ImproveStat_Archer, 7-ImproveStat_Paladin, 
+    //unitsPrice array: 0-Worker, 1-Infantry, 2-Archer, 3-Paladin
     
-    public void buyDevelopement(){
+    public void buyDevelopment(){
 
     }
 
     public void buyUnit(){
 
+    }
+    
+    public boolean isDestroyed() {
+    	if (health > 0) {
+    		return false;
+    	}
+    	else {
+    		return true;
+    	}
+    }
+    
+    public void damageHandling(int sumEnemyDamage) {
+    	health -= sumEnemyDamage;
     }
 }
