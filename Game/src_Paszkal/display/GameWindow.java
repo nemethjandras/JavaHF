@@ -19,6 +19,7 @@ public class GameWindow{
 	public boolean onTurn=true; //change to false, only true for testing
 	public boolean split_on=false;
 	Control control;
+	Map map;
 	
 	//frame specific variables
 	JFrame mainWindow = new JFrame("GameWindow");
@@ -74,11 +75,23 @@ public class GameWindow{
 		 	
 		 	//set sizes
 	        mainWindow.setSize(map_width+gui_width, map_heigth);
+	        mainWindow.setMinimumSize(new Dimension(600, 400));
 	        gameSpace.setPreferredSize(new Dimension(map_width+gui_width, map_heigth));
 	        map_sizeW=map_width;
 	        map_sizeH=map_heigth;
 	        gui_sizeW=gui_width;
-	        
+	        mainWindow.addComponentListener(new ComponentAdapter( ) {
+	        	  public void componentResized(ComponentEvent ev) {
+	        	   map_sizeH=mainWindow.getHeight()-mainWindow.getInsets().top-mainWindow.getInsets().bottom;
+	        	   map_sizeW=map_sizeH;
+	        	   gui_sizeW=mainWindow.getWidth()-map_sizeW-mainWindow.getInsets().left-mainWindow.getInsets().right;
+	        	   if(gui_sizeW<200)
+	        		   mainWindow.setSize(mainWindow.getWidth()+10, mainWindow.getHeight());
+	        	   
+	        	   //displayMap(...);
+	        	   createGui();
+	        	  }
+	        	});
 	        
 	        //adding components to mainWindow
 	        mainWindow.add(gui_box);
