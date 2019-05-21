@@ -103,7 +103,7 @@ public class Control
 		}
 		if(curr==Select.EMPTY && prev==Select.FRIENDLY && split) {
 			//split units (in half) on xPrev,yPrev to xCurr, yCurr
-			//int ret = player.split(xPrev, yPrev, xCurr, yCurr, numOfsplitted)
+			//int ret = player.split(xPrev, yPrev, xCurr, yCurr, 1)
 			split=false;
 			return 1;
 		}
