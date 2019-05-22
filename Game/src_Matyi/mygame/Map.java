@@ -1,8 +1,8 @@
-package src_Matyi.mygame;
+package mygame;
 
 public class Map {
-	int xLen;
-	int yLen;
+	public int xLen;
+	public int yLen;
     public Cell[][] grid;
 
     Map(initService initParam, Base homeBaseOne, Base homeBaseTwo){

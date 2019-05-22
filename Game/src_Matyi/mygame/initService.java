@@ -1,4 +1,4 @@
-package src_Matyi.mygame;
+package mygame;
 
 import java.util.Arrays;
 
@@ -27,7 +27,7 @@ public class initService {
     //6 - simple cell without bonus
 	
 	
-	initService(String mapSize){
+	public initService(String mapSize){
 		this.startGold = 50;
 		
 		if(mapSize == "small"){

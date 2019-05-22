@@ -69,9 +69,12 @@ public class GameWindow{
     Image default_unit_texture;
     //add more textures
     
-	 public GameWindow(int map_width, int map_heigth, int gui_width) {
+	 public GameWindow(int map_width, int map_heigth, int gui_width, Map newmap) {
 		 	mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        unitNum=0;
+	        map=newmap;
+	        tiles_x=-1;
+	        tiles_y=-1;
 		 	
 		 	//set sizes
 	        mainWindow.setSize(map_width+gui_width, map_heigth);
@@ -80,6 +83,7 @@ public class GameWindow{
 	        map_sizeW=map_width;
 	        map_sizeH=map_heigth;
 	        gui_sizeW=gui_width;
+	        /*
 	        mainWindow.addComponentListener(new ComponentAdapter( ) {
 	        	  public void componentResized(ComponentEvent ev) {
 	        	   map_sizeH=mainWindow.getHeight()-mainWindow.getInsets().top-mainWindow.getInsets().bottom;
@@ -87,11 +91,12 @@ public class GameWindow{
 	        	   gui_sizeW=mainWindow.getWidth()-map_sizeW-mainWindow.getInsets().left-mainWindow.getInsets().right;
 	        	   if(gui_sizeW<200)
 	        		   mainWindow.setSize(mainWindow.getWidth()+10, mainWindow.getHeight());
-	        	   
-	        	   //displayMap(...);
+	        	   displayMap();
+	        	   displayUpdate();
 	        	   createGui();
 	        	  }
 	        	});
+	        	*/
 	        
 	        //adding components to mainWindow
 	        mainWindow.add(gui_box);
@@ -110,8 +115,6 @@ public class GameWindow{
 			 gameSpace.add(hud1,0);
 			 hud1.setBounds(map_sizeW+gui_sizeW/4, map_sizeH/10, gui_sizeW/2, map_sizeH/10);
 			 hud1.setFont (hud1.getFont ().deriveFont (32.0f));
-		 
-			 
 			 
 		 	c_buy1.setSize(gui_sizeW,map_sizeH/20);
 		 	c_buy1.setBounds(map_sizeW+gui_sizeW/10*7, map_sizeH/10*4, gui_sizeW/10*3, map_sizeH/10);
@@ -184,11 +187,11 @@ public class GameWindow{
 		    {
 		      public void actionPerformed(ActionEvent e)
 		      {
-		    	  System.out.format("buy1:%d",Integer.parseInt(temp1));
+		    	  System.out.format("buy1:%d\n",Integer.parseInt(temp1));
 		    	  //buy Integer.parseInt(temp1) units of type 1
-		    	  
-		    	//displayUpdate();
-		 		 updateMoneyDisplay();
+		    	  control.player.buyUnit(1, Integer.parseInt(temp1));
+		    	  displayUpdate();
+		 		  updateMoneyDisplay();
 		      }
 		    });
 		    
@@ -202,11 +205,11 @@ public class GameWindow{
 		      public void actionPerformed(ActionEvent e)
 		      {
 		    	  if(onTurn) {
-		    	  System.out.format("buy2:%d",Integer.parseInt(temp2));
+		    	  System.out.format("buy2:%d\n",Integer.parseInt(temp2));
 		    	  //buy Integer.parseInt(temp2) units of type 2
-		    	  
-		    	//displayUpdate();
-		 		 updateMoneyDisplay();
+		    	  control.player.buyUnit(2, Integer.parseInt(temp2));
+		    	  displayUpdate();
+		 		  updateMoneyDisplay();
 		    	  }
 		      }
 		    });
@@ -221,11 +224,11 @@ public class GameWindow{
 		      public void actionPerformed(ActionEvent e)
 		      {
 		    	  if(onTurn) {
-		    	  System.out.format("buy3:%d",Integer.parseInt(temp3));
+		    	  System.out.format("buy3:%d\n",Integer.parseInt(temp3));
 		    	  //buy Integer.parseInt(temp3) units of type 3
-		    	  
-		    	//displayUpdate();
-		 		 updateMoneyDisplay();
+		    	  control.player.buyUnit(3, Integer.parseInt(temp3));
+		    	  displayUpdate();
+		 		  updateMoneyDisplay();
 		    	  }
 		      }
 		    });
@@ -240,11 +243,11 @@ public class GameWindow{
 		      public void actionPerformed(ActionEvent e)
 		      {
 		    	  if(onTurn) {
-		    	  System.out.format("buy4:%d",Integer.parseInt(temp4));
+		    	  System.out.format("buy4:%d\n",Integer.parseInt(temp4));
 		    	  //buy Integer.parseInt(temp4) units of type 4
-		    	  
-		    	//displayUpdate();
-		 		 updateMoneyDisplay();
+		    	  control.player.buyUnit(4, Integer.parseInt(temp4));
+		    	  displayUpdate();
+		    	  updateMoneyDisplay();
 		    	  }
 		      }
 		    });
@@ -258,6 +261,7 @@ public class GameWindow{
 		    {
 		      public void actionPerformed(ActionEvent e)
 		      {
+		    	  System.out.format("endturn\n");
 		    	  endTurn();
 		      }
 		    });
@@ -265,7 +269,22 @@ public class GameWindow{
 	 }
 	 
 	 //print map
-	 public void displayMap(int[][] test_map, int x, int y) {
+	 public void displayMap() {
+		if(tiles_x!=-1 && tiles_y!=-1)
+		{
+			for (int i = 0; i < tiles_y; i++) {
+				for (int j = 0; j < tiles_x; j++) {
+					gameSpace.remove(tiles[j][i]);
+				}
+			}
+		}		 
+		 gameSpace.revalidate();
+		 gameSpace.repaint();
+		 
+		 
+		 int x=map.xLen;
+		 int y=map.yLen;
+		 
 		 tiles_x=x;
 		 tiles_y=y;
 		 stepH=map_sizeW / tiles_x;
@@ -273,6 +292,7 @@ public class GameWindow{
 		 loadTextures();
 		 tiles=new JLabel[x][y];
 		
+
 		 
 		 //print map
 		 for (int i = 0; i < y; i++) {
@@ -280,16 +300,16 @@ public class GameWindow{
 				tiles[j][i]=new JLabel();
 				tiles[j][i].setPreferredSize(new Dimension(stepW, stepH));
 				tiles[j][i].setSize(stepW,stepH);;
-				switch (test_map[j][i]) {
-				case 1:
+				switch (map.grid[j][i].valueForView) {
+				//case 1:
 					//tiles[i][j].setIcon(new ImageIcon(tile_texture1));
-					break;
-				case 2:
+					//break;
+				//case 2:
 					//tiles[i][j].setIcon(new ImageIcon(tile_texture2));
-					break;
-				case 3:
+					///break;
+				//case 3:
 					//tiles[i][j].setIcon(new ImageIcon(tile_texture3));
-					break;
+					///break;
 				default:
 					tiles[j][i].setIcon(new ImageIcon(default_tile_texture));
 					break;
@@ -372,9 +392,13 @@ public class GameWindow{
  }
 	 
 	 //removes and redraws all units on map display
-	 public void displayUpdate(int[] type, int[] posx, int[] posy, int[] unit_num, int num) {
+	 public void displayUpdate() {
+		 int num =control.player.len_forView;
+		 int[] type=control.player.type_forView;
+		 int[] posx=control.player.x_forView;
+		 int[] posy=control.player.y_forView;
+		 int[] unit_num=control.player.num_forView;
 		 
-		
 		 for (int i = 0; i < unitNum; i++) {
 		 	gameSpace.remove(units[i]);
 		 }
@@ -391,15 +415,15 @@ public class GameWindow{
 				units[i].setSize(stepW,stepH);
 				
 				switch (type[i]) {
-				case 1:
+				//case 1:
 					//tiles[i][j].setIcon(new ImageIcon(tile_texture1));
-					break;
-				case 2:
+					//break;
+				//case 2:
 					//tiles[i][j].setIcon(new ImageIcon(tile_texture2));
-					break;
-				case 3:
+					//break;
+				//case 3:
 					//tiles[i][j].setIcon(new ImageIcon(tile_texture3));
-					break;
+					//break;
 				default:
 					units[i].setIcon(new ImageIcon(default_unit_texture));
 					break;
@@ -460,7 +484,7 @@ public class GameWindow{
 	 
 	 public void startTurn() {
 		 onTurn=true;
-		 //displayUpdate();
+		 displayUpdate();
 		 updateMoneyDisplay();
 		 if(offTurn!=null) {
 			 offTurn.setVisible(false);
