@@ -22,6 +22,7 @@ public class GameWindow{
 	public Control control;
 	public Map map;
 	public boolean sandbox_mode=false;
+	public boolean win=false;
 	
 	//frame specific variables
 	JFrame mainWindow = new JFrame("GameWindow");
@@ -31,8 +32,15 @@ public class GameWindow{
 	
 	//buttons and hud
 	String msg="Money: ";
+	String msg1="Your Base's HP:  ";
+	String msg2="Enemy Base's HP: ";
 	String money="0";
+	String base_hp1="0";
+	String base_hp2="0";
+	
 	JLabel hud1=new JLabel(msg+money);
+	JLabel hud2=new JLabel(msg1+base_hp1);
+	JLabel hud3=new JLabel(msg2+base_hp2);
 	JButton b_split = new JButton();
 	JButton b_buy1 = new JButton();
 	JButton b_buy2 = new JButton();
@@ -42,6 +50,8 @@ public class GameWindow{
 	
 	//game display variables
 	JLabel offTurn=null;
+	JLabel victory_msg=null;
+	JLabel defeat_msg=null;
 	 String[] buy_nums= {"0","1","2","3","4","5","6","7","8","9","10"};
 	JComboBox c_buy1=new JComboBox(buy_nums);
 	JComboBox c_buy2=new JComboBox(buy_nums);
@@ -51,6 +61,8 @@ public class GameWindow{
 	String temp2="0";
 	String temp3="0";
 	String temp4="0";
+	JLabel yourBase;
+	JLabel enemyBase;
     JLabel[][] tiles; 		//1 for each tile
     JLabel[] units; 		//1 for each unit
     JLabel select=null;
@@ -64,6 +76,8 @@ public class GameWindow{
     int stepW;		//tile width in pixels
     
     //textures
+    Image victory;
+    Image defeat;
     Image offTurn_msg;
     Image select_mark;
     Image select_mark_old;
@@ -77,6 +91,9 @@ public class GameWindow{
     Image tile_4_texture;
     Image tile_5_texture;
     Image tile_6_texture;
+    
+    Image p_base;
+    Image e_base;
     //add more textures
     
 	 public GameWindow(int map_width, int map_heigth, int gui_width, Map newmap) {
@@ -123,8 +140,20 @@ public class GameWindow{
 			 hud1.setPreferredSize(new Dimension(map_sizeW/2, map_sizeW/8));
 			 hud1.setSize(gui_sizeW,map_sizeH/10);
 			 gameSpace.add(hud1,0);
-			 hud1.setBounds(map_sizeW+gui_sizeW/4, map_sizeH/10, gui_sizeW/2, map_sizeH/10);
-			 hud1.setFont (hud1.getFont ().deriveFont (32.0f));
+			 hud1.setBounds(map_sizeW+gui_sizeW/10, 0, gui_sizeW, map_sizeH/10);
+			 hud1.setFont (hud1.getFont ().deriveFont (22.0f));
+			 
+			 hud2.setPreferredSize(new Dimension(map_sizeW/2, map_sizeW/8));
+			 hud2.setSize(gui_sizeW,map_sizeH/10);
+			 gameSpace.add(hud2,0);
+			 hud2.setBounds(map_sizeW+gui_sizeW/10, map_sizeH/10, gui_sizeW, map_sizeH/10);
+			 hud2.setFont (hud2.getFont ().deriveFont (22.0f));
+			 
+			 hud3.setPreferredSize(new Dimension(map_sizeW/2, map_sizeW/8));
+			 hud3.setSize(gui_sizeW,map_sizeH/10);
+			 gameSpace.add(hud3,0);
+			 hud3.setBounds(map_sizeW+gui_sizeW/10, map_sizeH/10*2, gui_sizeW, map_sizeH/10);
+			 hud3.setFont (hud3.getFont ().deriveFont (22.0f));
 			 
 		 	c_buy1.setSize(gui_sizeW,map_sizeH/20);
 		 	c_buy1.setBounds(map_sizeW+gui_sizeW/10*7, map_sizeH/10*4, gui_sizeW/10*3, map_sizeH/10);
@@ -285,7 +314,6 @@ public class GameWindow{
 		    	  select_display_remove();
 		    	  endTurn();
 		    	  if (sandbox_mode) {
-		    		  control.player.endTurn(map);
 		    		  startTurn();
 				}
 		      }
@@ -349,6 +377,24 @@ public class GameWindow{
 
 			}
 		}
+		 
+		 System.out.format("%d %d\t", control.player.homeBase.xPos,control.player.homeBase.yPos);
+		 System.out.format("%d %d\t", control.enemy.homeBase.xPos,control.enemy.homeBase.yPos);
+		 
+			yourBase=new JLabel();
+			yourBase.setPreferredSize(new Dimension(stepW, stepH));
+			yourBase.setSize(stepW,stepH);
+			yourBase.setIcon(new ImageIcon(p_base));
+			gameSpace.add(yourBase,0);
+			yourBase.setBounds(control.player.homeBase.xPos*stepW, control.player.homeBase.yPos*stepH, stepW, stepH);
+			
+			enemyBase=new JLabel();
+			enemyBase.setPreferredSize(new Dimension(stepW, stepH));
+			enemyBase.setSize(stepW,stepH);
+			enemyBase.setIcon(new ImageIcon(e_base));
+			gameSpace.add(enemyBase,0);
+			enemyBase.setBounds(control.enemy.homeBase.xPos*stepW, control.enemy.homeBase.yPos*stepH, stepW, stepH);
+
 		 gameSpace.revalidate();
 	 }
 		
@@ -364,6 +410,9 @@ public class GameWindow{
 		 BufferedImage tile_texture5_buffer = null;
 		 BufferedImage tile_texture6_buffer = null;
 		 
+		 BufferedImage e_base_buff = null;
+		 BufferedImage p_base_buff = null;
+		 
 		 //load textures
 		 try {
 			 default_tile_texture_buffer = ImageIO.read(new File(".\\assets\\default_tile.png"));
@@ -374,6 +423,9 @@ public class GameWindow{
 			 tile_texture4_buffer = ImageIO.read(new File(".\\assets\\4_tile.png"));
 			 tile_texture5_buffer = ImageIO.read(new File(".\\assets\\5_tile.png"));
 			 tile_texture6_buffer = ImageIO.read(new File(".\\assets\\6_tile.png"));
+			 
+			 e_base_buff = ImageIO.read(new File(".\\assets\\e_base.png"));
+			 p_base_buff = ImageIO.read(new File(".\\assets\\p_base.png"));
 			} catch (IOException e){
 			    e.printStackTrace();
 			}
@@ -387,6 +439,9 @@ public class GameWindow{
 		 tile_4_texture = tile_texture4_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
 		 tile_5_texture = tile_texture5_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
 		 tile_6_texture = tile_texture6_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+		 
+		 p_base = p_base_buff.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+		 e_base = e_base_buff.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
 
 		 
 		 //buffer unit images
@@ -425,12 +480,18 @@ public class GameWindow{
 	select_mark_old = select_mark_old_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
 	
 	 BufferedImage offTurn_buffer = null;
+	 BufferedImage victory_buffer=null;
+	 BufferedImage defeat_buffer=null;
 	 try {
 		 offTurn_buffer = ImageIO.read(new File(".\\assets\\offTurn_msg.png"));
+		 victory_buffer = ImageIO.read(new File(".\\assets\\victory.png"));
+		 defeat_buffer = ImageIO.read(new File(".\\assets\\defeat.png"));
 		} catch (IOException e){
 		    e.printStackTrace();
 		}
 	 offTurn_msg = offTurn_buffer.getScaledInstance(map_sizeW/10*4, map_sizeH/10*1, Image.SCALE_SMOOTH);
+	 victory = victory_buffer.getScaledInstance(map_sizeW/10*4, map_sizeH/10*1, Image.SCALE_SMOOTH);
+	 defeat = defeat_buffer.getScaledInstance(map_sizeW/10*4, map_sizeH/10*1, Image.SCALE_SMOOTH);
  }
 	 
 	 //removes and redraws all units on map display
@@ -478,6 +539,12 @@ public class GameWindow{
 		        units[i].setVerticalTextPosition(JLabel.CENTER);
 				//units[i].setToolTipText(asd);
 		}
+		 
+		 
+		 
+		 
+		 
+		 
 		gameSpace.revalidate();
 	 }
 
@@ -511,6 +578,10 @@ public class GameWindow{
 	   	 onTurn=false;
 	   	 select_display_remove();
 	   	 control.resetSelect();
+	   	 
+		 if(77==control.player.endTurn(map)) {
+			 victory();
+		 }
 	   	  
 		 if (offTurn==null){
 			 offTurn=new JLabel();
@@ -536,6 +607,40 @@ public class GameWindow{
 	 public void updateMoneyDisplay() {
 		 money=Integer.toString(control.player.gold);
 		 hud1.setText(msg+money);
+	 }
+	 
+	 public void updateBaseHpDisplay() {
+		 base_hp1=Integer.toString(control.player.homeBase.health);
+		 base_hp2=Integer.toString(control.enemy.homeBase.health);
+		 hud2.setText(msg1+base_hp1);
+		 hud3.setText(msg2+base_hp2);
+	 }
+	 
+	 public void victory() {
+	   	 onTurn=false;
+	   	 win=true;
+	   	  
+		 victory_msg=new JLabel();
+		 victory_msg.setPreferredSize(new Dimension(map_sizeW/2, map_sizeW/8));
+		 victory_msg.setSize(stepW,stepH);
+		 victory_msg.setIcon(new ImageIcon(victory));
+		 gameSpace.add(victory_msg,0);
+		 victory_msg.setBounds(map_sizeW/10*3, map_sizeH/20*9, map_sizeW/10*4,  map_sizeH/10*1);
+		 victory_msg.setVisible(true);
+		 gameSpace.revalidate();
+	 }
+	 
+	 public void defeat() {
+	   	 onTurn=false;
+	   	  
+		 defeat_msg=new JLabel();
+		 defeat_msg.setPreferredSize(new Dimension(map_sizeW/2, map_sizeW/8));
+		 defeat_msg.setSize(stepW,stepH);
+		 defeat_msg.setIcon(new ImageIcon(defeat));
+		 gameSpace.add(defeat_msg,0);
+		 defeat_msg.setBounds(map_sizeW/10*3, map_sizeH/20*9, map_sizeW/10*4,  map_sizeH/10*1);
+		 defeat_msg.setVisible(true);
+		 gameSpace.revalidate();
 	 }
 
 }

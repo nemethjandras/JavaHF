@@ -12,7 +12,7 @@ enum Select{
 public class Control
 {
 	public Player player;
-	Player enemy;
+	public Player enemy;
 	boolean split;
 	Map map;
 	

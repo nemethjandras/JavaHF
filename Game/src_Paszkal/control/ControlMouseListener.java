@@ -37,6 +37,7 @@ public class ControlMouseListener  extends MouseAdapter
 			{
 				System.out.format("valid command \n");
 				display.select_display_remove();
+				display.updateBaseHpDisplay();
 				display.displayUpdate();
 				display.control.resetSelect();
 			}
@@ -47,6 +48,9 @@ public class ControlMouseListener  extends MouseAdapter
 			}
 			else if(temp==77) {
 				System.out.format("ENEMY BASE DESTROYED \n");
+				display.updateBaseHpDisplay();
+				display.displayUpdate();
+				display.victory();
 			}
 			else if(temp==2) {				
 				System.out.format("first select \n");}
