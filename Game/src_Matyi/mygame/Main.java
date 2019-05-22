@@ -1,4 +1,4 @@
-package src_Matyi.mygame;
+package mygame;
 import java.util.Arrays;
 
 public class Main {

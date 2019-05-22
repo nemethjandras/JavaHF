@@ -1,3 +1,5 @@
+package src;
+
 import java.net.*;
 import java.io.*;
 //TODO A timeoutokkal is kell még egy kicsit szórakozni 

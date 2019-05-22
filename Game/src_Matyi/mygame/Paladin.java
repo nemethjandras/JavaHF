@@ -1,4 +1,4 @@
-package src_Matyi.mygame;
+package mygame;
 
 public class Paladin extends Unit {
 	

@@ -14,30 +14,43 @@ public class ControlMouseListener  extends MouseAdapter
 	int posx;
 	int posy;
 	GameWindow display;
-	Control control;
 	
 	public ControlMouseListener(int x, int y, GameWindow t, Control c){
 		posx=x;
 		posy=y;
 		display=t;
-		control=c;
+
 	}
 			
-	public void mouseClicked (MouseEvent e) 
+	public void mousePressed (MouseEvent e) 
 	{	
 		//System.out.format("Clicked: %d, %d ", posx, posy);
 		if(SwingUtilities.isLeftMouseButton(e) && display.onTurn) 
 		{
 			//System.out.format("left \n");
 			display.select_display_move(posx, posy);
-			/*
-			control.newSelect(posx, posy,display.split_on);
+			
+			display.control.newSelect(posx, posy,display.split_on);
 			display.split_on=false;
-			if(1==execute())
+			int temp=display.control.execute();
+			if(1==temp)
 			{
-				//displayUpdate();
+				System.out.format("valid command \n");
+				display.select_display_remove();
+				display.displayUpdate();
+				display.control.resetSelect();
 			}
-			*/
+			else if(temp==-1){
+				System.out.format("invalid command \n");
+				display.select_display_remove();
+				display.control.resetSelect();
+			}
+			else if(temp==77) {
+				System.out.format("ENEMY BASE DESTROYED \n");
+			}
+			else if(temp==2) {				
+				System.out.format("first select \n");}
+			
 		}
 		if(SwingUtilities.isRightMouseButton(e) && display.onTurn) 
 		{

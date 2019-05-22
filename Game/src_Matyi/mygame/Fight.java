@@ -1,4 +1,4 @@
-package src_Matyi.mygame;
+package mygame;
 import java.util.ArrayList;
 
 public class Fight {

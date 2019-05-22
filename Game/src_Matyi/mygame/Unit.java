@@ -1,4 +1,4 @@
-package src_Matyi.mygame;
+package mygame;
 
 abstract public class Unit {
 	public int num;

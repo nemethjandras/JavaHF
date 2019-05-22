@@ -1,4 +1,4 @@
-package src_Matyi.mygame;
+package mygame;
 
 import java.util.ArrayList;
 
@@ -150,7 +150,7 @@ public class Player {
     public int buyUnit(int unitType, int amount){
     	
     	//check if buying is possible
-    	if ( (isBuyAvailable == false) || (this.homeBase.unitsPrice[unitType] * amount > this.gold) || (unitType == 0 && amount > 1) || (amount < 0) ) {
+    	if ( (isBuyAvailable == false) || (this.homeBase.unitsPrice[unitType] * amount > this.gold) || (unitType == 0 && amount > 1) || (amount <= 0) ) {
     		return -1;
     	}
     	else {

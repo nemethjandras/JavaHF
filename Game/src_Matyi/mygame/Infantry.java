@@ -1,4 +1,4 @@
-package src_Matyi.mygame;
+package mygame;
 
 public class Infantry extends Unit {
 	public boolean isDefensive = false;
