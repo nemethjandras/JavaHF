@@ -111,7 +111,7 @@ public class Control
 		}
 		if(curr==Select.EMPTY && prev==Select.FRIENDLY && split) {
 			//split units on xPrev,yPrev to xCurr, yCurr
-			//int ret = player.split(xPrev, yPrev, xCurr, yCurr, map.grid[xCurr][yCurr], numOfsplitted);
+			//int ret = player.split(xPrev, yPrev, xCurr, yCurr, map.grid[xCurr][yCurr], 1);
 			split=false;
 			return 1;
 		}
