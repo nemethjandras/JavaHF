@@ -16,7 +16,8 @@ public class Main {
 		GameWindow MainWindow=new GameWindow(900,900,400,gameData.map);	
 		MainWindow.createGui();
 		MainWindow.displayMap();
-		MainWindow.control=new Control(gameData.playerOne,gameData.playerTwo);
+		//playerOne >> player, playTwo >> enemy
+		MainWindow.control=new Control(gameData.playerOne,gameData.playerTwo, gameData.map);
 		MainWindow.updateMoneyDisplay();
 
 	}
