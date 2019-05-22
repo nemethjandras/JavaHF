@@ -22,7 +22,7 @@ public class ControlMouseListener  extends MouseAdapter
 
 	}
 			
-	public void mouseClicked (MouseEvent e) 
+	public void mousePressed (MouseEvent e) 
 	{	
 		//System.out.format("Clicked: %d, %d ", posx, posy);
 		if(SwingUtilities.isLeftMouseButton(e) && display.onTurn) 
