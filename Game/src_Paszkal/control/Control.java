@@ -88,7 +88,7 @@ public class Control
 	public int execute() {
 		if(curr==Select.EMPTY && prev==Select.FRIENDLY) {
 			//move units from xPrev,yPrev to xCurr, yCurr
-			//int ret =  player.move(xPrev, yPrev, xCurr, yCurr);
+			//int ret =  player.move(xPrev, yPrev, xCurr, yCurr, map.grid[xCurr][yCurr]);
 			return 1;
 		}
 		if(curr==Select.ENEMY && prev==Select.FRIENDLY) {
@@ -96,17 +96,26 @@ public class Control
 			//int ret = player.fight(xPrev, yPrev, xCurr, yCurr, map, enemy);
 			return 1;
 		}
-		if(curr==Select.FRIENDLY && prev==Select.FRIENDLY && typePrev==typeCurr &&typeCurr!=0) {
-			//merge units on xPrev,yPrev with units on xCurr, yCurr
-			//int ret = player.merge(xPrev, yPrev, xCurr, yCurr)
-			return 1;
-		}
-		if(curr==Select.EMPTY && prev==Select.FRIENDLY && split) {
-			//split units (in half) on xPrev,yPrev to xCurr, yCurr
-			//int ret = player.split(xPrev, yPrev, xCurr, yCurr, 1)
+		/*
+		if(curr==Select.FRIENDLY && prev==Select.FRIENDLY && typePrev==typeCurr &&typeCurr!=0 && split) {
+			//split units on xPrev,yPrev and merge them with units on xCurr, yCurr
+			//int ret = player.splitAndMerge(xPrev, yPrev, xCurr, yCurr, map.grid[xCurr][yCurr], numOfsplitted));
 			split=false;
 			return 1;
 		}
+		*/
+		if(curr==Select.FRIENDLY && prev==Select.FRIENDLY && typePrev==typeCurr &&typeCurr!=0) {
+			//merge units on xPrev,yPrev with units on xCurr, yCurr
+			//int ret = player.merge(xPrev, yPrev, xCurr, yCurr, map.grid[xCurr][yCurr]);
+			return 1;
+		}
+		if(curr==Select.EMPTY && prev==Select.FRIENDLY && split) {
+			//split units on xPrev,yPrev to xCurr, yCurr
+			//int ret = player.split(xPrev, yPrev, xCurr, yCurr, map.grid[xCurr][yCurr], 1);
+			split=false;
+			return 1;
+		}
+
 		
 		return 0;
 	}

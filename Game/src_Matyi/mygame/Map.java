@@ -1,4 +1,4 @@
-package mygame;
+package src_Matyi.mygame;
 
 public class Map {
 	int xLen;

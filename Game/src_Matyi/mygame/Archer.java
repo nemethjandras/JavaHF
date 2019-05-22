@@ -1,4 +1,4 @@
-package mygame;
+package src_Matyi.mygame;
 
 public class Archer extends Unit {
 		
@@ -6,7 +6,7 @@ public class Archer extends Unit {
 		//unitType, number, healthVal, availableAct, damageVal, actPerRound, xPosi, yPosi
         super(2, number, stats.archerHealth, availableAct, stats.archerDamage, 1, xPosi, yPosi);
     }
-	//TODO: adding attackVal in fight
+
 	
     public Unit split(int xCurr, int yCurr, int numOfsplitted, UnitStats stats){
     	Archer splitted = new Archer(numOfsplitted, availableAction-1, stats, xCurr, yCurr);
@@ -27,4 +27,14 @@ public class Archer extends Unit {
     	availableAction = actionPerRound;
     	healthValue = num * stats.archerHealth;
     }
+	
+	public void setEffectiveness(int eff) {
+		//is never called
+		return;
+	}
+	
+	public int getEffectiveness() {
+		//is never called
+		return -1;
+	}
 }

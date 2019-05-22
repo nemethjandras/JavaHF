@@ -1,4 +1,4 @@
-package mygame;
+package src_Matyi.mygame;
 
 public class Paladin extends Unit {
 	
@@ -22,8 +22,17 @@ public class Paladin extends Unit {
     }
 	
 	public void newTurn(UnitStats stats){
-		healthValue = num * stats.paladinHealth;
-		
-    	availableAction = actionPerRound;
+		availableAction = actionPerRound;
+		healthValue = num * stats.paladinHealth;		
     }
+	
+	public void setEffectiveness(int eff) {
+		//is never called
+		return;
+	}
+	
+	public int getEffectiveness() {
+		//is never called
+		return -1;
+	}
 }

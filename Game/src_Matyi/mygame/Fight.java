@@ -1,4 +1,4 @@
-package mygame;
+package src_Matyi.mygame;
 import java.util.ArrayList;
 
 public class Fight {
@@ -85,7 +85,7 @@ public class Fight {
 		int unitNumDef = playerDef.units.size();
 		for (int i = 0; i < unitNumDef; i++) {
 			if( (playerDef.units.get(i).xPos == xCurr) && (playerDef.units.get(i).yPos == yCurr) ) {
-				unitAtt = playerDef.units.get(i);
+				unitDef = playerDef.units.get(i);
 			}			
 		}
 	}
@@ -109,9 +109,9 @@ public class Fight {
 			if (playerAtt.units.get(i).type == 2) {
 				//8-neighbourhood check
 				if(  ((Math.abs(playerAtt.units.get(i).xPos - battleField.xPos) == 1) &&
-							(Math.abs(playerAtt.units.get(i).yPos - battleField.yPos) < 2))	//left or right from battleField
+							(Math.abs(playerAtt.units.get(i).yPos - battleField.yPos) < 2))	//up or down from battleField
 				   ||((Math.abs(playerAtt.units.get(i).yPos - battleField.yPos) == 1) &&
-							(Math.abs(playerAtt.units.get(i).xPos - battleField.xPos) < 2))) { //up or down from battleField
+							(Math.abs(playerAtt.units.get(i).xPos - battleField.xPos) < 2))) { //left or right from battleField
 								sumAttDamage += playerAtt.units.get(i).damageValue * playerAtt.units.get(i).num;
 				}
 			}
@@ -133,8 +133,12 @@ public class Fight {
 		int unitNumDef = playerDef.units.size();
 		for (int i = 0; i < unitNumDef; i++) {
 			if (playerDef.units.get(i).type == 2) {
-				if( (Math.abs(playerDef.units.get(i).xPos - battleField.xPos) < 2) && (Math.abs(playerDef.units.get(i).yPos - battleField.yPos) < 2)) {
-					sumDefDamage += playerDef.units.get(i).damageValue * playerDef.units.get(i).num;
+				//8-neighbourhood check
+				if(  ((Math.abs(playerDef.units.get(i).xPos - battleField.xPos) == 1) &&
+							(Math.abs(playerDef.units.get(i).yPos - battleField.yPos) < 2))	//up or down from battleField
+				   ||((Math.abs(playerDef.units.get(i).yPos - battleField.yPos) == 1) &&
+							(Math.abs(playerDef.units.get(i).xPos - battleField.xPos) < 2))) { //left or right from battleField
+								sumDefDamage += playerDef.units.get(i).damageValue * playerDef.units.get(i).num;
 				}
 			}
 		}

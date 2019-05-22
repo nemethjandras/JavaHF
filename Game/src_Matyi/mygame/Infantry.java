@@ -1,4 +1,4 @@
-package mygame;
+package src_Matyi.mygame;
 
 public class Infantry extends Unit {
 	public boolean isDefensive = false;
@@ -7,7 +7,7 @@ public class Infantry extends Unit {
 		//unitType, number, healthVal, availableAct, damageVal, actPerRound, xPosi, yPosi
 		super(1, number, stats.infantryHealth, availableAct, stats.infantryDamage, 1, xPosi, yPosi);
 	}
-	//TODO: defense action
+
     
     public Unit split(int xCurr, int yCurr, int numOfsplitted, UnitStats stats){
    	   	Infantry splitted = new Infantry(numOfsplitted, availableAction-1, stats, xCurr, yCurr);
@@ -27,4 +27,14 @@ public class Infantry extends Unit {
     	availableAction = actionPerRound;
     	healthValue = num * stats.infantryHealth;
     }
+	
+	public void setEffectiveness(int eff) {
+		//is never called
+		return;
+	}
+	
+	public int getEffectiveness() {
+		//is never called
+		return -1;
+	}
 }
