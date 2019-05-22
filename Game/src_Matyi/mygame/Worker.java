@@ -1,4 +1,4 @@
-package mygame;
+package src_Matyi.mygame;
 
 public class Worker extends Unit {
 	public int effectiveness;
@@ -8,6 +8,7 @@ public class Worker extends Unit {
         super(0, 1, 0, availableAct, 0, 1, xPosi, yPosi);
         effectiveness = workerEffectiveness;
     }
+    
     
     public Unit split(int xCurr, int yCurr, int numOfsplitted, UnitStats stats){
     	//this method can never be called, because Workers cannot be merged or splitted
@@ -20,9 +21,15 @@ public class Worker extends Unit {
     	return;
     }
     
-    public void newTurn(UnitStats stats){
-    	//TODO:
-    		//money += this.effectiveness * cell.production of xPos, yPos (in Player) 
+    public void newTurn(UnitStats stats){ 
     	availableAction = actionPerRound;
+    }
+    
+    public void setEffectiveness(int eff) {
+    	effectiveness = eff;
+    }
+    
+    public int getEffectiveness() {
+    	return this.effectiveness;
     }
 }

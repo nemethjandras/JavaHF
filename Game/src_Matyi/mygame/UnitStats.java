@@ -1,4 +1,4 @@
-package mygame;
+package src_Matyi.mygame;
 
 public class UnitStats {
 	int workerEffectiveness;
@@ -15,29 +15,14 @@ public class UnitStats {
 	public UnitStats() {
 		workerEffectiveness = 1;
 		
-		infantryHealth = 12;
+		infantryHealth = 10;
 		infantryDamage = 6;
 		
-		archerHealth = 10;
-		archerDamage = 3;
+		archerHealth = 8;
+		archerDamage = 4;
 		
-		paladinHealth = 14;
+		paladinHealth = 12;
 		paladinDamage = 8;
 	}
 	
-	public void developeWorker() {
-		
-	}
-	
-	public void developeInf() {
-		
-	}
-	
-	public void developeArch() {
-		
-	}
-	
-	public void developePala() {
-		
-	}
 }

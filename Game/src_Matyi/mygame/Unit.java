@@ -1,4 +1,4 @@
-package mygame;
+package src_Matyi.mygame;
 
 abstract public class Unit {
 	public int num;
@@ -6,7 +6,7 @@ abstract public class Unit {
 	public int availableAction;
     
     public final int type;	//0:worker, 1:infantry, 2:archer, 3:paladin
-	public final int damageValue;
+	public int damageValue;
     public final int actionPerRound;
     
     public int xPos;
@@ -26,6 +26,7 @@ abstract public class Unit {
         yPos = yPosi;
     }
     
+
     
     public boolean isUnitWorker() {
     	if (type == 0){
@@ -48,9 +49,9 @@ abstract public class Unit {
     public boolean isNeighbourCell(int xCurr, int yCurr) {
     	//4 neighbourhood check
 		if(  ((Math.abs(xPos - xCurr) == 1) &&
-					(Math.abs(yPos - yCurr) == 0))	//left or right from the actual Cell
+					(Math.abs(yPos - yCurr) == 0))	//up or down from the actual Cell
 		   ||((Math.abs(yPos - yCurr) == 1) &&
-					(Math.abs(xPos - xCurr) == 0 ))) { //up or down from battleField
+					(Math.abs(xPos - xCurr) == 0 ))) { //left or right from the actual Cell
 						return true;
 		}
 		else {
@@ -83,11 +84,13 @@ abstract public class Unit {
     
     
     abstract public Unit split(int xCurr, int yCurr, int numOfsplitted, UnitStats stats);
-    
 
     abstract public void damageHandling(int sumEnemyDamage, UnitStats stats);
 
-
-
     abstract public void newTurn(UnitStats stats);
+    
+    abstract public void setEffectiveness(int eff);
+    
+    abstract public int getEffectiveness();
 }
+

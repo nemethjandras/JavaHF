@@ -1,35 +1,38 @@
-package mygame;
+package src_Matyi.mygame;
 
 public class Cell {
 	public int xPos;
     public int yPos;
     public final boolean availableForUnits;
-    public boolean isEmpty;
     
     public final int production;
-    //TODO: care about by newTurnInit (separate in Player!) -> map is needed for Player by newTurnInit
-    public final int effectOnMove;
-    //TODO: care about by fight! (in fight class) -> map is needed for Player by fight
+    public final int effectOnAction;
     public final int effectOnDefender;
     
     public final boolean isWinningPoint;    
-    public final boolean isBase;
     
     public int valueForView;
+    //0 - not available for units
+    //1 - base
+    //2 - winning point
+    //3 - production cell
+    //4 - bonus action cell
+    //5 - fight bonus cell
+    //6 - simple cell without bonus
 
-    Cell(int xCoord, int yCoord, boolean availForUnits, boolean isEmpt, int effOnMove, int effOnDef, boolean isWinPoint, int prod, boolean isB, int forView){
+    Cell(int xCoord, int yCoord, int forView, boolean availForUnits, boolean isWinPoint, int prod, int effOnAction, int effOnDef){
         xPos = xCoord;
         yPos = yCoord;
-        availableForUnits = availForUnits;
-        isEmpty = isEmpt;
+        valueForView = forView;
         
+        availableForUnits = availForUnits;
+ 
+        isWinningPoint = isWinPoint;
         production = prod;
-        effectOnMove = effOnMove;
+        
+        effectOnAction = effOnAction;
         effectOnDefender = effOnDef;
         
-        isWinningPoint = isWinPoint;
-        isBase = isB;
         
-        valueForView = forView;
     }
 }
