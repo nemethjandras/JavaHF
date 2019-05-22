@@ -183,6 +183,8 @@ public class GameWindow{
 		      public void actionPerformed(ActionEvent e)
 		      {
 		    	  split_on=true;
+		    	  select_display_remove();
+		    	  control.resetSelect();
 		      }
 		    });
 		    
@@ -200,6 +202,8 @@ public class GameWindow{
 		    	  control.player.buyUnit(0, Integer.parseInt(temp1));
 		    	  displayUpdate();
 		 		  updateMoneyDisplay();
+		 		 select_display_remove();
+		    	  control.resetSelect();
 		      }
 		    });
 		    
@@ -218,6 +222,8 @@ public class GameWindow{
 		    	  control.player.buyUnit(1, Integer.parseInt(temp2));
 		    	  displayUpdate();
 		 		  updateMoneyDisplay();
+		 		 select_display_remove();
+		    	  control.resetSelect();
 		    	  }
 		      }
 		    });
@@ -237,6 +243,8 @@ public class GameWindow{
 		    	  control.player.buyUnit(2, Integer.parseInt(temp3));
 		    	  displayUpdate();
 		 		  updateMoneyDisplay();
+		 		 select_display_remove();
+		    	  control.resetSelect();
 		    	  }
 		      }
 		    });
@@ -256,6 +264,8 @@ public class GameWindow{
 		    	  control.player.buyUnit(3, Integer.parseInt(temp4));
 		    	  displayUpdate();
 		    	  updateMoneyDisplay();
+		    	  select_display_remove();
+		    	  control.resetSelect();
 		    	  }
 		      }
 		    });
@@ -270,6 +280,7 @@ public class GameWindow{
 		      public void actionPerformed(ActionEvent e)
 		      {
 		    	  System.out.format("endturn\n");
+		    	  select_display_remove();
 		    	  endTurn();
 		      }
 		    });

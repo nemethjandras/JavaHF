@@ -85,9 +85,24 @@ public class Control
 				curr=Select.ENEMY;
 				System.out.format("selected: ENEMY\n");
 				typeCurr=enemy.units.get(i).type;
+				typeCurr=-1;
 				return;
 			}
 		}
+		
+		if (enemy.homeBase.xPos==x && enemy.homeBase.yPos==y) {
+			curr=Select.ENEMY;
+			System.out.format("selected: ENEMY\n");
+			return;
+		}
+		
+		if (player.homeBase.xPos==x && player.homeBase.yPos==y) {
+			curr=Select.NOTHING;
+			System.out.format("selected: NOTHING\n");
+			typeCurr=-1;
+			return;
+		}
+		
 		curr=Select.EMPTY;
 		System.out.format("selected: EMPTY\n");
 		return;
@@ -125,7 +140,7 @@ public class Control
 		if(prev==Select.NOTHING) 
 		{
 			System.out.format("command: first select\n");
-			return 1;
+			return 2;
 		}
 
 		System.out.format("command: ???\n");

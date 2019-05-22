@@ -32,14 +32,22 @@ public class ControlMouseListener  extends MouseAdapter
 			
 			display.control.newSelect(posx, posy,display.split_on);
 			display.split_on=false;
-			if(1==display.control.execute())
+			int temp=display.control.execute();
+			if(1==temp)
 			{
 				System.out.format("valid command \n");
+				display.select_display_remove();
 				display.displayUpdate();
+				display.control.resetSelect();
 			}
-			else {
+			else if(temp==0){
 				System.out.format("invalid command \n");
+				display.select_display_remove();
+				display.control.resetSelect();
 			}
+			else if(temp==77) {}
+			else if(temp==2) {				
+				System.out.format("first select \n");}
 			
 		}
 		if(SwingUtilities.isRightMouseButton(e) && display.onTurn) 
