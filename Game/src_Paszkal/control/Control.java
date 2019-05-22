@@ -116,6 +116,7 @@ public class Control
 		}
 		if(curr==Select.ENEMY && prev==Select.FRIENDLY) {
 			//attack with units on xPrev,yPrev at units on xCurr, yCurr
+			System.out.format("command: attack\n");
 			return player.fight(xPrev, yPrev, xCurr, yCurr, map, enemy);
 		}
 		/*
@@ -128,7 +129,8 @@ public class Control
 		*/
 		if(curr==Select.FRIENDLY && prev==Select.FRIENDLY && typePrev==typeCurr &&typeCurr!=0) {
 			//merge units on xPrev,yPrev with units on xCurr, yCurr
-			//int ret = player.merge(xPrev, yPrev, xCurr, yCurr, map.grid[xCurr][yCurr]);
+			System.out.format("command: merge\n");
+			return player.merge(xPrev, yPrev, xCurr, yCurr, map.grid[xCurr][yCurr]);
 
 		}
 		if(curr==Select.EMPTY && prev==Select.FRIENDLY && split) {
@@ -144,7 +146,7 @@ public class Control
 		}
 
 		System.out.format("command: ???\n");
-		return 0;
+		return -1;
 	}
 	
 }

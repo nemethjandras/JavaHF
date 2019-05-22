@@ -40,12 +40,14 @@ public class ControlMouseListener  extends MouseAdapter
 				display.displayUpdate();
 				display.control.resetSelect();
 			}
-			else if(temp==0){
+			else if(temp==-1){
 				System.out.format("invalid command \n");
 				display.select_display_remove();
 				display.control.resetSelect();
 			}
-			else if(temp==77) {}
+			else if(temp==77) {
+				System.out.format("ENEMY BASE DESTROYED \n");
+			}
 			else if(temp==2) {				
 				System.out.format("first select \n");}
 			

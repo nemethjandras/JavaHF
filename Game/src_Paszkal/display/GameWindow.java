@@ -8,6 +8,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -20,6 +21,7 @@ public class GameWindow{
 	public boolean split_on=false;
 	public Control control;
 	public Map map;
+	public boolean sandbox_mode=false;
 	
 	//frame specific variables
 	JFrame mainWindow = new JFrame("GameWindow");
@@ -168,7 +170,7 @@ public class GameWindow{
 		    {
 		      public void actionPerformed(ActionEvent e)
 		      {
-		          temp1 = (String)c_buy4.getSelectedItem();
+		          temp4 = (String)c_buy4.getSelectedItem();
 		      }
 		    });
 		 
@@ -282,6 +284,10 @@ public class GameWindow{
 		    	  System.out.format("endturn\n");
 		    	  select_display_remove();
 		    	  endTurn();
+		    	  if (sandbox_mode) {
+		    		  control.player.endTurn(map);
+		    		  startTurn();
+				}
 		      }
 		    });
 		    
@@ -504,7 +510,7 @@ public class GameWindow{
 	 public void endTurn() {
 	   	 onTurn=false;
 	   	 select_display_remove();
-	   	 //control.resetSelect();
+	   	 control.resetSelect();
 	   	  
 		 if (offTurn==null){
 			 offTurn=new JLabel();

@@ -19,6 +19,8 @@ public class Main {
 		//playerOne >> player, playTwo >> enemy
 		MainWindow.control=new Control(gameData.playerOne,gameData.playerTwo, gameData.map);
 		MainWindow.updateMoneyDisplay();
+		
+		MainWindow.sandbox_mode=true;
 
 	}
 
