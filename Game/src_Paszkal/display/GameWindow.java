@@ -67,6 +67,14 @@ public class GameWindow{
     Image select_mark_old;
     Image default_tile_texture;
     Image default_unit_texture;
+    
+    Image tile_0_texture;
+    Image tile_1_texture;
+    Image tile_2_texture;
+    Image tile_3_texture;
+    Image tile_4_texture;
+    Image tile_5_texture;
+    Image tile_6_texture;
     //add more textures
     
 	 public GameWindow(int map_width, int map_heigth, int gui_width, Map newmap) {
@@ -182,14 +190,14 @@ public class GameWindow{
 		    b_buy1.setBounds(map_sizeW, map_sizeH/10*4, gui_sizeW/10*7, map_sizeH/10);
 		    gameSpace.add(b_buy1);
 		    b_buy1.setVisible(true);
-		    b_buy1.setText("Buy unit1");
+		    b_buy1.setText("Buy Worker");
 		    b_buy1.addActionListener(new ActionListener()
 		    {
 		      public void actionPerformed(ActionEvent e)
 		      {
 		    	  System.out.format("buy1:%d\n",Integer.parseInt(temp1));
 		    	  //buy Integer.parseInt(temp1) units of type 1
-		    	  control.player.buyUnit(1, Integer.parseInt(temp1));
+		    	  control.player.buyUnit(0, Integer.parseInt(temp1));
 		    	  displayUpdate();
 		 		  updateMoneyDisplay();
 		      }
@@ -199,7 +207,7 @@ public class GameWindow{
 		    b_buy2.setBounds(map_sizeW, map_sizeH/10*5, gui_sizeW/10*7, map_sizeH/10);
 		    gameSpace.add(b_buy2);
 		    b_buy2.setVisible(true);
-		    b_buy2.setText("Buy unit2");
+		    b_buy2.setText("Buy Infantry");
 		    b_buy2.addActionListener(new ActionListener()
 		    {
 		      public void actionPerformed(ActionEvent e)
@@ -207,7 +215,7 @@ public class GameWindow{
 		    	  if(onTurn) {
 		    	  System.out.format("buy2:%d\n",Integer.parseInt(temp2));
 		    	  //buy Integer.parseInt(temp2) units of type 2
-		    	  control.player.buyUnit(2, Integer.parseInt(temp2));
+		    	  control.player.buyUnit(1, Integer.parseInt(temp2));
 		    	  displayUpdate();
 		 		  updateMoneyDisplay();
 		    	  }
@@ -218,7 +226,7 @@ public class GameWindow{
 		    b_buy3.setBounds(map_sizeW, map_sizeH/10*6, gui_sizeW/10*7, map_sizeH/10);
 		    gameSpace.add(b_buy3);
 		    b_buy3.setVisible(true);
-		    b_buy3.setText("Buy unit3");
+		    b_buy3.setText("Buy Archer");
 		    b_buy3.addActionListener(new ActionListener()
 		    {
 		      public void actionPerformed(ActionEvent e)
@@ -226,7 +234,7 @@ public class GameWindow{
 		    	  if(onTurn) {
 		    	  System.out.format("buy3:%d\n",Integer.parseInt(temp3));
 		    	  //buy Integer.parseInt(temp3) units of type 3
-		    	  control.player.buyUnit(3, Integer.parseInt(temp3));
+		    	  control.player.buyUnit(2, Integer.parseInt(temp3));
 		    	  displayUpdate();
 		 		  updateMoneyDisplay();
 		    	  }
@@ -237,7 +245,7 @@ public class GameWindow{
 		    b_buy4.setBounds(map_sizeW, map_sizeH/10*7, gui_sizeW/10*7, map_sizeH/10);
 		    gameSpace.add(b_buy4);
 		    b_buy4.setVisible(true);
-		    b_buy4.setText("Buy unit4");
+		    b_buy4.setText("Buy Paladin");
 		    b_buy4.addActionListener(new ActionListener()
 		    {
 		      public void actionPerformed(ActionEvent e)
@@ -245,7 +253,7 @@ public class GameWindow{
 		    	  if(onTurn) {
 		    	  System.out.format("buy4:%d\n",Integer.parseInt(temp4));
 		    	  //buy Integer.parseInt(temp4) units of type 4
-		    	  control.player.buyUnit(4, Integer.parseInt(temp4));
+		    	  control.player.buyUnit(3, Integer.parseInt(temp4));
 		    	  displayUpdate();
 		    	  updateMoneyDisplay();
 		    	  }
@@ -270,17 +278,6 @@ public class GameWindow{
 	 
 	 //print map
 	 public void displayMap() {
-		if(tiles_x!=-1 && tiles_y!=-1)
-		{
-			for (int i = 0; i < tiles_y; i++) {
-				for (int j = 0; j < tiles_x; j++) {
-					gameSpace.remove(tiles[j][i]);
-				}
-			}
-		}		 
-		 gameSpace.revalidate();
-		 gameSpace.repaint();
-		 
 		 
 		 int x=map.xLen;
 		 int y=map.yLen;
@@ -291,7 +288,7 @@ public class GameWindow{
 		 stepW=map_sizeH / tiles_y;
 		 loadTextures();
 		 tiles=new JLabel[x][y];
-		
+		 System.out.format("Dimensions: %d %d\n", x,y);
 
 		 
 		 //print map
@@ -299,21 +296,36 @@ public class GameWindow{
 			for (int j = 0; j < x; j++) {
 				tiles[j][i]=new JLabel();
 				tiles[j][i].setPreferredSize(new Dimension(stepW, stepH));
-				tiles[j][i].setSize(stepW,stepH);;
+				tiles[j][i].setSize(stepW,stepH);
 				switch (map.grid[j][i].valueForView) {
-				//case 1:
-					//tiles[i][j].setIcon(new ImageIcon(tile_texture1));
-					//break;
-				//case 2:
-					//tiles[i][j].setIcon(new ImageIcon(tile_texture2));
-					///break;
-				//case 3:
-					//tiles[i][j].setIcon(new ImageIcon(tile_texture3));
-					///break;
+				
+				case 0:
+					tiles[j][i].setIcon(new ImageIcon(tile_0_texture));
+					break;
+				case 1:
+					tiles[j][i].setIcon(new ImageIcon(tile_1_texture));
+					break;
+				case 2:
+					tiles[j][i].setIcon(new ImageIcon(tile_2_texture));
+					break;
+				case 3:
+					tiles[j][i].setIcon(new ImageIcon(tile_3_texture));
+					break;
+				case 4:
+					tiles[j][i].setIcon(new ImageIcon(tile_4_texture));
+					break;
+				case 5:
+					tiles[j][i].setIcon(new ImageIcon(tile_5_texture));
+					break;
+				case 6:
+					tiles[j][i].setIcon(new ImageIcon(tile_6_texture));
+					break;
+					
 				default:
 					tiles[j][i].setIcon(new ImageIcon(default_tile_texture));
 					break;
-				}			
+				}
+				//System.out.format("%d\t", map.grid[j][i].valueForView);
 				gameSpace.add(tiles[j][i]);
 				tiles[j][i].setBounds(j*stepW, i*stepH, stepW, stepH);
 			    tiles[j][i].addMouseListener(new ControlMouseListener(j, i,this, control));
@@ -327,25 +339,38 @@ public class GameWindow{
 	 public void loadTextures() {
 		 //buffer tile textures
 		 BufferedImage default_tile_texture_buffer = null;
-		 //BufferedImage tile_texture1_buffer = null;
-		 //BufferedImage tile_texture2_buffer = null;
-		 //BufferedImage tile_texture3_buffer = null;
+		 BufferedImage tile_texture0_buffer = null;
+		 BufferedImage tile_texture1_buffer = null;
+		 BufferedImage tile_texture2_buffer = null;
+		 BufferedImage tile_texture3_buffer = null;
+		 BufferedImage tile_texture4_buffer = null;
+		 BufferedImage tile_texture5_buffer = null;
+		 BufferedImage tile_texture6_buffer = null;
 		 
 		 //load textures
 		 try {
 			 default_tile_texture_buffer = ImageIO.read(new File(".\\assets\\default_tile.png"));
-			 //tile_texture1_buffer = ImageIO.read(new File(""));
-			 //tile_texture2_buffer = ImageIO.read(new File(""));
-			 //tile_texture3_buffer = ImageIO.read(new File(""));
+			 tile_texture0_buffer = ImageIO.read(new File(".\\assets\\0_tile.png"));
+			 tile_texture1_buffer = ImageIO.read(new File(".\\assets\\1_tile.png"));
+			 tile_texture2_buffer = ImageIO.read(new File(".\\assets\\2_tile.png"));
+			 tile_texture3_buffer = ImageIO.read(new File(".\\assets\\3_tile.png"));
+			 tile_texture4_buffer = ImageIO.read(new File(".\\assets\\4_tile.png"));
+			 tile_texture5_buffer = ImageIO.read(new File(".\\assets\\5_tile.png"));
+			 tile_texture6_buffer = ImageIO.read(new File(".\\assets\\6_tile.png"));
 			} catch (IOException e){
 			    e.printStackTrace();
 			}
 		 
 		 //size the textures
 		 default_tile_texture = default_tile_texture_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
-		 //tile_texture1 = tile_texture1_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
-		 //tile_texture2 = tile_texture2_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
-		 //tile_texture3 = tile_texture3_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+		 tile_0_texture = tile_texture0_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+		 tile_1_texture = tile_texture1_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+		 tile_2_texture = tile_texture2_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+		 tile_3_texture = tile_texture3_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+		 tile_4_texture = tile_texture4_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+		 tile_5_texture = tile_texture5_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+		 tile_6_texture = tile_texture6_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+
 		 
 		 //buffer unit images
 		 BufferedImage default_unit_texture_buffer = null;

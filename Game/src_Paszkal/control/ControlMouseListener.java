@@ -14,13 +14,12 @@ public class ControlMouseListener  extends MouseAdapter
 	int posx;
 	int posy;
 	GameWindow display;
-	Control control;
 	
 	public ControlMouseListener(int x, int y, GameWindow t, Control c){
 		posx=x;
 		posy=y;
 		display=t;
-		control=c;
+
 	}
 			
 	public void mouseClicked (MouseEvent e) 
@@ -30,14 +29,18 @@ public class ControlMouseListener  extends MouseAdapter
 		{
 			//System.out.format("left \n");
 			display.select_display_move(posx, posy);
-			/*
-			control.newSelect(posx, posy,display.split_on);
+			
+			display.control.newSelect(posx, posy,display.split_on);
 			display.split_on=false;
-			if(1==execute())
+			if(1==display.control.execute())
 			{
-				//displayUpdate();
+				System.out.format("valid command \n");
+				display.displayUpdate();
 			}
-			*/
+			else {
+				System.out.format("invalid command \n");
+			}
+			
 		}
 		if(SwingUtilities.isRightMouseButton(e) && display.onTurn) 
 		{
