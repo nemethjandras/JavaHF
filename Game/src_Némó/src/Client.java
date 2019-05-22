@@ -1,3 +1,5 @@
+package src;
+
 // A Java program for a Client 
 import java.net.*; 
 import java.io.*; 

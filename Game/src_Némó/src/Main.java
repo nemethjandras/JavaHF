@@ -1,5 +1,13 @@
+package src;
+
 //Példa a mûködésre
 import java.util.concurrent.TimeUnit;
+import src.*;
+import display.*;
+import mygame.Game;
+import mygame.initService;
+import control.*;
+
 class Main 
 { 
 public static void main(String args[]) 
@@ -7,9 +15,9 @@ public static void main(String args[])
 	//initialize server / client
 	  // ConnectionType  end = ConnectionType.Connected_Win;
 	   int password = 2300;
-	   String url = "localhost";
+	   String url = "25.39.18.11";
 	   //Server servero = new Server(url,6747,password,8);
-	   Client cliento = new Client(url,6748);
+	   Client cliento = new Client(url,6782);
 	   System.out.println(cliento.getPort());
 	   //servero.listening();
 	   //System.out.println(servero.getFlag());
@@ -46,11 +54,23 @@ public static void main(String args[])
 	 		//x = map.xLen
 	 		//y = map.yLen
 	 		
-	 		//height is prefered to be the multiple of 10
-	 		GameWindow MainWindow=new GameWindow(900,1000,400);	
-	 		MainWindow.displayMap(test_map,x,y);
+	 		//GAME DATA IN
+	 		//HOST-kigenerálja az initData-t Client megkapja !
+			initService initData=new initService("medium");
+			Game gameData=new Game(initData);
+			
+			//UPDATELNI KELL A gameData-ban lévõ dolgokat
+			
+			//LAUNCH GAME WINDOW
+			GameWindow MainWindow=new GameWindow(900,900,400,gameData.map);	
+			MainWindow.createGui();
+			MainWindow.displayMap();
+			//playerOne >> player, playTwo >> enemy
+			MainWindow.control=new Control(gameData.playerOne,gameData.playerTwo, gameData.map);
+			MainWindow.updateMoneyDisplay();
+	 		
+	 		
 	 		//kicsúszik a változtattom az ablak méretet
-	 		//MainWindow.addButtons();
 	 		int i = 0;
 	 while (true)
 	 {
@@ -65,7 +85,6 @@ public static void main(String args[])
 	   ypos [0]=i+1;
 	   ypos [1]=i;
 	   units = hello.getUnits();
-	   MainWindow.displayUpdate(units,xpos,ypos,2);
 	   cliento.sending(omg);
 	  /* hello =servero.incoming();
 	   xpos = hello.getXpos();
@@ -102,7 +121,7 @@ public static void main(String args[])
 		   ypos [0]=i-2;
 		   ypos [1]=i-1;
 		   units = hello.getUnits();
-		   MainWindow.displayUpdate(units,xpos,ypos,2);
+		   MainWindow.displayUpdate();
 		   cliento.sending(omg);
 		  /* hello =servero.incoming();
 		   xpos = hello.getXpos();
