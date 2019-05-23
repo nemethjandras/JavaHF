@@ -95,6 +95,16 @@ public class GameWindow{
     
     Image p_base;
     Image e_base;
+    
+    Image p_unit0_texture;
+    Image p_unit1_texture;
+    Image p_unit2_texture;
+    Image p_unit3_texture;
+    
+    Image e_unit0_texture;
+    Image e_unit1_texture;
+    Image e_unit2_texture;
+    Image e_unit3_texture;
     //add more textures
     
 	 public GameWindow(int map_width, int map_heigth, int gui_width, Map newmap) {
@@ -449,25 +459,41 @@ public class GameWindow{
 		 
 		 //buffer unit images
 		 BufferedImage default_unit_texture_buffer = null;
-		 //BufferedImage unit_texture1_buffer = null;
-		 //BufferedImage unit_texture2_buffer = null;
-		 //BufferedImage unit_texture3_buffer = null;
+		 BufferedImage p_unit0_texture_buffer = null;
+		 BufferedImage p_unit1_texture_buffer = null;
+		 BufferedImage p_unit2_texture_buffer = null;
+		 BufferedImage p_unit3_texture_buffer = null;
+		 BufferedImage e_unit0_texture_buffer = null;
+		 BufferedImage e_unit1_texture_buffer = null;
+		 BufferedImage e_unit2_texture_buffer = null;
+		 BufferedImage e_unit3_texture_buffer = null;
 		 
 		 //load textures
 		 try {
 			 default_unit_texture_buffer = ImageIO.read(new File(".\\assets\\default_unit.png"));
-			 //unit_texture1_buffer = ImageIO.read(new File(""));
-			 //unit_texture2_buffer = ImageIO.read(new File(""));
-			 //unit_texture3_buffer = ImageIO.read(new File(""));
+			 p_unit0_texture_buffer = ImageIO.read(new File(".\\assets\\p_unit0.png"));
+			 p_unit1_texture_buffer = ImageIO.read(new File(".\\assets\\p_unit1.png"));
+			 p_unit2_texture_buffer = ImageIO.read(new File(".\\assets\\p_unit2.png"));
+			 p_unit3_texture_buffer = ImageIO.read(new File(".\\assets\\p_unit3.png"));
+			 e_unit0_texture_buffer = ImageIO.read(new File(".\\assets\\e_unit0.png"));
+			 e_unit1_texture_buffer = ImageIO.read(new File(".\\assets\\e_unit1.png"));
+			 e_unit2_texture_buffer = ImageIO.read(new File(".\\assets\\e_unit2.png"));
+			 e_unit3_texture_buffer = ImageIO.read(new File(".\\assets\\e_unit3.png"));
 			} catch (IOException e){
 			    e.printStackTrace();
 			}
 		 
 		 //size the textures
 		default_unit_texture = default_unit_texture_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
-		 //unit_texture1 = unit_texture1_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
-		 //unit_texture2 = unit_texture2_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
-		 //unit_texture3 = unit_texture3_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+		p_unit0_texture = p_unit0_texture_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+		p_unit1_texture = p_unit1_texture_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+		p_unit2_texture = p_unit2_texture_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+		p_unit3_texture = p_unit3_texture_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+		e_unit0_texture = e_unit0_texture_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+		e_unit1_texture = e_unit1_texture_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+		e_unit2_texture = e_unit2_texture_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+		e_unit3_texture = e_unit3_texture_buffer.getScaledInstance(stepW, stepH, Image.SCALE_SMOOTH);
+
 	 
 	 
 	 //load select mark
@@ -505,31 +531,42 @@ public class GameWindow{
 		 int[] posy=control.player.y_forView;
 		 int[] unit_num=control.player.num_forView;
 		 
+		 
+		 //enemy
+		 int num2 =control.enemy.len_forView;
+		 int[] type2=control.enemy.type_forView;
+		 int[] posx2=control.enemy.x_forView;
+		 int[] posy2=control.enemy.y_forView;
+		 int[] unit_num2=control.enemy.num_forView;
+		 
 		 for (int i = 0; i < unitNum; i++) {
 		 	gameSpace.remove(units[i]);
 		 }
 		 units=null;
 		 gameSpace.revalidate();
 		 gameSpace.repaint();
-		 
 		 String asd;
-		 unitNum=num;
-		 units=new JLabel[num];
+
+		 unitNum=num+num2;
+		 units=new JLabel[num+num2];
 		 for (int i = 0; i < num; i++){
 			    units[i]=new JLabel();
 				units[i].setPreferredSize(new Dimension(stepW, stepH));
 				units[i].setSize(stepW,stepH);
 				
 				switch (type[i]) {
-				//case 1:
-					//tiles[i][j].setIcon(new ImageIcon(tile_texture1));
-					//break;
-				//case 2:
-					//tiles[i][j].setIcon(new ImageIcon(tile_texture2));
-					//break;
-				//case 3:
-					//tiles[i][j].setIcon(new ImageIcon(tile_texture3));
-					//break;
+				case 0:
+					units[i].setIcon(new ImageIcon(p_unit0_texture));
+					break;
+				case 1:
+					units[i].setIcon(new ImageIcon(p_unit1_texture));
+					break;
+				case 2:
+					units[i].setIcon(new ImageIcon(p_unit2_texture));
+					break;
+				case 3:
+					units[i].setIcon(new ImageIcon(p_unit3_texture));
+					break;
 				default:
 					units[i].setIcon(new ImageIcon(default_unit_texture));
 					break;
@@ -540,16 +577,45 @@ public class GameWindow{
 				units[i].setText(asd);
 		        units[i].setHorizontalTextPosition(JLabel.CENTER);
 		        units[i].setVerticalTextPosition(JLabel.CENTER);
-				//units[i].setToolTipText(asd);
 		}
 		 
 		 
-		 
-		 
+
+		
+		 for (int i = num; i < unitNum; i++){
+			    units[i]=new JLabel();
+				units[i].setPreferredSize(new Dimension(stepW, stepH));
+				units[i].setSize(stepW,stepH);
+				
+				switch (type2[i]) {
+				case 0:
+					units[i].setIcon(new ImageIcon(e_unit0_texture));
+					break;
+				case 1:
+					units[i].setIcon(new ImageIcon(e_unit1_texture));
+					break;
+				case 2:
+					units[i].setIcon(new ImageIcon(e_unit2_texture));
+					break;
+				case 3:
+					units[i].setIcon(new ImageIcon(e_unit3_texture));
+					break;	
+				default:
+					units[i].setIcon(new ImageIcon(default_unit_texture));
+					break;
+				}			
+				gameSpace.add(units[i],0);
+				units[i].setBounds(posx2[i]*stepW, posy2[i]*stepH, stepW, stepH);
+				asd=" "+unit_num2[i]+" ";
+				units[i].setText(asd);
+		        units[i].setHorizontalTextPosition(JLabel.CENTER);
+		        units[i].setVerticalTextPosition(JLabel.CENTER);
+		}
 		 
 		 
 		gameSpace.revalidate();
 	 }
+
 
 	 public void select_display_move(int x, int y){
 		 if (select==null){
