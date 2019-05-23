@@ -15,7 +15,7 @@ public class Main {
 		boolean repeate=true;
 		int password = 2300;
 		String url = "25.39.18.11";
-		int port =  7000;
+		int port =  6000;
 		Server servero = new Server(url,port,password,1);
 		Client cliento = new Client(url,port);
 		while(repeate)
@@ -92,6 +92,8 @@ public class Main {
 
 		//OPEN GAME WINDOW
 		GameWindow mainWindow=new GameWindow(900,900,400,gameData.map);
+		mainWindow.createGui();
+		mainWindow.displayMap();
 		
 		if(launcherWindow.start_sandbox || launcherWindow.start_hosting) 
 		{
@@ -103,8 +105,7 @@ public class Main {
 			mainWindow.endTurn();
 		}
 		
-		mainWindow.createGui();
-		mainWindow.displayMap();
+
 		mainWindow.updateMoneyDisplay();
 		mainWindow.updateBaseHpDisplay();
 		mainWindow.sandbox_mode=launcherWindow.start_sandbox;
