@@ -118,56 +118,39 @@ public class Main {
 			{
 			if(mainWindow.onTurn == true)
 			{
-			  
-			  gameData.playerTwo = mainWindow.control.enemy; 
-			  gameData.playerOne =mainWindow.control.player;
-			  gameData.map = mainWindow.control.map; 
-			  NetworkData sending = new NetworkData(gameData,!mainWindow.onTurn,mainWindow.win);
+			  NetworkData sending = new NetworkData(gameData,mainWindow.onTurn,mainWindow.win);
 			  servero.sending(sending);
-			  mainWindow.displayMap();
-			  mainWindow.updateMoneyDisplay();
-			  mainWindow.updateBaseHpDisplay();
-			  
 			}
 			else
 			{
 			  incoming = servero.incoming();
 			  gameData =incoming.Data;
-			  mainWindow.control.player = gameData.playerOne;
-			  mainWindow.control.enemy = gameData.playerTwo;
-			  mainWindow.control.map = gameData.map;
-			  mainWindow.onTurn = incoming.EndTurn;
-			  mainWindow.win = incoming.Won;
+				
 			  mainWindow.displayMap();
 			  mainWindow.updateMoneyDisplay();
 			  mainWindow.updateBaseHpDisplay();
+			  if(!mainWindow.onTurn && !incoming.EndTurn) mainWindow.startTurn();
+			  if(incoming.won) mainWindow.defeat();
+				
 			}
 			}
 			else
 			{
 				if(mainWindow.onTurn == true)
 				{
-				  gameData.playerTwo = mainWindow.control.player; 
-				  gameData.playerOne =mainWindow.control.enemy;
-				  gameData.map = mainWindow.control.map; 
-				  NetworkData sending = new NetworkData(gameData,!mainWindow.onTurn,mainWindow.win);
+				  NetworkData sending = new NetworkData(gameData,mainWindow.onTurn,mainWindow.win);
 				  cliento.sending(sending);
-				  mainWindow.displayMap();
-				  mainWindow.updateMoneyDisplay();
-				  mainWindow.updateBaseHpDisplay();
 				}
 				else
 				{
 				  incoming = cliento.incoming();
 				  gameData =incoming.Data;
-				  mainWindow.control.player = gameData.playerTwo;
-				  mainWindow.control.enemy = gameData.playerOne;
-				  mainWindow.control.map = gameData.map;
-				  mainWindow.onTurn = incoming.EndTurn;
-				  mainWindow.win = incoming.Won;
+
 				  mainWindow.displayMap();
 				  mainWindow.updateMoneyDisplay();
 				  mainWindow.updateBaseHpDisplay();
+				  if(!mainWindow.onTurn && !incoming.EndTurn) mainWindow.startTurn();
+			  	  if(incoming.won) mainWindow.defeat();
 				}
 				
 			}
