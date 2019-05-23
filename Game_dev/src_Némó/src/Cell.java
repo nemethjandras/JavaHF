@@ -1,4 +1,4 @@
-
+package src;
 	public class Cell {
 		private int xPos;
 	    private int yPos;

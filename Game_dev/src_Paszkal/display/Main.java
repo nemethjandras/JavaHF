@@ -1,19 +1,21 @@
 package display;
 
 import mygame.*;
+import src.*;
 import display.*;
 
 import java.util.concurrent.TimeUnit;
 
-import control.*
-;
+import control.*;
 
 public class Main {
 
 	public static void main(String[] args)
 	{
 		boolean repeate=true;
-		
+		int password = 2300;
+		String url = "25.39.18.11";
+		int port =9000;
 		while(repeate)
 		{
 
@@ -30,11 +32,36 @@ public class Main {
 		//BUILD UP CONNECTION
 		if (launcherWindow.start_hosting) 
 		{
+			boolean server_error;
+			Server servero = new Server(url,port,password,1);
+			server_error =servero.starting();
+			   while (server_error == true)
+			   {
+			     port = port +1;
+				 servero.setPort(port);
+				 server_error =servero.starting();
+			   }
+			   servero.listening();
+			   servero.password_check();
+			   servero.datatransfer_check();
+			
 			
 		}
 		if (launcherWindow.start_client) 
 		{
-			
+			  
+			 boolean client_error;
+			 Client cliento = new Client(url,port);
+			 client_error=cliento.starting();
+			   while (client_error ==true)
+			   {
+				   System.out.println(cliento.getPort());
+				   port = port +1;
+				   cliento.setPort(port);
+				   client_error =cliento.starting();
+			   }
+			   cliento.SendingPassword(password);
+			   cliento.AckCheck();
 		}
 		
 		

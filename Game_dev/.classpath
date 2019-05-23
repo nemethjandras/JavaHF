@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="JARs"/>
 	<classpathentry kind="src" path="src_Némó"/>
 	<classpathentry kind="src" path="unit_test"/>
 	<classpathentry kind="src" path="src_Matyi"/>
@@ -10,7 +11,8 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/java_propject/hamcrest-core-1.3.jar"/>
-	<classpathentry kind="lib" path="D:/java_propject/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="JARs/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="JARs/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="JARs/ucigame.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

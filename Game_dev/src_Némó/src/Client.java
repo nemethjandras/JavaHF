@@ -1,4 +1,4 @@
-// A Java program for a Client 
+package src;
 import java.net.*; 
 import java.io.*; 
   

@@ -1,3 +1,4 @@
+package src;
 //Példa a mûködésre
 import java.util.concurrent.TimeUnit;
 @SuppressWarnings("unused")
