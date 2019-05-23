@@ -27,7 +27,16 @@ public class Main {
 			System.out.format("%b\n", launcherWindow.start_sandbox);
 		}
 		
-
+		//BUILD UP CONNECTION
+		if (launcherWindow.start_hosting) 
+		{
+			
+		}
+		if (launcherWindow.start_client) 
+		{
+			
+		}
+		
 		
 		//GAME DATA INITIATION
 		initService initData=null;
