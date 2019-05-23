@@ -77,7 +77,7 @@ public class Main {
 			gameData.playerTwo.gold=Integer.parseInt(launcherWindow.startGold);
 		if (launcherWindow.start_hosting)
 		{
-			NetworkData sending = new NetworkData(gameData,true,false);
+			NetworkData sending = new NetworkData(gameData.map,gameData.playerOne,gameData.playerTwo,true,false);
 			servero.sending(sending);
 		}
 		}
@@ -86,7 +86,9 @@ public class Main {
 			//get init game data from host: map, mapSize, start gold
 			
 			incoming =cliento.incoming();
-			gameData = incoming.Data;
+			gameData.map = incoming.map;
+			gameData.playerOne=incoming.playerOne;
+			gameData.playerTwo=incoming.playerTwo;
              
 		}
 
@@ -124,10 +126,10 @@ public class Main {
 			{
 				while(mainWindow.onTurn)
 				{
-				  NetworkData sending = new NetworkData(mainWindow.control.player, mainWindow.control.enemy,mainWindow.onTurn,mainWindow.win);
+				  NetworkData sending = new NetworkData(gameData.map,mainWindow.control.player, mainWindow.control.enemy,mainWindow.onTurn,mainWindow.win);
 				  servero.sending(sending);
 				}
-				  NetworkData sending = new NetworkData(mainWindow.control.player, mainWindow.control.enemy,mainWindow.onTurn,mainWindow.win);
+				  NetworkData sending = new NetworkData(gameData.map,mainWindow.control.player, mainWindow.control.enemy,mainWindow.onTurn,mainWindow.win);
 				  servero.sending(sending);
 				
 				while(!mainWindow.onTurn)
@@ -168,10 +170,10 @@ public class Main {
 				
 				while(mainWindow.onTurn)
 				{
-				  NetworkData sending = new NetworkData(mainWindow.control.enemy, mainWindow.control.player,mainWindow.onTurn,mainWindow.win);
+				  NetworkData sending = new NetworkData(gameData.map,mainWindow.control.enemy, mainWindow.control.player,mainWindow.onTurn,mainWindow.win);
 				  cliento.sending(sending);
 				}
-				  NetworkData sending = new NetworkData(mainWindow.control.enemy, mainWindow.control.player,mainWindow.onTurn,mainWindow.win);
+				  NetworkData sending = new NetworkData(gameData.map,mainWindow.control.enemy, mainWindow.control.player,mainWindow.onTurn,mainWindow.win);
 				  cliento.sending(sending);
 				
 
