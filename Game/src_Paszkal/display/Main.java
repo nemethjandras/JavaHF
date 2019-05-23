@@ -9,9 +9,12 @@ public class Main {
 
 	public static void main(String[] args) 
 	{
-		boolean endGame=false;
+		boolean repeate=true;
 		
-		
+		while(repeate)
+		{
+
+
 		//LAUNCHER WINDOW
 		Launcher launcherWindow=new Launcher(500,300);
 		launcherWindow.setButtons();
@@ -53,6 +56,7 @@ public class Main {
 			//real time update, watching flags and calling startTurn(), defeat() if needed
 		}
 		
+	}
 	}
 
 }  
