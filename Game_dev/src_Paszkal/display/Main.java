@@ -114,7 +114,7 @@ public class Main {
 		
 
 
-		NetworkData sending = new NetworkData(gameData,mainWindow.onTurn,mainWindow.win);
+		
 		while(!mainWindow.win && !mainWindow.lose) {
 			//real time update, watching flags and calling startTurn(), defeat() if needed
 			//mainWindow.displayMap();
@@ -124,14 +124,10 @@ public class Main {
 			{
 				while(mainWindow.onTurn)
 				{
-				  sending.Data = gameData;
-				  sending.EndTurn=mainWindow.onTurn;
-				  sending.Won =mainWindow.win;
+				  NetworkData sending = new NetworkData(gameData,mainWindow.onTurn,mainWindow.win);
 				  servero.sending(sending);
 				}
-				  sending.Data = gameData;
-				  sending.EndTurn=mainWindow.onTurn;
-				  sending.Won =mainWindow.win;
+				  NetworkData sending = new NetworkData(gameData,mainWindow.onTurn,mainWindow.win);
 				  servero.sending(sending);
 				
 				while(!mainWindow.onTurn)
@@ -173,15 +169,11 @@ public class Main {
 				
 				while(mainWindow.onTurn)
 				{
-				  sending.Data = gameData;
-				  sending.EndTurn=mainWindow.onTurn;
-				  sending.Won =mainWindow.win;
+				  NetworkData sending = new NetworkData(gameData,mainWindow.onTurn,mainWindow.win);
 				  cliento.sending(sending);
 				}
-				  sending.Data = gameData;
-				  sending.EndTurn=mainWindow.onTurn;
-				  sending.Won =mainWindow.win;
-				  servero.sending(sending);
+				  NetworkData sending = new NetworkData(gameData,mainWindow.onTurn,mainWindow.win);
+				  cliento.sending(sending);
 				
 
 				
