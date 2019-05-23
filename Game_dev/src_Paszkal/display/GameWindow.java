@@ -374,24 +374,31 @@ public class GameWindow{
 				
 				case 0:
 					tiles[j][i].setIcon(new ImageIcon(tile_0_texture));
+					tiles[j][i].setToolTipText("Unit cant enter!");
 					break;
 				case 1:
 					tiles[j][i].setIcon(new ImageIcon(tile_1_texture));
+					tiles[j][i].setToolTipText("Base");
 					break;
 				case 2:
 					tiles[j][i].setIcon(new ImageIcon(tile_2_texture));
+					tiles[j][i].setToolTipText("Occupy all crowns to win!");
 					break;
 				case 3:
 					tiles[j][i].setIcon(new ImageIcon(tile_3_texture));
+					tiles[j][i].setToolTipText("+10 gold/turn if a Worker is here");
 					break;
 				case 4:
 					tiles[j][i].setIcon(new ImageIcon(tile_4_texture));
+					tiles[j][i].setToolTipText("+1 action if unit starts here!");
 					break;
 				case 5:
 					tiles[j][i].setIcon(new ImageIcon(tile_5_texture));
+					tiles[j][i].setToolTipText("+1 Attack for every unit!");
 					break;
 				case 6:
 					tiles[j][i].setIcon(new ImageIcon(tile_6_texture));
+					tiles[j][i].setToolTipText("Normal tile");
 					break;
 					
 				default:
@@ -561,7 +568,8 @@ public class GameWindow{
 		 gameSpace.revalidate();
 		 gameSpace.repaint();
 		 String asd;
-
+		 String asd2;
+		 
 		 unitNum=num+num2;
 		 units=new JLabel[num+num2];
 		 for (int i = 0; i < num; i++){
@@ -572,15 +580,25 @@ public class GameWindow{
 				switch (type[i]) {
 				case 0:
 					units[i].setIcon(new ImageIcon(p_unit0_texture));
+					units[i].setToolTipText("Worker");
 					break;
 				case 1:
 					units[i].setIcon(new ImageIcon(p_unit1_texture));
+					asd=" Combined:"+unit_num[i]*8+" attack, "+unit_num[i]*4+" health";
+					asd2="Infantry: 8 attack, 4 hp ";
+					units[i].setToolTipText("<html>"+asd2+"<br>"+asd+"</html>");
 					break;
 				case 2:
 					units[i].setIcon(new ImageIcon(p_unit2_texture));
+					asd=" Combined:"+unit_num[i]*6+" attack, "+unit_num[i]*10+" health";
+					asd2="Archer: 6 attack, 10 hp ";
+					units[i].setToolTipText("<html>"+asd2+"<br>"+asd+"</html>");
 					break;
 				case 3:
 					units[i].setIcon(new ImageIcon(p_unit3_texture));
+					asd=" Combined:"+unit_num[i]*12+" attack, "+unit_num[i]*8+" health";
+					asd2="Paladin: 12 attack, 8 hp ";
+					units[i].setToolTipText("<html>"+asd2+"<br>"+asd+"</html>");
 					break;
 				default:
 					units[i].setIcon(new ImageIcon(default_unit_texture));
@@ -592,6 +610,7 @@ public class GameWindow{
 				units[i].setText(asd);
 		        units[i].setHorizontalTextPosition(JLabel.CENTER);
 		        units[i].setVerticalTextPosition(JLabel.CENTER);
+		        units[i].addMouseListener(new ControlMouseListener(posx[i], posy[i],this, control));
 		}
 		 
 		 
@@ -605,15 +624,25 @@ public class GameWindow{
 				switch (type2[i]) {
 				case 0:
 					units[i].setIcon(new ImageIcon(e_unit0_texture));
+					units[i].setToolTipText("Worker");
 					break;
 				case 1:
 					units[i].setIcon(new ImageIcon(e_unit1_texture));
+					asd=" Combined:"+unit_num[i]*6+" attack, "+unit_num[i]*10+" health";
+					asd2="Infantry: 6 attack, 10 hp ";
+					units[i].setToolTipText("<html>"+asd2+"<br>"+asd+"</html>");
 					break;
 				case 2:
 					units[i].setIcon(new ImageIcon(e_unit2_texture));
+					asd=" Combined:"+unit_num[i]*6+" attack, "+unit_num[i]*10+" health";
+					asd2="Archer: 6 attack, 10 hp ";
+					units[i].setToolTipText("<html>"+asd2+"<br>"+asd+"</html>");
 					break;
 				case 3:
 					units[i].setIcon(new ImageIcon(e_unit3_texture));
+					asd=" Combined:"+unit_num[i]*12+" attack, "+unit_num[i]*8+" health";
+					asd2="Paladin: 12 attack, 8 hp ";
+					units[i].setToolTipText("<html>"+asd2+"<br>"+asd+"</html>");
 					break;	
 				default:
 					units[i].setIcon(new ImageIcon(default_unit_texture));
@@ -625,6 +654,7 @@ public class GameWindow{
 				units[i].setText(asd);
 		        units[i].setHorizontalTextPosition(JLabel.CENTER);
 		        units[i].setVerticalTextPosition(JLabel.CENTER);
+		        units[i].addMouseListener(new ControlMouseListener(posx[i], posy[i],this, control));
 		}
 		 
 		 
