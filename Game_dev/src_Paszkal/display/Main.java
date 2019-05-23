@@ -15,7 +15,7 @@ public class Main {
 		boolean repeate=true;
 		int password = 2300;
 		String url = "25.39.18.11";
-		int port =  6000;
+		int port =  5000;
 		Server servero = new Server(url,port,password,1);
 		Client cliento = new Client(url,port);
 		while(repeate)
@@ -114,7 +114,8 @@ public class Main {
 		
 		int winFlag=0;
 		int turnFlag=0;
-		
+		if(launcherWindow.start_client) turnFlag+=2;
+		NetworkData sending = new NetworkData(gameData,mainWindow.onTurn,mainWindow.win);
 		while(winFlag<=1 && !mainWindow.lose) {
 			//real time update, watching flags and calling startTurn(), defeat() if needed
 			//mainWindow.displayMap();
@@ -124,9 +125,11 @@ public class Main {
 			{
 				if(turnFlag <=1)
 				{
-				  NetworkData sending = new NetworkData(gameData,mainWindow.onTurn,mainWindow.win);
+				  sending.Data = gameData;
+				  sending.EndTurn=mainWindow.onTurn;
+				  sending.Won =mainWindow.win;
 				  servero.sending(sending);
-				  if(!mainWindow.onTurn) turnFlag++; 
+				  if(!incoming.EndTurn) turnFlag++; 
 				}
 				else
 				{
@@ -149,9 +152,11 @@ public class Main {
 			{
 				if(turnFlag<=1)
 				{
-				  NetworkData sending = new NetworkData(gameData,mainWindow.onTurn,mainWindow.win);
+				  sending.Data = gameData;
+				  sending.EndTurn=mainWindow.onTurn;
+				  sending.Won =mainWindow.win;
 				  cliento.sending(sending);
-				  if(!mainWindow.onTurn) turnFlag++; 
+				  if(!incoming.EndTurn) turnFlag++; 
 				}
 				else
 				{
