@@ -23,6 +23,7 @@ public class GameWindow{
 	public Map map;
 	public boolean sandbox_mode=false;
 	public boolean win=false;
+	public boolean lose=false;
 	
 	//frame specific variables
 	JFrame mainWindow = new JFrame("GameWindow");
@@ -310,12 +311,14 @@ public class GameWindow{
 		    {
 		      public void actionPerformed(ActionEvent e)
 		      {
+		    	  if(onTurn) {
 		    	  System.out.format("endturn\n");
 		    	  select_display_remove();
 		    	  endTurn();
 		    	  if (sandbox_mode) {
 		    		  startTurn();
 				}
+		    	  }
 		      }
 		    });
 		    
@@ -632,6 +635,7 @@ public class GameWindow{
 	 
 	 public void defeat() {
 	   	 onTurn=false;
+	   	 lose=true;
 	   	  
 		 defeat_msg=new JLabel();
 		 defeat_msg.setPreferredSize(new Dimension(map_sizeW/2, map_sizeW/8));
