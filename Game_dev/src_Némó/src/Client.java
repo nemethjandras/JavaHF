@@ -9,7 +9,6 @@ public class Client extends Network
         	try {
 				this.ip = (Inet4Address) Inet4Address.getByName(address);
 			} catch (UnknownHostException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         	this.port =port;
@@ -26,9 +25,9 @@ public class Client extends Network
     { 
         socket = new Socket(this.ip, this.port);
         if(socket.isBound() == false)
-   	 { 
+   	    { 
    		 result = true;
-   	 }
+   	    }
         if(socket == null)
         { 
         	result = true;

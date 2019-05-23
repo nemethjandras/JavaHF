@@ -53,12 +53,16 @@ public class Server extends Network{
  ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
  if(flag == ConnectionType.Connected )
  {
-	 // TODO WON-> Connected_Win
-	// flag = ConnectionType.Connected_Win
-	// if (kör vége) a kliens következik
 	 if (sendData != null)
 	 {
+	 if (this.Won != true)
+	 {
 	 outputStream.writeObject(sendData);
+	 }
+	 else
+	 {
+		 System.out.println("The game is already won");
+	 }
 	 }
 	 else
 	 {
@@ -81,14 +85,12 @@ public class Server extends Network{
 	 {
 	 try {
 		   NetworkData data = null;
-		 // TODO WON-> Connected_Win
-		    // flag = ConnectionType.Connected_Win
-			// if (kör vége) a kliens következik
 			ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
 			data =((NetworkData) inputStream.readObject());
 			if(data != null)
 			{
 				incomData = data;
+				this.Won = incomData.Won;
 			}
 			else
 			{
@@ -227,8 +229,6 @@ public class Server extends Network{
    System.out.println(i);
   }
  }
- // hibaellenõrzés, ha Password_Fail van újra indítja a listeninget
- // ha Won és End turn flagek mindig valósnak vannak feltételezve, tehát csak a szerver hibázhat
  public void checkingFlag()
  {
 	 System.out.println("Flag errors corrected:");

@@ -75,8 +75,14 @@ public class Network {
 	 ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
 	 if(sendData != null)
 	 {
+	 if(this.Won != true)
+	 {
 	 outputStream.writeObject(sendData);
-	 
+	 }
+	 else
+	 {
+		 System.out.println("The game is already won");
+	 }
 	 }
 	 else
 	 {
@@ -101,6 +107,7 @@ public class Network {
 				if(data != null)
 				{
 					incomData = data;
+					this.Won = incomData.Won;
 				}
 				else
 				{
