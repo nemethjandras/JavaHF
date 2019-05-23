@@ -36,6 +36,7 @@ public class ControlMouseListener  extends MouseAdapter
 			if(1==temp)
 			{
 				System.out.format("valid command \n");
+				display.control.split=0;
 				display.select_display_remove();
 				display.updateBaseHpDisplay();
 				display.displayUpdate();
@@ -43,6 +44,7 @@ public class ControlMouseListener  extends MouseAdapter
 			}
 			else if(temp==-1){
 				System.out.format("invalid command \n");
+				display.control.split=0;
 				display.select_display_remove();
 				display.control.resetSelect();
 			}
@@ -60,6 +62,7 @@ public class ControlMouseListener  extends MouseAdapter
 		{
 			//System.out.format("right \n");
 			display.select_display_remove();
+			display.control.split=0;
 
 		}
 	}

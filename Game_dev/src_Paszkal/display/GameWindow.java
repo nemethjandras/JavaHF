@@ -54,14 +54,19 @@ public class GameWindow{
 	JLabel victory_msg=null;
 	JLabel defeat_msg=null;
 	 String[] buy_nums= {"0","1","2","3","4","5","6","7","8","9","10"};
-	JComboBox c_buy1=new JComboBox(buy_nums);
+	 String[] buy_nums2= {"0","1"};
+	JComboBox c_buy1=new JComboBox(buy_nums2);
 	JComboBox c_buy2=new JComboBox(buy_nums);
 	JComboBox c_buy3=new JComboBox(buy_nums);
 	JComboBox c_buy4=new JComboBox(buy_nums);
+	
+	JComboBox c_split=new JComboBox(buy_nums);
+	
 	String temp1="0";
 	String temp2="0";
 	String temp3="0";
 	String temp4="0";
+	String temp5="0";
 	JLabel yourBase;
 	JLabel enemyBase;
     JLabel[][] tiles; 		//1 for each tile
@@ -166,6 +171,18 @@ public class GameWindow{
 			 hud3.setBounds(map_sizeW+gui_sizeW/10, map_sizeH/10*2, gui_sizeW, map_sizeH/10);
 			 hud3.setFont (hud3.getFont ().deriveFont (22.0f));
 			 
+		 	c_split.setSize(gui_sizeW,map_sizeH/20);
+		 	c_split.setBounds(map_sizeW+gui_sizeW/10*7, map_sizeH/10*3, gui_sizeW/10*3, map_sizeH/10);
+		    gameSpace.add(c_split);
+		    c_split.setVisible(true);
+		    c_split.addActionListener(new ActionListener()
+		    {
+		      public void actionPerformed(ActionEvent e)
+		      {
+		          temp5 = (String)c_split.getSelectedItem();
+		      }
+		    });
+			 
 		 	c_buy1.setSize(gui_sizeW,map_sizeH/20);
 		 	c_buy1.setBounds(map_sizeW+gui_sizeW/10*7, map_sizeH/10*4, gui_sizeW/10*3, map_sizeH/10);
 		    gameSpace.add(c_buy1);
@@ -216,7 +233,7 @@ public class GameWindow{
 		 
 		 // BUTTONS
 		    b_split.setSize(gui_sizeW,map_sizeH/20);
-		    b_split.setBounds(map_sizeW, map_sizeH/10*3, gui_sizeW, map_sizeH/10);
+		    b_split.setBounds(map_sizeW, map_sizeH/10*3, gui_sizeW/10*7, map_sizeH/10);
 		    gameSpace.add(b_split);
 		    b_split.setVisible(true);
 		    b_split.setText("Split units");
@@ -224,9 +241,7 @@ public class GameWindow{
 		    {
 		      public void actionPerformed(ActionEvent e)
 		      {
-		    	  split_on=true;
-		    	  select_display_remove();
-		    	  control.resetSelect();
+		    	  control.split=Integer.parseInt(temp5);
 		      }
 		    });
 		    
