@@ -154,18 +154,6 @@ public class Main {
 			}
 			else if(launcherWindow.start_client)
 			{
-				while(mainWindow.onTurn)
-				{
-				  sending.Data = gameData;
-				  sending.EndTurn=mainWindow.onTurn;
-				  sending.Won =mainWindow.win;
-				  cliento.sending(sending);
-				}
-				  sending.Data = gameData;
-				  sending.EndTurn=mainWindow.onTurn;
-				  sending.Won =mainWindow.win;
-				  servero.sending(sending);
-				
 				while(!mainWindow.onTurn)
 				{
 				  incoming = cliento.incoming();
@@ -182,6 +170,20 @@ public class Main {
 				  }
 			  	  if(incoming.Won) mainWindow.defeat();
 				}
+				
+				while(mainWindow.onTurn)
+				{
+				  sending.Data = gameData;
+				  sending.EndTurn=mainWindow.onTurn;
+				  sending.Won =mainWindow.win;
+				  cliento.sending(sending);
+				}
+				  sending.Data = gameData;
+				  sending.EndTurn=mainWindow.onTurn;
+				  sending.Won =mainWindow.win;
+				  servero.sending(sending);
+				
+
 				
 			}
 		}
