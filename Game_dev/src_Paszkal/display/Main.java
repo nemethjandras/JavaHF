@@ -2,12 +2,15 @@ package display;
 
 import mygame.*;
 import display.*;
+
+import java.util.concurrent.TimeUnit;
+
 import control.*
 ;
 
 public class Main {
 
-	public static void main(String[] args) 
+	public static void main(String[] args)
 	{
 		boolean repeate=true;
 		
@@ -52,6 +55,7 @@ public class Main {
 		else 
 		{
 			mainWindow.control=new Control(gameData.playerTwo,gameData.playerOne, gameData.map);
+			mainWindow.onTurn=false;
 		}
 		
 		mainWindow.createGui();
@@ -66,6 +70,14 @@ public class Main {
 			//mainWindow.updateMoneyDisplay();
 			//mainWindow.updateBaseHpDisplay();
 		}
+		//delay 3 sec
+		try {
+			TimeUnit.SECONDS.sleep(3);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		mainWindow.mainWindow.dispose();
 		
 	}
 	}
