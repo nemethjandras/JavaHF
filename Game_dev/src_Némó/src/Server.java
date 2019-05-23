@@ -1,8 +1,5 @@
-package src;
-
 import java.net.*;
 import java.io.*;
-//TODO A timeoutokkal is kell még egy kicsit szórakozni 
 
 //Not_Connected = egyértelmû
 //Password_fail = rossz a jelszó, 3 probálkozást enged, utána eldobj a kapcsolatot
@@ -25,40 +22,52 @@ public class Server extends Network{
  
  public Server(String ip, int port, int password, int backlog) {
   this.flag = ConnectionType.Not_Connected;
+  this.Won = false;
   this.port =port;
   this.backlog=backlog;
-  
   try {
    this.ip = (Inet4Address) Inet4Address.getByName(ip);
   } catch (UnknownHostException e) {
    e.printStackTrace();
   }
   this.password = password;
-  try {
-   server = new ServerSocket(port, backlog, this.ip);
-   System.out.println("Server started");
-  } catch (IOException i) {
-	// TODO ha becrashel és nem tudom becsukni a szervert akkor port váltás -> socket honnan fogja tudni hogy mi a port ???
-	//this.changingPort(); 
-   System.out.println(i);
-  }
-
-
  }
  
+ public boolean starting() 
+ {
+   boolean result = false;
+ try {
+	   server = new ServerSocket(this.port, this.backlog, this.ip);
+	   System.out.println("Server started");
+	  } catch (IOException i) {
+	   result =true;
+	   System.out.println(i);
+	  }
+ return result;
+ }
  @Override
  public void sending (NetworkData sendData)
  {
  try {
  System.out.println("Normál mûködés elkezdõdött szerver oldalon!");
  ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
- if(flag == ConnectionType.Connected && YourTurn == true)
+ if(flag == ConnectionType.Connected )
  {
-	 // TODO WON-> Connected_Win
-	// flag = ConnectionType.Connected_Win
-	// if (kör vége) a kliens következik
+	 if (sendData != null)
+	 {
+	 if (this.Won != true)
+	 {
 	 outputStream.writeObject(sendData);
-	
+	 }
+	 else
+	 {
+		 System.out.println("The game is already won");
+	 }
+	 }
+	 else
+	 {
+	 System.out.println("A küldendõ csomag == null");
+	 }
 	 
  }
  }
@@ -72,16 +81,21 @@ public class Server extends Network{
 @Override
  public NetworkData incoming ()
  { 
-	 if(flag == ConnectionType.Connected && YourTurn == true )
+	 if(flag == ConnectionType.Connected)
 	 {
 	 try {
-		 // TODO WON-> Connected_Win
-		    // flag = ConnectionType.Connected_Win
-			// if (kör vége) a kliens következik
+		   NetworkData data = null;
 			ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
-			incomData =((NetworkData) inputStream.readObject());
-			
-			
+			data =((NetworkData) inputStream.readObject());
+			if(data != null)
+			{
+				incomData = data;
+				this.Won = incomData.Won;
+			}
+			else
+			{
+				System.out.println("A kapott csomag null");
+			}
 	     }
 			 catch(IOException i) 
 		     { 
@@ -169,7 +183,7 @@ public class Server extends Network{
  public void listening() {
 
   try {
-   if (!server.isClosed() && flag == ConnectionType.Not_Connected) {
+   if (server != null  && flag == ConnectionType.Not_Connected) {
     System.out.println("Server is runnning");
     System.out.println("Waiting for a client ...");
     System.out.println("Listening");
@@ -196,7 +210,7 @@ public class Server extends Network{
 	if(inputStream != null) {
 		    inputStream.close();
 	}
-   if (!server.isClosed()) {
+   if (server !=null) {
     System.out.println("Server is closing!");
     server.close();
     flag = ConnectionType.Not_Connected;
@@ -215,8 +229,6 @@ public class Server extends Network{
    System.out.println(i);
   }
  }
- // hibaellenõrzés, ha Password_Fail van újra indítja a listeninget
- // ha Won és End turn flagek mindig valósnak vannak feltételezve, tehát csak a szerver hibázhat
  public void checkingFlag()
  {
 	 System.out.println("Flag errors corrected:");
@@ -316,46 +328,7 @@ public class Server extends Network{
 public boolean isBound() {
 	  return server.isBound();
 	 }
-public void changingPort() {
-	try {
-		if(!this.server.isClosed())
-		{
-		this.server.close();
-		}
-	} catch (IOException e1) {
-		e1.printStackTrace();
-	}
-	this.port = this.port +1;
-	try {
-		this.server = new ServerSocket(this.port, backlog,this.ip);
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
-	System.out.println("Port has changed -> server starting again");
-	
-}
-
-
 public int getBacklog() {
 	return backlog;
 }
-
-
-/*public void setBacklog(int backlog) {
-	try {
-		if(!server.isClosed())
-		{
-		server.close();
-		}
-	} catch (IOException e1) {
-		e1.printStackTrace();
-	}
-	this.backlog = backlog;
-	try {
-		server = new ServerSocket(this.port, backlog,this.ip);
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
-	System.out.println("Backlog has changed -> server starting again");
-}*/
 }

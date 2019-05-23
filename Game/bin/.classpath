@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path=""/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Game"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/src_Matyi"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/src_Paszkal"/>
+	<classpathentry kind="output" path=""/>
+</classpath>

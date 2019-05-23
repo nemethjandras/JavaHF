@@ -1,5 +1,3 @@
-package src;
-
 // A Java program for a Client 
 import java.net.*; 
 import java.io.*; 
@@ -8,24 +6,44 @@ public class Client extends Network
 { 
 	public Client(String address, int port) 
     { 
-        try
-        { 
-        	Inet4Address ip = (Inet4Address) Inet4Address.getByName(address);
-            socket = new Socket(ip, port);
-            System.out.println("Connected"); 
-            out = new PrintWriter(socket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        } 
-        catch(UnknownHostException u) 
-        { 
-            System.out.println(u); 
-        } 
-        catch(IOException i) 
-        { 
-            System.out.println(i); 
-        }
+        	try {
+				this.ip = (Inet4Address) Inet4Address.getByName(address);
+			} catch (UnknownHostException e) {
+				e.printStackTrace();
+			}
+        	this.port =port;
+            this.Won = false;
        
+            
     }
+    
+	public boolean starting()
+	 {
+		
+	 boolean result = false;
+	 try
+    { 
+        socket = new Socket(this.ip, this.port);
+        if(socket.isBound() == false)
+   	    { 
+   		 result = true;
+   	    }
+        if(socket == null)
+        { 
+        	result = true;
+        }
+        System.out.println("Connected"); 
+        out = new PrintWriter(socket.getOutputStream(), true);
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+    } 
+    catch(IOException i) 
+    { 
+        System.out.println(i); 
+        result = true;
+    }
+	
+	 return result;
+	 }
     public void SendingPassword (int Password)
     { 
     	if (socket.isConnected())
@@ -59,8 +77,7 @@ public void AckCheck()
          System.out.println(i); 
      }
 } 
-    @Override
-    public int getPort()
+    public int getClientPort()
     {
     	return socket.getLocalPort();
     	
