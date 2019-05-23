@@ -1,7 +1,8 @@
 package mygame;
 
 public class Paladin extends Unit {
-	
+	private static final long serialVersionUID = 1L;
+
 	Paladin(int number,  int availableAct, UnitStats stats, int xPosi, int yPosi){
 		//unitType, number, healthVal , availableAct, damageVal, actPerRound, xPosi, yPosi
         super(3, number, stats.paladinHealth, availableAct, stats.paladinDamage, 2, xPosi, yPosi);

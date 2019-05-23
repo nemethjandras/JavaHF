@@ -1,6 +1,7 @@
 package mygame;
 
 public class Worker extends Unit {
+	private static final long serialVersionUID = 1L;
 	public int effectiveness;
 
     Worker(int availableAct, int workerEffectiveness, int xPosi, int yPosi){

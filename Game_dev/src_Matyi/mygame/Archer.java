@@ -1,7 +1,8 @@
 package mygame;
 
 public class Archer extends Unit {
-		
+	private static final long serialVersionUID = 1L;
+
 	Archer(int number, int availableAct, UnitStats stats, int xPosi, int yPosi) {
 		//unitType, number, healthVal, availableAct, damageVal, actPerRound, xPosi, yPosi
         super(2, number, stats.archerHealth, availableAct, stats.archerDamage, 1, xPosi, yPosi);
