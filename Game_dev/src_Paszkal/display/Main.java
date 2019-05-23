@@ -131,7 +131,7 @@ public class Main {
 				  incoming = servero.incoming();
 				  gameData =incoming.Data;
 					
-				  mainWindow.displayMap();
+				 // mainWindow.displayMap();
 				  mainWindow.updateMoneyDisplay();
 				  mainWindow.updateBaseHpDisplay();
 				  if(!mainWindow.onTurn && !incoming.EndTurn) mainWindow.startTurn();
@@ -151,7 +151,7 @@ public class Main {
 				  incoming = cliento.incoming();
 				  gameData =incoming.Data;
 
-				  mainWindow.displayMap();
+				 // mainWindow.displayMap();
 				  mainWindow.updateMoneyDisplay();
 				  mainWindow.updateBaseHpDisplay();
 				  if(!mainWindow.onTurn && !incoming.EndTurn) mainWindow.startTurn();
