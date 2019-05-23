@@ -92,19 +92,22 @@ public class Main {
 
 		//OPEN GAME WINDOW
 		GameWindow mainWindow=new GameWindow(900,900,400,gameData.map);
+
 		
 		if(launcherWindow.start_sandbox || launcherWindow.start_hosting) 
 		{
 			mainWindow.control=new Control(gameData.playerOne,gameData.playerTwo, gameData.map);
+			mainWindow.createGui();
+			mainWindow.displayMap();
 		}
 		else 
 		{
 			mainWindow.control=new Control(gameData.playerTwo,gameData.playerOne, gameData.map);
+			mainWindow.createGui();
+			mainWindow.displayMap();
 			mainWindow.endTurn();
 		}
 		
-		mainWindow.createGui();
-		mainWindow.displayMap();
 		mainWindow.updateMoneyDisplay();
 		mainWindow.updateBaseHpDisplay();
 		mainWindow.sandbox_mode=launcherWindow.start_sandbox;
