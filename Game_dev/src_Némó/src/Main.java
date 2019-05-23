@@ -9,21 +9,21 @@ public static void main(String args[])
 	//initialize server / client
 	  // ConnectionType  end = ConnectionType.Connected_Win;
 	   int port_server = 9000;
-	   int port_socket =8960;
+	   int port_socket =6000;
 	   int password = 2300;
 	   boolean server_error;
 	   boolean client_error;
-	   String url = "localhost";
-	   Server servero = new Server(url,port_server,password,1);
+	   String url = "25.39.18.11";
+	  // Server servero = new Server(url,port_server,password,1);
 	   Client cliento = new Client(url,port_socket);
-	   server_error =servero.starting();
-	   while (server_error == true) {
+	  // server_error =servero.starting();
+	  /* while (server_error == true) {
 		   System.out.println(servero.getPort());
 		   port_server = port_server +1;
 		   servero.setPort(port_server);
 		   server_error =servero.starting();
 	   }
-	   System.out.println(servero.getPort());
+	   System.out.println(servero.getPort());*/
 	   client_error=cliento.starting();
 	   while (client_error ==true) {
 		   System.out.println(cliento.getPort());
@@ -32,14 +32,21 @@ public static void main(String args[])
 		   client_error =cliento.starting();
 	   }
 	   System.out.println(cliento.getPort());
-	   servero.listening();
+	  // servero.listening();
 	   cliento.SendingPassword(password);
-	   servero.password_check();
-	   System.out.println(servero.getFlag());
+	  // servero.password_check();
+	   //System.out.println(servero.getFlag());
 	   cliento.AckCheck();
-	   servero.datatransfer_check();
-   
-	   
+	  // servero.datatransfer_check();
+       NetworkData hello = null;
+      hello= cliento.incoming();
+      if(hello == null)
+      {
+   	   System.out.println("NOOOOOOOO");
+      }
+      else {
+    	  System.out.println("YESSSSS");
+      }
 	   
 	   
 	   

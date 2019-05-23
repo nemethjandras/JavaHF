@@ -15,7 +15,9 @@ public class Main {
 		boolean repeate=true;
 		int password = 2300;
 		String url = "25.39.18.11";
-		int port =9000;
+		int port = 6000;
+		Server servero = new Server(url,port,password,1);
+		Client cliento = new Client(url,port);
 		while(repeate)
 		{
 
@@ -33,7 +35,6 @@ public class Main {
 		if (launcherWindow.start_hosting) 
 		{
 			boolean server_error;
-			Server servero = new Server(url,port,password,1);
 			server_error =servero.starting();
 			   while (server_error == true)
 			   {
@@ -51,7 +52,6 @@ public class Main {
 		{
 			  
 			 boolean client_error;
-			 Client cliento = new Client(url,port);
 			 client_error=cliento.starting();
 			   while (client_error ==true)
 			   {
@@ -74,14 +74,23 @@ public class Main {
 			gameData=new Game(initData);
 			gameData.playerOne.gold=Integer.parseInt(launcherWindow.startGold);
 			gameData.playerTwo.gold=Integer.parseInt(launcherWindow.startGold);
+		if (launcherWindow.start_hosting)
+		{
+			NetworkData sending = new NetworkData(gameData,true,false);
+			servero.sending(sending);
+		}
 		}
 		else 
 		{
 			//get init game data from host: map, mapSize, start gold
-
+			NetworkData incoming =null;
+			incoming =cliento.incoming();
+			gameData = incoming.Data;
+			
+             
 		}
 
-		//OPEN GAMW WINDOW
+		//OPEN GAME WINDOW
 		GameWindow mainWindow=new GameWindow(900,900,400,gameData.map);
 		
 		if(launcherWindow.start_sandbox || launcherWindow.start_hosting) 

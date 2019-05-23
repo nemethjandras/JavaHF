@@ -1,8 +1,11 @@
 package mygame;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Player {
+public class Player implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	public Base homeBase;
 	
     public int gold;

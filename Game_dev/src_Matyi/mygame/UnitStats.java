@@ -1,6 +1,10 @@
 package mygame;
 
-public class UnitStats {
+import java.io.Serializable;
+
+public class UnitStats implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	int workerEffectiveness;
 	
 	int infantryHealth;

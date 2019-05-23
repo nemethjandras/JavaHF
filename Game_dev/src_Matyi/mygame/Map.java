@@ -1,6 +1,9 @@
 package mygame;
 
-public class Map {
+import java.io.Serializable;
+
+public class Map implements Serializable{
+	private static final long serialVersionUID = 1L;
 	public int xLen;
 	public int yLen;
     public Cell[][] grid;

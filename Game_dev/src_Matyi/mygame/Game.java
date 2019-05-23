@@ -1,7 +1,10 @@
 package mygame;
 
-public class Game {
-    public Player playerOne;
+import java.io.Serializable;
+
+public class Game implements Serializable{
+	private static final long serialVersionUID = 726040503589477458L;
+	public Player playerOne;
     public Player playerTwo;
     public Map map;
 
