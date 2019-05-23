@@ -72,7 +72,7 @@ public class Network {
 	 public void sending (NetworkData sendData)
 	 {
 	 try {
-	 //System.out.println("Normál mûködés elkezdõdött szerver oldalon!");
+	 //System.out.println("Normï¿½l mï¿½kï¿½dï¿½s elkezdï¿½dï¿½tt szerver oldalon!");
 	 ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
 	 if(sendData != null)
 	 {
@@ -87,7 +87,7 @@ public class Network {
 	 }
 	 else
 	 {
-		 System.out.println("A küldendõ csomag null");
+		 System.out.println("A kï¿½ldendï¿½ csomag null");
 	 }
 		 
 	 }
@@ -123,7 +123,7 @@ public class Network {
 			     }
 		 return  incomData;
 	 }
-	//Minden kezdeti kapcsolattfelépítéshez szükséges adat csatornát becsukja
+	//Minden kezdeti kapcsolattfelï¿½pï¿½tï¿½shez szï¿½ksï¿½ges adat csatornï¿½t becsukja
 	 public void closing_datachannels() {
 	  try {
 	   // close connection
