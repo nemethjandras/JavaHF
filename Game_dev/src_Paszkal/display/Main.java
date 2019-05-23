@@ -130,7 +130,7 @@ public class Main {
 			  mainWindow.updateMoneyDisplay();
 			  mainWindow.updateBaseHpDisplay();
 			  if(!mainWindow.onTurn && !incoming.EndTurn) mainWindow.startTurn();
-			  if(incoming.won) mainWindow.defeat();
+			  if(incoming.Won) mainWindow.defeat();
 				
 			}
 			}
@@ -150,7 +150,7 @@ public class Main {
 				  mainWindow.updateMoneyDisplay();
 				  mainWindow.updateBaseHpDisplay();
 				  if(!mainWindow.onTurn && !incoming.EndTurn) mainWindow.startTurn();
-			  	  if(incoming.won) mainWindow.defeat();
+			  	  if(incoming.Won) mainWindow.defeat();
 				}
 				
 			}
