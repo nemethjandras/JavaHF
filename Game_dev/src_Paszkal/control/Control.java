@@ -14,7 +14,7 @@ public class Control
 	public Player player;
 	public Player enemy;
 	public int split=0;
-	Map map;
+	public Map map;
 	
 	Select prev;
 	int xPrev;

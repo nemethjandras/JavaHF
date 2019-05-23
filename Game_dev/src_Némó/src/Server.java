@@ -92,6 +92,10 @@ public class Server extends Network{
 			{
 				incomData = data;
 				this.Won = incomData.Won;
+				if(Won == true)
+				{
+					flag =  ConnectionType.Connected_Win;
+				}
 			}
 			else
 			{
