@@ -113,6 +113,7 @@ public class Main {
 		mainWindow.sandbox_mode=launcherWindow.start_sandbox;
 		
 		boolean winFlag=false;
+		boolean turnFlag=mainWindow.onTurn;
 		
 		while(!winFlag && !mainWindow.lose) {
 			//real time update, watching flags and calling startTurn(), defeat() if needed
@@ -121,17 +122,18 @@ public class Main {
 			//mainWindow.updateBaseHpDisplay();
 			if( launcherWindow.start_hosting)
 			{
-				if(mainWindow.onTurn == true)
+				if(turnFlag == true)
 				{
 				  NetworkData sending = new NetworkData(gameData,mainWindow.onTurn,mainWindow.win);
 				  servero.sending(sending);
+				  turnFlag=mainWindow.onTurn;
 				}
 				else
 				{
 				  incoming = servero.incoming();
 				  gameData =incoming.Data;
-					
-				 // mainWindow.displayMap();
+				  
+				  mainWindow.displayUpdate();
 				  mainWindow.updateMoneyDisplay();
 				  mainWindow.updateBaseHpDisplay();
 				  if(!mainWindow.onTurn && !incoming.EndTurn) mainWindow.startTurn();
@@ -139,19 +141,22 @@ public class Main {
 					
 				}
 			}
-			else
+			else if(launcherWindow.start_client)
 			{
-				if(mainWindow.onTurn == true)
+				if(turnFlag == true)
 				{
 				  NetworkData sending = new NetworkData(gameData,mainWindow.onTurn,mainWindow.win);
 				  cliento.sending(sending);
+				  turnFlag=mainWindow.onTurn;
 				}
 				else
 				{
 				  incoming = cliento.incoming();
 				  gameData =incoming.Data;
-
-				 // mainWindow.displayMap();
+				  
+				  System.out.format("Turns: %b %b \n",mainWindow.onTurn,incoming.EndTurn);
+				  
+				  mainWindow.displayUpdate();
 				  mainWindow.updateMoneyDisplay();
 				  mainWindow.updateBaseHpDisplay();
 				  if(!mainWindow.onTurn && !incoming.EndTurn) mainWindow.startTurn();
