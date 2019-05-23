@@ -15,7 +15,7 @@ public class Main {
 		boolean repeate=true;
 		int password = 2300;
 		String url = "25.39.18.11";
-		int port =  7000;
+		int port =  6000;
 		Server servero = new Server(url,port,password,1);
 		Client cliento = new Client(url,port);
 		while(repeate)
