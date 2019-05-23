@@ -112,29 +112,34 @@ public class Main {
 		mainWindow.updateBaseHpDisplay();
 		mainWindow.sandbox_mode=launcherWindow.start_sandbox;
 		
-		int winFlag=0;
-		int turnFlag=0;
-		if(launcherWindow.start_client) turnFlag+=2;
+
+
 		NetworkData sending = new NetworkData(gameData,mainWindow.onTurn,mainWindow.win);
-		while(winFlag<=1 && !mainWindow.lose) {
+		while(!mainWindow.win && !mainWindow.lose) {
 			//real time update, watching flags and calling startTurn(), defeat() if needed
 			//mainWindow.displayMap();
 			//mainWindow.updateMoneyDisplay();
 			//mainWindow.updateBaseHpDisplay();
 			if( launcherWindow.start_hosting)
 			{
-				if(turnFlag <=1)
+				while(mainWindow.onTurn)
 				{
 				  sending.Data = gameData;
 				  sending.EndTurn=mainWindow.onTurn;
 				  sending.Won =mainWindow.win;
 				  servero.sending(sending);
-				  if(!incoming.EndTurn) turnFlag++; 
 				}
-				else
+				  sending.Data = gameData;
+				  sending.EndTurn=mainWindow.onTurn;
+				  sending.Won =mainWindow.win;
+				  servero.sending(sending);
+				
+				while(!mainWindow.onTurn)
 				{
 				  incoming = servero.incoming();
 				  gameData =incoming.Data;
+				  
+				  //System.out.format("Turns: %b %b \n",mainWindow.onTurn,incoming.EndTurn);
 				  
 				  mainWindow.displayUpdate();
 				  mainWindow.updateMoneyDisplay();
@@ -142,7 +147,6 @@ public class Main {
 				  if(!mainWindow.onTurn && !incoming.EndTurn) 
 				  {
 					  mainWindow.startTurn();
-					  turnFlag=0;
 				  }
 				  if(incoming.Won) mainWindow.defeat();
 					
@@ -150,15 +154,19 @@ public class Main {
 			}
 			else if(launcherWindow.start_client)
 			{
-				if(turnFlag<=1)
+				while(mainWindow.onTurn)
 				{
 				  sending.Data = gameData;
 				  sending.EndTurn=mainWindow.onTurn;
 				  sending.Won =mainWindow.win;
 				  cliento.sending(sending);
-				  if(!incoming.EndTurn) turnFlag++; 
 				}
-				else
+				  sending.Data = gameData;
+				  sending.EndTurn=mainWindow.onTurn;
+				  sending.Won =mainWindow.win;
+				  servero.sending(sending);
+				
+				while(!mainWindow.onTurn)
 				{
 				  incoming = cliento.incoming();
 				  gameData =incoming.Data;
@@ -171,14 +179,11 @@ public class Main {
 				  if(!mainWindow.onTurn && !incoming.EndTurn) mainWindow.startTurn();
 				  {
 					  mainWindow.startTurn();
-					  turnFlag=0;
 				  }
 			  	  if(incoming.Won) mainWindow.defeat();
 				}
 				
 			}
-				
-			if(mainWindow.win) winFlag++; 
 		}
 		//delay 3 sec
 		try {
