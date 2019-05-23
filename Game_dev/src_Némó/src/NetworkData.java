@@ -3,14 +3,17 @@ import java.io.Serializable;
 import mygame.*;
 public class NetworkData implements Serializable {
 	private static final long serialVersionUID = 1L;
-	public Game Data;
+	//public Game Data;
+	public Player playerOne;
+	public Player playerTwo;
 	public boolean EndTurn;
 	public boolean Won;
 	transient private Thread myThread;
 	
-	public NetworkData(Game Data,boolean EndTurn, boolean Won)
+	public NetworkData(Player playerOne,Player playerTwo,boolean EndTurn, boolean Won)
 	{
-		this.Data =Data;
+		this.playerOne =playerOne;
+		this.playerTwo =playerTwo;
 		this.EndTurn=EndTurn;
 		this.Won=Won;
 		
