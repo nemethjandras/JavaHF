@@ -584,19 +584,19 @@ public class GameWindow{
 					break;
 				case 1:
 					units[i].setIcon(new ImageIcon(p_unit1_texture));
-					asd=" Combined:"+unit_num[i]*8+" attack, "+unit_num[i]*4+" health";
+					asd=" Combined: "+unit_num[i]*8+" attack, "+unit_num[i]*4+" health";
 					asd2="Infantry: 8 attack, 4 hp ";
 					units[i].setToolTipText("<html>"+asd2+"<br>"+asd+"</html>");
 					break;
 				case 2:
 					units[i].setIcon(new ImageIcon(p_unit2_texture));
-					asd=" Combined:"+unit_num[i]*6+" attack, "+unit_num[i]*10+" health";
+					asd=" Combined: "+unit_num[i]*6+" attack, "+unit_num[i]*10+" health";
 					asd2="Archer: 6 attack, 10 hp ";
 					units[i].setToolTipText("<html>"+asd2+"<br>"+asd+"</html>");
 					break;
 				case 3:
 					units[i].setIcon(new ImageIcon(p_unit3_texture));
-					asd=" Combined:"+unit_num[i]*12+" attack, "+unit_num[i]*8+" health";
+					asd=" Combined: "+unit_num[i]*12+" attack, "+unit_num[i]*8+" health";
 					asd2="Paladin: 12 attack, 8 hp ";
 					units[i].setToolTipText("<html>"+asd2+"<br>"+asd+"</html>");
 					break;
@@ -628,19 +628,19 @@ public class GameWindow{
 					break;
 				case 1:
 					units[i].setIcon(new ImageIcon(e_unit1_texture));
-					asd=" Combined:"+unit_num[i]*6+" attack, "+unit_num[i]*10+" health";
+					asd=" Combined: "+unit_num[i]*6+" attack, "+unit_num[i]*10+" health";
 					asd2="Infantry: 6 attack, 10 hp ";
 					units[i].setToolTipText("<html>"+asd2+"<br>"+asd+"</html>");
 					break;
 				case 2:
 					units[i].setIcon(new ImageIcon(e_unit2_texture));
-					asd=" Combined:"+unit_num[i]*6+" attack, "+unit_num[i]*10+" health";
+					asd=" Combined: "+unit_num[i]*6+" attack, "+unit_num[i]*10+" health";
 					asd2="Archer: 6 attack, 10 hp ";
 					units[i].setToolTipText("<html>"+asd2+"<br>"+asd+"</html>");
 					break;
 				case 3:
 					units[i].setIcon(new ImageIcon(e_unit3_texture));
-					asd=" Combined:"+unit_num[i]*12+" attack, "+unit_num[i]*8+" health";
+					asd=" Combined: "+unit_num[i]*12+" attack, "+unit_num[i]*8+" health";
 					asd2="Paladin: 12 attack, 8 hp ";
 					units[i].setToolTipText("<html>"+asd2+"<br>"+asd+"</html>");
 					break;	
