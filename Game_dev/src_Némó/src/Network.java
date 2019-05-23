@@ -1,5 +1,3 @@
-package src;
-
 import java.net.*;
 import java.io.*;
 enum ConnectionType 
@@ -20,8 +18,8 @@ public class Network {
 	protected PrintWriter out = null;
 	protected NetworkData sendData;
 	protected NetworkData incomData;
-	protected boolean YourTurn=true;;
 	protected boolean Won;
+	protected int timeout;
 	
 	public boolean isClosed() {
 		  return socket.isClosed();
@@ -35,6 +33,12 @@ public class Network {
 	public void setSending(NetworkData sending) {
 		this.sendData = sending;
 	}
+	public int getTimeout() {
+		return timeout;
+	}
+	public void setTimeout(int timeout) {
+		this.timeout = timeout;
+	}
 	public NetworkData getIncoming() {
 		return incomData;
 	}
@@ -46,21 +50,17 @@ public class Network {
 		 }
 	 public int getPort() {
 		  System.out.println("Sending port info->");
-		  return socket.getLocalPort();
+		  return port;
 	 }
+	 public void setPort(int port) {
+			this.port = port;
+		}
 	 public BufferedReader getInputStream() {
 		  return in;
 		 }
 	 public PrintWriter getOutputStream() {
 		    return out;
 		 }
-	 public void setYourTurn(boolean YourTurn)
-	 {
-		 this.YourTurn = YourTurn;
-	 }
-	 public boolean isYourTurn() {
-		 return YourTurn;
-	 }
 	 public void setWon(boolean Won)
 	 {
 		 this.Won = Won;
@@ -72,14 +72,17 @@ public class Network {
 	 {
 	 try {
 	 System.out.println("Normál mûködés elkezdõdött szerver oldalon!");
-	 if (YourTurn == true) {
 	 ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
+	 if(sendData != null)
+	 {
 	 outputStream.writeObject(sendData);
-		
+	 
 	 }
-	 else {
-		 System.out.println("Its not the Client turn");
+	 else
+	 {
+		 System.out.println("A küldendõ csomag null");
 	 }
+		 
 	 }
 		 catch (IOException i) 
 		 {
@@ -91,16 +94,19 @@ public class Network {
 	 public NetworkData incoming ()
 	 { 
 		 try {
-			 if (YourTurn == true) {
+			 
+			    NetworkData data = null;
 				ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
-				incomData =((NetworkData) inputStream.readObject());
-				
-			 }
-			 else {
-				 System.out.println("Its the Client turn , data  isnt coming");
-			 }
-				 
-		     }
+				data =((NetworkData) inputStream.readObject());
+				if(data != null)
+				{
+					incomData = data;
+				}
+				else
+				{
+					System.out.println("A kapott csomag null");
+				}
+		         }
 				 catch(IOException i) 
 			     { 
 			         System.out.println(i); 
@@ -135,7 +141,7 @@ public class Network {
 	 public void closing_all()
 	    {
 	    	try {
-	    	if (!socket.isClosed())
+	    	if (socket !=null)
 	    	{
 	    		if(outputStream != null) {
 	    	outputStream.flush();
