@@ -43,9 +43,17 @@ public class Main {
 		}
 
 		//OPEN GAMW WINDOW
-		GameWindow mainWindow=new GameWindow(900,900,400,gameData.map);	
-		//playerOne >> player, playTwo >> enemy
-		mainWindow.control=new Control(gameData.playerOne,gameData.playerTwo, gameData.map);
+		GameWindow mainWindow=new GameWindow(900,900,400,gameData.map);
+		
+		if(launcherWindow.start_sandbox || launcherWindow.start_hosting) 
+		{
+			mainWindow.control=new Control(gameData.playerOne,gameData.playerTwo, gameData.map);
+		}
+		else 
+		{
+			mainWindow.control=new Control(gameData.playerTwo,gameData.playerOne, gameData.map);
+		}
+		
 		mainWindow.createGui();
 		mainWindow.displayMap();
 		mainWindow.updateMoneyDisplay();
@@ -54,6 +62,9 @@ public class Main {
 		
 		while(!mainWindow.win && !mainWindow.lose) {
 			//real time update, watching flags and calling startTurn(), defeat() if needed
+			//mainWindow.displayMap();
+			//mainWindow.updateMoneyDisplay();
+			//mainWindow.updateBaseHpDisplay();
 		}
 		
 	}

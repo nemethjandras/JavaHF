@@ -13,7 +13,7 @@ public class Control
 {
 	public Player player;
 	public Player enemy;
-	boolean split;
+	public int split=0;
 	Map map;
 	
 	Select prev;
@@ -55,7 +55,6 @@ public class Control
 	}
   
 	public void newSelect(int x, int y, boolean split_on) {
-		split=split_on;
 		
 		prev=curr;
 		xPrev=xCurr;
@@ -65,6 +64,7 @@ public class Control
 		xCurr=x;
 		yCurr=y;
 		querryUnits(x,y);
+		System.out.format("value: split %d\n", split);
 		//System.out.format("selected: %d, %s\n", xCurr,yCurr);
 		//System.out.format("selected tile: %d\n", map.grid[xCurr][yCurr].valueForView);
 	}
@@ -109,7 +109,7 @@ public class Control
 	}
   
 	public int execute() {
-		if(curr==Select.EMPTY && prev==Select.FRIENDLY) {
+		if(curr==Select.EMPTY && prev==Select.FRIENDLY && split==0) {
 			//move units from xPrev,yPrev to xCurr, yCurr
 			System.out.format("command: move\n");
 			return  player.move(xPrev, yPrev, xCurr, yCurr, map.grid[xCurr][yCurr]);
@@ -133,16 +133,17 @@ public class Control
 			return player.merge(xPrev, yPrev, xCurr, yCurr, map.grid[xCurr][yCurr]);
 
 		}
-		if(curr==Select.EMPTY && prev==Select.FRIENDLY && split) {
+		if(curr==Select.EMPTY && prev==Select.FRIENDLY && split!=0) {
 			//split units on xPrev,yPrev to xCurr, yCurr
-			//int ret = player.split(xPrev, yPrev, xCurr, yCurr, map.grid[xCurr][yCurr], 1);
-			//split=false;
+			System.out.format("command: split %d\n", split);
+			return player.split(xPrev, yPrev, xCurr, yCurr, map.grid[xCurr][yCurr], split);
+
 
 		}
 		if(prev==Select.NOTHING) 
 		{
-			System.out.format("command: first select\n");
-			return 2;
+		System.out.format("command: first select\n");
+		return 2;
 		}
 
 		System.out.format("command: ???\n");
