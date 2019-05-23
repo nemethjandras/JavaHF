@@ -1,4 +1,4 @@
-package Sample;
+package src;
 
 
 public class Sample_calculator {
