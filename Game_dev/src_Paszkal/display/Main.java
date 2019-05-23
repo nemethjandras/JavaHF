@@ -112,21 +112,21 @@ public class Main {
 		mainWindow.updateBaseHpDisplay();
 		mainWindow.sandbox_mode=launcherWindow.start_sandbox;
 		
-		boolean winFlag=false;
-		boolean turnFlag=mainWindow.onTurn;
+		int winFlag=0;
+		int turnFlag=0;
 		
-		while(!winFlag && !mainWindow.lose) {
+		while(winFlag<=1 && !mainWindow.lose) {
 			//real time update, watching flags and calling startTurn(), defeat() if needed
 			//mainWindow.displayMap();
 			//mainWindow.updateMoneyDisplay();
 			//mainWindow.updateBaseHpDisplay();
 			if( launcherWindow.start_hosting)
 			{
-				if(turnFlag == true)
+				if(turnFlag <=1)
 				{
 				  NetworkData sending = new NetworkData(gameData,mainWindow.onTurn,mainWindow.win);
 				  servero.sending(sending);
-				  turnFlag=mainWindow.onTurn;
+				  if(!mainWindow.onTurn) turnFlag++; 
 				}
 				else
 				{
@@ -136,18 +136,22 @@ public class Main {
 				  mainWindow.displayUpdate();
 				  mainWindow.updateMoneyDisplay();
 				  mainWindow.updateBaseHpDisplay();
-				  if(!mainWindow.onTurn && !incoming.EndTurn) mainWindow.startTurn();
+				  if(!mainWindow.onTurn && !incoming.EndTurn) 
+				  {
+					  mainWindow.startTurn();
+					  turnFlag=0;
+				  }
 				  if(incoming.Won) mainWindow.defeat();
 					
 				}
 			}
 			else if(launcherWindow.start_client)
 			{
-				if(turnFlag == true)
+				if(turnFlag<=1)
 				{
 				  NetworkData sending = new NetworkData(gameData,mainWindow.onTurn,mainWindow.win);
 				  cliento.sending(sending);
-				  turnFlag=mainWindow.onTurn;
+				  if(!mainWindow.onTurn) turnFlag++; 
 				}
 				else
 				{
@@ -160,12 +164,16 @@ public class Main {
 				  mainWindow.updateMoneyDisplay();
 				  mainWindow.updateBaseHpDisplay();
 				  if(!mainWindow.onTurn && !incoming.EndTurn) mainWindow.startTurn();
+				  {
+					  mainWindow.startTurn();
+					  turnFlag=0;
+				  }
 			  	  if(incoming.Won) mainWindow.defeat();
 				}
 				
 			}
 				
-			winFlag=mainWindow.win;  
+			if(mainWindow.win) winFlag++; 
 		}
 		//delay 3 sec
 		try {
