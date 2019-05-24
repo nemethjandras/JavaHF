@@ -73,14 +73,14 @@ public class Network {
 	 public void sending (NetworkData sendData)
 	 {
 	 try {
-	 //System.out.println("Norm�l m�k�d�s elkezd�d�tt szerver oldalon!");
+	 //System.out.println("Norm�l m�k�d�s elkezd�d�tt kliens oldalon!");
 	 ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
 	 if(sendData != null)
 	 {
 	 if(this.Won != true)
 	 {
 		 try {
-				TimeUnit.SECONDS.sleep(3);
+				TimeUnit.SECONDS.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

@@ -50,7 +50,7 @@ public class Server extends Network{
  public void sending (NetworkData sendData)
  {
  try {
- System.out.println("Normál mûködés elkezdõdött szerver oldalon!");
+ //System.out.println("Normál mûködés elkezdõdött szerver oldalon!");
  ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream());
  if(flag == ConnectionType.Connected )
  {
