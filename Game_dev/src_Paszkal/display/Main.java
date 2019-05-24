@@ -198,6 +198,11 @@ public class Main {
 
 				
 			}
+			try {
+				TimeUnit.SECONDS.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		//delay 3 sec
 		try {
