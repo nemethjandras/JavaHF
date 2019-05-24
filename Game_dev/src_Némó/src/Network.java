@@ -1,5 +1,6 @@
 package src;
 import java.net.*;
+import java.util.concurrent.TimeUnit;
 import java.io.*;
 enum ConnectionType 
 {
@@ -78,6 +79,11 @@ public class Network {
 	 {
 	 if(this.Won != true)
 	 {
+		 try {
+				TimeUnit.SECONDS.sleep(3);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 	 outputStream.writeObject(sendData);
 	 }
 	 else
