@@ -125,14 +125,6 @@ public class Main {
 			//mainWindow.updateBaseHpDisplay();
 			if( launcherWindow.start_hosting)
 			{
-				while(mainWindow.onTurn)
-				{
-				  NetworkData sending = new NetworkData(gameData.map,mainWindow.control.player, mainWindow.control.enemy,mainWindow.onTurn,mainWindow.win);
-				  servero.sending(sending);
-				}
-				  NetworkData sending = new NetworkData(gameData.map,mainWindow.control.player, mainWindow.control.enemy,mainWindow.onTurn,mainWindow.win);
-				  servero.sending(sending);
-				
 				while(!mainWindow.onTurn)
 				{
 				  incoming = servero.incoming();
@@ -148,9 +140,29 @@ public class Main {
 				  {
 					  mainWindow.startTurn();
 				  }
-				  if(incoming.Won) mainWindow.defeat();
+				  if(incoming.Won) 
+				  {
+					  mainWindow.defeat();
+					  break;
+				  }
 					
 				}
+				
+				
+				while(mainWindow.onTurn)
+				{
+				 try {
+						TimeUnit.SECONDS.sleep(1);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				  NetworkData sending = new NetworkData(gameData.map,mainWindow.control.player, mainWindow.control.enemy,mainWindow.onTurn,mainWindow.win);
+				  servero.sending(sending);
+				}
+				  NetworkData sending = new NetworkData(gameData.map,mainWindow.control.player, mainWindow.control.enemy,mainWindow.onTurn,mainWindow.win);
+				  servero.sending(sending);
+				
+
 			}
 			else if(launcherWindow.start_client)
 			{
@@ -165,12 +177,23 @@ public class Main {
 				  mainWindow.displayUpdate();
 				  mainWindow.updateMoneyDisplay();
 				  mainWindow.updateBaseHpDisplay();
-				  if(!mainWindow.onTurn && !incoming.EndTurn) mainWindow.startTurn();
-			  	  if(incoming.Won) mainWindow.defeat();
+				  if(!mainWindow.onTurn && !incoming.EndTurn) 
+				  {
+					  mainWindow.startTurn();
+				  }
+			  	  if(incoming.Won) 
+			  	  {
+			  		  mainWindow.defeat();
+			  	  }
 				}
 				
 				while(mainWindow.onTurn)
 				{
+				 try {
+						TimeUnit.SECONDS.sleep(1);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				  NetworkData sending = new NetworkData(gameData.map,mainWindow.control.enemy, mainWindow.control.player,mainWindow.onTurn,mainWindow.win);
 				  cliento.sending(sending);
 				}
