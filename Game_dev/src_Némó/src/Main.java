@@ -46,7 +46,7 @@ public static void main(String args[])
       }
       else {
     	  System.out.println("YESSSSS");
-    	  System.out.println(hello.Data.map.xLen);
+    	  //System.out.println(hello.Data.map.xLen);
     	  
       }
 	   
