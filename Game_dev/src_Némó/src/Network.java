@@ -79,7 +79,11 @@ public class Network {
 	 {
 	 if(this.Won != true)
 	 {
-
+		 try {
+				TimeUnit.SECONDS.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 	 outputStream.writeObject(sendData);
 	 }
 	 else

@@ -151,11 +151,6 @@ public class Main {
 				
 				while(mainWindow.onTurn)
 				{
-				 try {
-						TimeUnit.SECONDS.sleep(1);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
 				  NetworkData sending = new NetworkData(gameData.map,mainWindow.control.player, mainWindow.control.enemy,mainWindow.onTurn,mainWindow.win);
 				  servero.sending(sending);
 				}
