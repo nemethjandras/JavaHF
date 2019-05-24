@@ -116,7 +116,7 @@ public class Launcher{
 		      public void actionPerformed(ActionEvent e)
 		      {
 					System.out.format("ID: %s\n",ID);
-		    	  	ID=textIn.getText();
+		    	  	//ID=textIn.getText();
 		    	  	start_hosting=true; //only after connection is established
 			    	mainWindow.dispose();
 		      }
@@ -148,13 +148,14 @@ public class Launcher{
 		    {
 		      public void actionPerformed(ActionEvent e)
 		      {
-		    	  ID=textIn.getText();
+		    	  //ID=textIn.getText();
 		    	  System.out.format("ID: %s\n",ID);
 		    	  start_client=true; //only after conenction is established
 		    	  mainWindow.dispose();
 		      }
 		    });
 		 
+		    /*
 		    //textIn.setSize(x-mainWindow.getInsets().left*4,y/20);
 		    textIn.setBounds(mainWindow.getInsets().left,y/20,x-mainWindow.getInsets().left*2,y/20*3);
 		    panel.add(textIn);
@@ -168,5 +169,6 @@ public class Launcher{
 		    	  ID=textIn.getText();
 		      }
 		    });
+		    */
 	 }
 }

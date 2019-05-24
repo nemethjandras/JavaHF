@@ -79,7 +79,6 @@ public class Network {
 	 {
 	 if(this.Won != true)
 	 {
-		 
 	 outputStream.writeObject(sendData);
 	 }
 	 else

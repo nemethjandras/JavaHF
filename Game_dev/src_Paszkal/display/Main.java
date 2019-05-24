@@ -116,13 +116,86 @@ public class Main {
 		mainWindow.sandbox_mode=launcherWindow.start_sandbox;
 		
 
+		boolean endTurn_flag=false;
 
 		
 		while(!mainWindow.win && !mainWindow.lose) {
-			//real time update, watching flags and calling startTurn(), defeat() if needed
-			//mainWindow.displayMap();
-			//mainWindow.updateMoneyDisplay();
-			//mainWindow.updateBaseHpDisplay();
+			
+			
+			// SENDING DATA ONLY AT THE END OF THE TURN
+			/*
+			if( launcherWindow.start_hosting)
+			{
+				while(!mainWindow.onTurn)
+				{
+				  incoming = servero.incoming();
+				  mainWindow.control.player =incoming.playerOne;
+				  mainWindow.control.enemy =incoming.playerTwo;
+				  
+				  //System.out.format("Turns: %b %b \n",mainWindow.onTurn,incoming.EndTurn);
+				  
+				  mainWindow.displayUpdate();
+				  mainWindow.updateMoneyDisplay();
+				  mainWindow.updateBaseHpDisplay();
+				  if(!mainWindow.onTurn && !incoming.EndTurn) 
+				  {
+					  mainWindow.startTurn();
+				  }
+				  if(incoming.Won) 
+				  {
+					  mainWindow.defeat();
+					  break;
+				  }
+					
+				}
+				
+				
+				while(mainWindow.onTurn)
+				{
+					System.out.format("Waiting for end of the turn!");
+				}
+				  NetworkData sending = new NetworkData(gameData.map,mainWindow.control.player, mainWindow.control.enemy,mainWindow.onTurn,mainWindow.win);
+				  servero.sending(sending);
+				
+
+			}
+			else if(launcherWindow.start_client)
+			{
+				while(!mainWindow.onTurn)
+				{
+				  incoming = cliento.incoming();
+				  mainWindow.control.player =incoming.playerTwo;
+				  mainWindow.control.enemy =incoming.playerOne;
+				  
+				  System.out.format("Turns: %b %b \n",mainWindow.onTurn,incoming.EndTurn);
+				  
+				  mainWindow.displayUpdate();
+				  mainWindow.updateMoneyDisplay();
+				  mainWindow.updateBaseHpDisplay();
+				  if(!mainWindow.onTurn && !incoming.EndTurn) 
+				  {
+					  mainWindow.startTurn();
+				  }
+			  	  if(incoming.Won) 
+			  	  {
+			  		  mainWindow.defeat();
+			  	  }
+				}
+				
+				while(mainWindow.onTurn)
+				{
+					System.out.format("Waiting for end of the turn!");
+				}
+				  NetworkData sending = new NetworkData(gameData.map,mainWindow.control.enemy, mainWindow.control.player,mainWindow.onTurn,mainWindow.win);
+				  cliento.sending(sending);
+			}
+			 */
+			
+			
+			
+			
+			
+			
 			if( launcherWindow.start_hosting)
 			{
 				while(!mainWindow.onTurn)
@@ -184,11 +257,6 @@ public class Main {
 				
 				while(mainWindow.onTurn)
 				{
-				 try {
-						TimeUnit.SECONDS.sleep(1);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
 				  NetworkData sending = new NetworkData(gameData.map,mainWindow.control.enemy, mainWindow.control.player,mainWindow.onTurn,mainWindow.win);
 				  cliento.sending(sending);
 				}
@@ -198,11 +266,14 @@ public class Main {
 
 				
 			}
+			
 			try {
 				TimeUnit.SECONDS.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			
+			
 		}
 		//delay 3 sec
 		try {
