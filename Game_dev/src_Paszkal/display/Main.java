@@ -84,7 +84,8 @@ public class Main {
 		else 
 		{
 			//get init game data from host: map, mapSize, start gold
-			
+			initData=new initService(launcherWindow.mapSize);
+			gameData=new Game(initData);
 			incoming =cliento.incoming();
 			gameData.map = incoming.map;
 			gameData.playerOne=incoming.playerOne;
