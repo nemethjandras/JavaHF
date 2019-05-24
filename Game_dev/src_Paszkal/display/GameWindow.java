@@ -621,26 +621,26 @@ public class GameWindow{
 				units[i].setPreferredSize(new Dimension(stepW, stepH));
 				units[i].setSize(stepW,stepH);
 				
-				switch (type2[i]) {
+				switch (type2[i-num]) {
 				case 0:
 					units[i].setIcon(new ImageIcon(e_unit0_texture));
 					units[i].setToolTipText("Worker");
 					break;
 				case 1:
 					units[i].setIcon(new ImageIcon(e_unit1_texture));
-					asd=" Combined: "+unit_num2[i]*6+" attack, "+unit_num2[i]*10+" health";
+					asd=" Combined: "+unit_num2[i-num]*6+" attack, "+unit_num2[i-num]*10+" health";
 					asd2="Infantry: 6 attack, 10 hp ";
 					units[i].setToolTipText("<html>"+asd2+"<br>"+asd+"</html>");
 					break;
 				case 2:
 					units[i].setIcon(new ImageIcon(e_unit2_texture));
-					asd=" Combined: "+unit_num2[i]*6+" attack, "+unit_num2[i]*10+" health";
+					asd=" Combined: "+unit_num2[i-num]*6+" attack, "+unit_num2[i-num]*10+" health";
 					asd2="Archer: 6 attack, 10 hp ";
 					units[i].setToolTipText("<html>"+asd2+"<br>"+asd+"</html>");
 					break;
 				case 3:
 					units[i].setIcon(new ImageIcon(e_unit3_texture));
-					asd=" Combined: "+unit_num2[i]*12+" attack, "+unit_num2[i]*8+" health";
+					asd=" Combined: "+unit_num2[i-num]*12+" attack, "+unit_num2[i-num]*8+" health";
 					asd2="Paladin: 12 attack, 8 hp ";
 					units[i].setToolTipText("<html>"+asd2+"<br>"+asd+"</html>");
 					break;	
@@ -649,12 +649,12 @@ public class GameWindow{
 					break;
 				}			
 				gameSpace.add(units[i],0);
-				units[i].setBounds(posx2[i]*stepW, posy2[i]*stepH, stepW, stepH);
-				asd=" "+unit_num2[i]+" ";
+				units[i].setBounds(posx2[i-num]*stepW, posy2[i-num]*stepH, stepW, stepH);
+				asd=" "+unit_num2[i-num]+" ";
 				units[i].setText(asd);
 		        units[i].setHorizontalTextPosition(JLabel.CENTER);
 		        units[i].setVerticalTextPosition(JLabel.CENTER);
-		        units[i].addMouseListener(new ControlMouseListener(posx2[i], posy2[i],this, control));
+		        units[i].addMouseListener(new ControlMouseListener(posx2[i-num], posy2[i-num],this, control));
 		}
 		 
 		 
