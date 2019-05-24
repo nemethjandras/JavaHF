@@ -654,7 +654,7 @@ public class GameWindow{
 				units[i].setText(asd);
 		        units[i].setHorizontalTextPosition(JLabel.CENTER);
 		        units[i].setVerticalTextPosition(JLabel.CENTER);
-		        units[i].addMouseListener(new ControlMouseListener(posx[i], posy[i],this, control));
+		        units[i].addMouseListener(new ControlMouseListener(posx2[i], posy2[i],this, control));
 		}
 		 
 		 

@@ -137,7 +137,7 @@ public class Main {
 				{
 				  incoming = servero.incoming();
 				  mainWindow.control.player =incoming.playerOne;
-				  mainWindow.control.player =incoming.playerTwo;
+				  mainWindow.control.enemy =incoming.playerTwo;
 				  
 				  //System.out.format("Turns: %b %b \n",mainWindow.onTurn,incoming.EndTurn);
 				  
@@ -158,7 +158,7 @@ public class Main {
 				{
 				  incoming = cliento.incoming();
 				  mainWindow.control.player =incoming.playerTwo;
-				  mainWindow.control.player =incoming.playerOne;
+				  mainWindow.control.enemy =incoming.playerOne;
 				  
 				  System.out.format("Turns: %b %b \n",mainWindow.onTurn,incoming.EndTurn);
 				  
